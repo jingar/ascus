@@ -1,0 +1,27 @@
+.push-down
+{
+	margin-top: 20px;
+
+}
+.push-down-further
+{
+	margin-top: 50px;
+
+}
+.carousel-max-height
+{
+	height: 300px;
+}
+h1
+{
+	font: 400 45px/0.5 'Courgette', Helvetica, sans-serif;
+}
+p 
+{
+	font: 400 14px/1.5 'Average', Times, serif;
+}
+
+.add-border
+{
+	border:5px solid #808080;
+}
