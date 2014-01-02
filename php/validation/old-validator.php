@@ -1,5 +1,5 @@
 <?php
-	class Validator{
+	class Validators{
 	
 		protected $value;
 		protected $minimumChars = 0;
@@ -73,10 +73,10 @@
 				$this->errors[] = "$this->fieldName must be at least $this->minimumChars characters.";
 			} 
 			if($this->notBlank){
-				if(strlen($this->value) < 1)
-				{
-					$this->errors[] = "$this->fieldName must not be blank";
-				}
+			  if(strlen($this->value) < 1)
+			    {
+			      $this->errors[] = "$this->fieldName must not be blank";
+			    }
 			}
 			if ($this->mixedCase) {
 			  $pattern = '/(?=.*[a-z])(?=.*[A-Z])/';
