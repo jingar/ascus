@@ -5,7 +5,7 @@ if (isset($_POST['register'])) {
     $email = trim($_POST['email']);
     $city = trim($_POST['city']);
     $country = trim($_POST['country']);
-    $phone_number = trim($_POST['phone_number']);   
+    $phone_number = trim($_POST['phone_number']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['confirm_password']);
@@ -18,34 +18,34 @@ if (isset($_POST['register'])) {
     <head>
         <meta charset="utf-8">
         <?php require_once('./php/css-js-inc.php'); ?>
-                <!--<script>
-                        $().ready(function(){
-                                // validate the registration form when it is submitted
-                                $("#registration_form").validate({
-                                        rules: {
-                                                first_name: "required",
-                                                last_name: "required",
-                                                username: {
-                                                        required: true,
-                                                        minlength: 5
-                                                },
-                                                password: {
-                                                        required: true,
-                                                        minlength: 5
-                                                },
-                                                confirm_password: {
-                                                        required: true,
-                                                        minlength: 5,
-                                                        equalTo: "#password"
-                                                },
-                                                email: {
-                                                        email: true
-                                                }
-                                        }
-                                });
+        <script>
+            $().ready(function() {
+                // validate the registration form when it is submitted
+                $("#registration_form").validate({
+                    rules: {
+                        first_name: "required",
+                        last_name: "required",
+                        username: {
+                            required: true,
+                            minlength: 5
+                        },
+                        password: {
+                            required: true,
+                            minlength: 5
+                        },
+                        confirm_password: {
+                            required: true,
+                            minlength: 5,
+                            equalTo: "#password"
+                        },
+                        email: {
+                            email: true
+                        }
+                    }
+                });
 
-                        });
-                </script>-->
+            });
+        </script>
     </head>
     <?php require_once('./php/header-inc.php'); ?>
     <?php
@@ -64,11 +64,11 @@ if (isset($_POST['register'])) {
     }
     ?>
     <body>
-        <div class="container">
-            <form id="registration_form" class="form-horizontal push-down" role="form" method ="post" action ="">
+        <div class="container center">
+            <form id="registration_form" class="form-horizontal push-down-further" role="form" method ="post" action ="">
                 <div class="form-group">
                     <label for="first_name" class="col-md-2 control-label">First Name</label>
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <input name="first_name" type="text" class="form-control" id="first_name" placeholder="First Name">
                     </div>
                 </div>
@@ -118,7 +118,7 @@ if (isset($_POST['register'])) {
                 <div class="form-group">
                     <label for="confirm_password" class="col-md-2 control-label">Confirm Password</label>
                     <div class="col-md-8">
-                        <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Password">
+                        <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
                     </div>
                 </div>
                 <div class="form-group">

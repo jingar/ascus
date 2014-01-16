@@ -15,7 +15,7 @@ function dbConnect($usertype, $connectionType = 'mysqli') {
     if ($connectionType == 'mysqli') {
         return new mysqli($host, $user, $pwd, $db) or die('Cannot open database');
     } else {
-            try {
+        try {
             return new PDO("mysql:host=$host;dbname=$db", $user, $pwd);
         } catch (PDOException $e) {
             echo 'Cannot connect to database';

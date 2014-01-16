@@ -1,6 +1,26 @@
-.orange-background
+body 
 {
-    background: #FF7F17;
+    font-family: Courgette;
+    color: black;
+}
+
+body h1
+{
+    font-family: Courgette;
+    color: black;
+    text-align: center;
+}
+
+body h4
+{
+    font-family: Courgette;
+    color: black;
+    display: inline
+}
+.grey-background
+{
+    background: #f2f2f2;
+    width: 100%;
 } 
 .push-down
 {
@@ -9,20 +29,12 @@
 }
 .push-down-further
 {
-    margin-top: 50px;
+    margin-top: 70px;
 
 }
 .carousel-max-height
 {
     height: 300px;
-}
-h1
-{
-    font: 400 45px/0.5 'Courgette', Helvetica, sans-serif;
-}
-p 
-{
-    font: 400 14px/1.5 'Average', Times, serif;
 }
 
 .add-border
@@ -38,17 +50,236 @@ p
 
 .jumbotron h1
 {   
-    color: white;
+    color: black;
+    font: 400 45px/0.5 Courgette;
+    text-shadow: 1px 1px 1px #ccc;
 }
 
 .nav li a
 {   
-    color: white;
-    box-shadow: 1px 1px 1px 1px #888888;
+    color: black;
 }
-.text-muted
-{  
-    color: white;
+.text-muted h3
+{
+    color: black;
     font-family: Courgette;
 }
 
+.form-control
+{
+    border-radius: 20px;
+}
+
+.large-text
+{
+    font-size: 150%;
+}
+
+.sign-up-button
+{
+    background-color: hsl(0, 0%, 8%) !important;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#474747", endColorstr="#141414");
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#474747), to(#141414));
+    background-image: -moz-linear-gradient(top, #474747, #141414);
+    background-image: -ms-linear-gradient(top, #474747, #141414);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #474747), color-stop(100%, #141414));
+    background-image: -webkit-linear-gradient(top, #474747, #141414);
+    background-image: -o-linear-gradient(top, #474747, #141414);
+    background-image: linear-gradient(#474747, #141414);
+    border-color: #141414 #141414 hsl(0, 0%, 3%);
+    color: #fff !important;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
+    -webkit-font-smoothing: antialiased;
+}
+
+.left-inner-addon 
+{
+    position: relative;
+}
+.left-inner-addon input 
+{
+    padding-left: 30px;    
+}
+.left-inner-addon i 
+{
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+
+.person-info 
+{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    height: 400px;
+    width: 300px;
+    border: 2px solid #cccccc;
+    border-radius: 10px;    
+    vertical-align: baseline;
+}
+.person-info hr
+{
+    margin: 0px;
+    margin-left: -15px;
+    margin-right: -15px
+}
+
+.person-info .occupation
+{
+    margin: 0 0 0 0px;
+}
+
+.occupation
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+.info-pic
+{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    background: url(http://link-to-your/image.jpg) no-repeat;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    margin: 10px;
+    margin-left: -5px;
+    margin-right: -5px
+}
+.profile-pic
+{
+    width: 250px;
+    height: 250px;
+    border-radius: 125px;
+    -webkit-border-radius: 125px;
+    -moz-border-radius: 125px;
+    background: url(http://link-to-your/image.jpg) no-repeat;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    margin: 10px;
+    margin-left: -5px;
+    margin-right: -5px
+}
+.name
+{
+    padding-top: 10px;
+    padding-left: 110px;
+}
+.offset
+{
+    margin-left: 6.333%;
+}
+
+
+.person-location
+{
+    padding-left: 110px;
+}
+.person-location p
+{
+    padding-left: 20px;
+}
+.info-label
+{
+    text-decoration: underline;
+    float: left;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.info-skills
+{
+    padding-top: 10px;
+    padding-left: 90px;
+}
+.info-interests
+{
+    padding-top: 10px;
+    padding-left: 90px;
+}
+.info-work-experience
+{
+    padding-top: 10px;
+    padding-left: 90px;
+}
+a:hover
+{
+    cursor: pointer;
+}
+
+.row .hr
+{
+    border: 10px black; 
+    border-color: #f2f2f2;
+    padding-bottom: 50px;
+}
+.center
+{
+    text-align: center;
+}
+
+.wrapper {
+    text-align: center;
+}
+.wrapper ul {
+    list-style-type: none;
+    display: inline-block;
+    margin: 20px 0px;
+    padding: 0;
+    /* For IE, the outcast */
+    zoom:1;
+    *display: inline;
+}
+
+
+.wrapper li{
+    float:left;
+    font-size: 150%;
+    height: 50px;
+    float: left;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    border: 1px solid #aaa;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.profile-heading
+{
+    padding: 5px 0px 20px 0px;
+}
+
+.work-samples
+{
+    list-style-type: none;
+    display: inline-block;
+    margin: 20px 0px;
+    padding: 0;
+    /* For IE, the outcast */
+    zoom:1;
+    *display: inline;
+}
+.work-samples li
+{
+    float:left;
+    font-size: 150%;
+    float: left;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    border: 1px solid #aaa;
+}
+
+li img
+{
+    width: 150px;
+    height: 150px;
+}

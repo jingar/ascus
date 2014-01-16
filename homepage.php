@@ -1,34 +1,166 @@
 <?php
-	session_start();
-	ob_start();
+session_start();
+ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<?php require_once('./php/css-js-inc.php'); ?>
-		<title>Ascus</title>
-	</head>
-  <body>
-	
-		<?php require_once('./php/header-inc.php');?>
-		<div class="container">
-			<div id="Carousel" class="carousel slide">
-				<div class="carousel-inner carousel-max-height">
-					<div class="item active">
-						<img src="./images/grey.png">
-					</div>
-					<div class="item">
-						<img src="./images/grey-pattern.jpg">
-					</div>
-				</div>
-				<a class="left carousel-control" href="#Carousel" data-slide="prev">
-					<span class="icon-prev"></span>
-				</a>
-				<a class="right carousel-control" href="#Carousel" data-slide="next">
-					<span class="icon-next"></span>
-				</a>
-			</div>
-		</div>
-	</body>
+    <head>
+        <meta charset="utf-8">
+        <title>Ascus</title>
+    </head>
+    <body>
+        <?php require_once('./php/header-inc.php'); ?>
+        <div class="container">
+            <!-- Jumbotron -->
+            <div class="jumbotron">
+                <h1>Artists and Scientists Collaboration</h1>
+                <p class ="lead">Easily find Artists and Scientist for collaboration</p>
+                <p><a class="btn-lg sign-up-button" href="#" role="button">Sign up today</a></p>
+            </div>
+        </div>
+        <div class="">
+            <div class="container">
+                <div class ="row push-down">
+                    <form class="form-horizontal" role="form">
+                        <div class="offset col-md-2">
+                            <div class="left-inner-addon">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <input type="text" class="form-control" id="occupation" placeholder="Occupation">
+                            </div>
+                        </div>
+                    </form> 
+                    <form class="form-horizontal" role="form">
+                        <div class="col-md-2">
+                            <div class="left-inner-addon">
+                                <i class="glyphicon glyphicon-map-marker"></i>
+                                <input type="text" class="form-control" id="location" placeholder="location">
+                            </div>
+                        </div>
+                    </form>
+                    <form class="form-horizontal" role="form">
+                        <div class="col-md-2">
+                            <div class="left-inner-addon">
+                                <i class="glyphicon glyphicon-record"></i>
+                                <input type="text" class="form-control" id="radius" placeholder="Radius (miles)">
+                            </div>
+                        </div>
+                    </form>
+                    <form class="form-horizontal" role="form">
+                        <div class="col-md-2">
+                            <div class="left-inner-addon">
+                                <i class="glyphicon glyphicon-star"></i>
+                                <input type="text" class="form-control" id="skills" placeholder="Skills">
+                            </div>
+                        </div>
+                    </form>
+                    <form class="form-horizontal" role="form">
+                        <div class="col-md-2">
+                            <div class="left-inner-addon">
+                                <i class="glyphicon glyphicon-heart"></i>
+                                <input type ="text" class="form-control" id="interests" placeholder="Interests">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="offset col-md-3 person-info grey-background">
+                        <p class="occupation">Visual Artist</p>
+                        <hr>
+                        <img class="info-pic" style="float:left" src="https://graph.facebook.com/72612657/picture?width=90&height=90">
+                        <p class="lead name">Fred Yelagavich</p>
+                        <div class ="person-location">
+                            <i class="glyphicon glyphicon-map-marker" style="float:left"></i>
+                            <p>Moscow, Russia </p>
+                        </div>
+                        <hr>
+                        <div class="info-label">
+                            <p>Skills: </p> 
+
+                        </div>
+                        <div class="info-skills">
+                            <p> Photography,Art</p>
+                        </div>
+                        <div class="info-label">
+                            <p>Interests: </p> 
+                        </div>
+                        <div class="info-interests">
+                            <p>Digital Photography, Sculpture</p>
+                        </div>
+                        <div class="info-label">
+                            <p>Experience: </p> 
+                        </div>
+                        <div class="info-work-experience">
+                            <p>  North Park University, The Kentucky Center </p>
+                        </div>
+                        <div class="info-label">
+                            <p>Blog: </p> 
+                        </div>
+                        <div class="info-work-experience">
+                            <a>www.super-artist.blog.co.uk</a>
+                        </div>
+                    </div>
+                    <div class="offset col-md-3 person-info grey-background">
+                        <p class="occupation">Geneticist</p>
+                        <hr>
+                        <img class="info-pic" style="float:left" src="https://graph.facebook.com/100001048910716/picture?width=90&height=90">
+                        <p class="lead name">Charles Darwin</p>
+                        <div class ="person-location">
+                            <i class="glyphicon glyphicon-map-marker" style="float:left"></i>
+                            <p>London, United Kingdom </p>
+                        </div>
+                        <hr>
+                        <div class="info-label">
+                            <p>Skills: </p> 
+                        </div>
+                        <div class="info-skills">
+                            <p>Genetics, Biology</p>
+                        </div>
+                        <div class="info-label">
+                            <p>Interests: </p> 
+                        </div>
+                        <div class="info-interests">
+                            <p>Start Ups, Educational Tools</p>
+                        </div>
+                        <div class="info-label">
+                            <p>Experience: </p> 
+                        </div>
+                        <div class="info-work-experience">
+                            <p>The Open Data Institute , Teach First</p>
+                        </div>
+                    </div>
+
+                    <div class="offset col-md-3 person-info grey-background">
+                        <p class="occupation">Sculptor</p>
+                        <hr>
+                        <img class="info-pic" style="float:left" src="http://www.michelangelo.com/buon/images/bio-splash-l-bw.gif">
+                        <p class="lead name">Michelangelo</p>
+                        <div class ="person-location">
+                            <i class="glyphicon glyphicon-map-marker" style="float:left"></i>
+                            <p>Rome, Italy </p>
+                        </div>
+                        <hr>
+                        <div class="info-label">
+                            <p>Skills: </p> 
+                        </div>
+                        <div class="info-skills">
+                            <p>Sculptor, Painting</p>
+                        </div>
+                        <div class="info-label">
+                            <p>Interests: </p> 
+                        </div>
+                        <div class="info-interests">
+                            <p>Cultural Critique , Art/Cultural Theory</p>
+                        </div>
+                        <div class="info-label">
+                            <p>Experience: </p> 
+                        </div>
+                        <div class="info-work-experience">
+                            <p>Free lancing, Sculpture David</p>
+                        </div>
+                    </div>
+                </div> <!-- /row -->
+            </div><!-- /container -->
+        </div>
+        <?php require_once('php/css-js-inc.php'); ?>
+    </body>
 </html>
