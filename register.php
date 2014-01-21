@@ -17,8 +17,8 @@ if (isset($_POST['register'])) {
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <title>Registration</title>
         <?php require_once('./php/css-js-inc.php'); ?>
-        <script type="text/javascript" src="js/validation.js"></script>
         <script type="text/javascript" src="js/add-skills-to-form.js"></script>
         <script type="text/javascript" src="js/add-interests-to-form.js"></script>
     </head>
@@ -76,58 +76,6 @@ if (isset($_POST['register'])) {
                         <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
                     </div>
                 </div>
-
-
-                <div id = "skill_form">
-                    <div class="form-group">
-                        <label for="skill" class="col-md-2 control-label">Skills</label>
-                        <div class="col-md-4">
-                            <input name="skill" type="text" class="form-control" placeholder="Skill">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-4">
-                        <button name="add_skill" id = "add_skill" type ="button" class="btn btn-default grey-background">Add Skill</button>
-                    </div>
-                </div>
-
-                <div id = "interest_form">
-                    <div class="form-group">
-                        <label for="interest" class="col-md-2 control-label">Interests</label>
-                        <div class="col-md-4">
-                            <input name="interest" type="text" id ="interest" class="form-control"placeholder="Interest">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-4">
-                        <button name="add_interest" id = "add_interest" type ="button" class="btn btn-default grey-background">Add Interest</button>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="city" class="col-md-2 control-label">City</label>
-                    <div class="col-md-4">
-                        <input name="city" type="text" class="form-control" id="city" placeholder="City">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="country" class="col-md-2 control-label">Country</label>
-                    <div class="col-md-4">
-                        <input name="country" type="text" class="form-control" id="country" placeholder="Country">
-                    </div>
-                </div> 
-                <div class="form-group">
-                    <label for="phone_number" class="col-md-2 control-label">Phone Number</label>
-                    <div class="col-md-4">
-                        <input name="phone_number" type="text" class="form-control" id="phone_number" placeholder="Phone Number">
-                    </div>
-                </div>
-
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
