@@ -51,7 +51,6 @@ session_start();
                 <ul>
                     <li>Digital</li>
                     <li>Photography</li>
-                    <li>Freelancing</li>
                     <li>Sculptures</li>
                 </ul>
             </div>

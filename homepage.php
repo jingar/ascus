@@ -15,7 +15,7 @@ ob_start();
             <div class="jumbotron">
                 <h1>Artists and Scientists Collaboration</h1>
                 <p class ="lead">Easily find Artists and Scientist for collaboration</p>
-                <p><a class="btn-lg sign-up-button" href="#" role="button">Sign up today</a></p>
+                <p><a class="btn-lg sign-up-button" href="register.php" role="button">Sign up today</a></p>
             </div>
         </div>
         <div class="">
