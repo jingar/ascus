@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <table name="members">
+        <column>name</column>
+        <column>email</column>
+        <column>username</column>
+        <column>country</column>
+        <column>city</column>
+        <column>status</column>
+        <row>
+            <value>saad</value>
+            <value>saad1@gmail.com</value>
+            <value>saad1234</value>
+            <value>NULL</value>
+            <value>NULL</value>
+            <value>0</value>
+        </row>
+         <row>
+            <value>fahad</value>
+            <value>fahad@gmail.com</value>
+            <value>fahad123</value>
+            <value>scotland</value>
+            <value>edinburgh</value>
+            <value>0</value>
+        </row>
+    </table>
+</dataset>
