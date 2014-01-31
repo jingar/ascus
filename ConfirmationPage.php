@@ -1,7 +1,7 @@
 <?php
 require_once './php/Database.php';
 $output = "A confirmation email has been sent";
-if (isset($_GET['confirmation_key'])) {
+if (!empty($_GET['confirmation_key'])) {
     try {
         $confirmation_key = $_GET['confirmation_key'];
         $database = new Database("write");

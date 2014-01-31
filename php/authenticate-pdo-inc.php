@@ -1,14 +1,18 @@
 <?php
 
-    require_once('./php/connect-inc.php');
-    require_once('./php/user-inc.php');
-    $conn = dbConnect('read', 'pdo');
-    $member = new Member($conn, $_POST);
-    if ($member->login()) {
+require_once('Member.php');
+require_once('Database.php');
+try {
+    $database = new Database('read');
+    $member = new Member($database->connect());
+    if (!$member->isAccountActivated($_POST['username'])) {
+        $error = "Email address for this account has not been confirmed, please check your emails";
+    } else if ($member->login($_POST['username'], $_POST['password'])) {
         header("Location: $redirect");
-        exit;
-    } 
-    else{
-        echo "did not work";
+    } else {
+        $error = "Username and Password combination do not match";
     }
+} catch (Exception $ex) {
+    echo $ex . ":authenticate-pdo-inc.php";
+}
 ?>

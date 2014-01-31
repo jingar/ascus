@@ -43,7 +43,7 @@ class MemberTest extends PHPUnit_Extensions_Database_TestCase {
         $database_connection = $database->connect();
         $member = new Member($database_connection);
         $member->register("saad", "saad1@gmail.com", "saad1234", "12345");
-        $member->register("fahad", "fahad@gmail.com", "fahad123", "12345","scotland","edinburgh");
+        $member->register("fahad", "fahad@gmail.com", "fahad123", "12345", "scotland", "edinburgh");
         $queryTable = $this->getConnection()->createQueryTable(
                 'members', 'SELECT name,email,username,country,city,status FROM members'
         );

@@ -8,7 +8,7 @@ try {
     $conn = $connection->connect();
     $member = new Member($conn);
     $member->register($name, $email, $username, $password);
-    echo 'REGISTER_INC_PDO';
+    header("Location: ../homepage.php");
 } catch (Exception $ex) {
     echo $ex->getMessage();
 }

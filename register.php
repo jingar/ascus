@@ -1,4 +1,5 @@
 <?php
+ob_start();
 if (!empty($_POST)) {
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
@@ -10,11 +11,10 @@ if (!empty($_POST)) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
+    <head>.
         <title>Registration</title>
         <?php require_once('./php/css-js-inc.php'); ?>
-        <script type="text/javascript" src="js/validation.js"></script>
+        <script type="text/javascript" src="js/registeration-validation.js"></script>
     </head>
     <?php require_once('./php/header-inc.php'); ?>
     <body>
