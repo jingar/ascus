@@ -40,11 +40,13 @@ class Member {
 
     function login($username, $password) {
         $stored_password = NULL;
+        $member_id = NULL;
         //look the user with the username and an activated account
-        $query = "SELECT password FROM members WHERE username = :username AND status = 1";
+        $query = "SELECT member_id,password FROM members WHERE username = :username AND status = 1";
         $prepared_statement = $this->database_connection->prepare($query);
         $prepared_statement->bindParam(':username', $username, PDO::PARAM_STR);
-        $prepared_statement->bindColumn(1, $stored_password);
+        $prepared_statement->bindColumn(1, $member_id);
+        $prepared_statement->bindColumn(2, $stored_password);
         $did_execute = $prepared_statement->execute();
         if (!$did_execute) {
             throw new RuntimeException("Could not execute query when authenticating");
@@ -61,6 +63,7 @@ class Member {
             return false;
         }
         $_SESSION['authenticated'] = true;
+        $_SESSION['user_id'] = $member_id;
         $_SESSION['start'] = time();
         session_regenerate_id();
         return true;
