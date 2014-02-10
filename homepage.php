@@ -1,17 +1,31 @@
 <?php
-session_start();
-ob_start();
+require_once './core/init.php';
+var_dump($_SESSION);
+if (Session::exists('Login Success')) {
+    echo 'login success';
+    echo '<div class=container>   
+    <div class="alert alert-success">' . Session::flash("Login Success"). '</div>
+    </div>';
+} 
+if(Session::exists('Success Registered')) {
+    echo "<div class=\"alert alert-success\">" . Session::flash('Success Registered') . "</div>";
+} 
+
+if (Session::exists('Failure')) {
+    echo 'Failure';
+    echo "<div class=\"alert alert-danger\">" . Session::flash('Failure') . "</div>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <title>Ascus</title>
+        <?php require_once('./classes/css-js-inc.php'); ?>
     </head>
     <body>
-        <?php require_once('./php/header-inc.php'); ?>
+        <?php require_once('./classes/header-inc.php'); ?>
         <div class="container">
-            <!-- Jumbotron -->
             <div class="jumbotron">
                 <h1>Artists and Scientists Collaboration</h1>
                 <p class ="lead">Easily find Artists and Scientist for collaboration</p>
@@ -161,6 +175,5 @@ ob_start();
                 </div> <!-- /row -->
             </div><!-- /container -->
         </div>
-        <?php require_once('php/css-js-inc.php'); ?>
     </body>
 </html>

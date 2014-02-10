@@ -8,10 +8,10 @@ $(document).ready(function() {
         $("#login_form").validate({
             rules: {
                 username: {
-                    required: true,
+                    required: true
                 },
                 password: {
-                    required: true,
+                    required: true
                 }
             },
             messages: {
@@ -19,7 +19,7 @@ $(document).ready(function() {
                     required: "Please specify your username"
                 },
                 password: {
-                    required: "You must specify a password"
+                    required: "Please must specify a password"
                 }
             }
         });

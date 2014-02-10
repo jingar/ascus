@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <table name="members">
+        <column>name</column>
+        <column>city</column>
+        <row>
+            <value>changed</value>
+            <value>Edinburgh</value>
+        </row>
+    </table>
+</dataset>

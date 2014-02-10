@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <table name="area_of_expertise">
+        <column>expertise</column>
+        <row>
+            <value>web development</value>
+        </row>
+        <row>
+            <value>drawing</value>
+        </row>
+    </table>
+</dataset>

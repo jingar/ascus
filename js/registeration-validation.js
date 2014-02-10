@@ -16,7 +16,7 @@ $(document).ready(function() {
                     minlength: 5,
                     remote: {
                         type: 'post',
-                        url: "/php/CheckUniqueUsername.php",
+                        url: "/classes/CheckUniqueUsername.php",
                         data: {
                             type: 'text/html',
                             username: function()
@@ -30,7 +30,7 @@ $(document).ready(function() {
                     required: true,
                     minlength: 5
                 },
-                confirm_password: {
+                confirmPassword: {
                     required: true,
                     equalTo: "#password"
                 },
@@ -39,10 +39,10 @@ $(document).ready(function() {
                     email: true,
                     remote: {
                         type: 'post',
-                        url: "/php/CheckUniqueEmail.php",
+                        url: "/classes/CheckUniqueEmail.php",
                         data: {
                             type: 'text/html',
-                            username: function()
+                            email: function()
                             {
                                 return $('#registration_form :input[name="email"]').val();
                             }
@@ -63,15 +63,19 @@ $(document).ready(function() {
                     required: "You must specify a password",
                     minlength: "Your password must be a minimum of 5 characters long"
                 },
-                confirm_password: {
+                confirmPassword: {
                     required: "You must confirm your password",
-                    equalTo: "Your passwords are not equal"
+                    equalTo: "Passowrd and confirm password do not match"
                 },
                 email: {
                     required: "You must specify an email address",
                     email: "Email address does not exist",
                     remote: jQuery.validator.format("{0} is already taken.")
                 }
+            },
+            errorPlacement: function(label, element) {
+                label.addClass('error');
+                label.insertAfter(element);
             }
 
         });
