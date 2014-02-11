@@ -23,14 +23,15 @@ if (Input::exists()) {
     $validatorManager->validate(Input::get('password'), 'Password');
 
     if (empty($validatorManager->getErrors())) {
-        $user = new Member();
-        if ($user->isAccountActivated(Input::get('username'))) {
-            if ($user->login(Input::get('username'), Input::get('password'))) {
-                Session::put(Config::get('session/session_name'), $user->members_id);
+        $member = new Member();
+        if ($member->isAccountActivated(Input::get('username'))) {
+            if ($member->login(Input::get('username'), Input::get('password'))) {   
+                Session::put(Config::get('session/session_name'), $member->findByUsername(
+                    Input::get('username'))->members_id);
                 Session::put("time", time());
                 session_regenerate_id();
                 Session::flash("Login Success", "Logged in");
-                Redirect::to('homepage.php');
+                //Redirect::to('homepage.php');
             } else {
                 Session::flash("Login Failure", "Could not Log in");
                 Redirect::to('login.php');
@@ -39,7 +40,8 @@ if (Input::exists()) {
         else
         {
             Session::flash("Email Failure", "Email not activiated");
-            Redirect::to('login.php');   
+            var_dump($member->isAccountActivated(Input::get('username')));
+            //Redirect::to('login.php');   
         }
     } else {
         var_dump($validatorManager->getErrors());

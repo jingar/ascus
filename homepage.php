@@ -1,8 +1,6 @@
 <?php
 require_once './core/init.php';
-var_dump($_SESSION);
 if (Session::exists('Login Success')) {
-    echo 'login success';
     echo '<div class=container>   
     <div class="alert alert-success">' . Session::flash("Login Success"). '</div>
     </div>';
@@ -12,8 +10,11 @@ if(Session::exists('Success Registered')) {
 } 
 
 if (Session::exists('Failure')) {
-    echo 'Failure';
     echo "<div class=\"alert alert-danger\">" . Session::flash('Failure') . "</div>";
+}
+
+if (Session::exists('Email Not Activated')) {
+    echo "<div class=\"alert alert-danger\">" . Session::flash('Email Not Activated') . "</div>";
 }
 ?>
 <!DOCTYPE html>

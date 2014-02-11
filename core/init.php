@@ -8,7 +8,7 @@ ob_start();
 $GLOBALS['config'] = array(
     'mysql' => array(
         'host' => '127.0.0.1',
-        'username' => 'root',
+        'username' => 'saad_admin',
         'password' => '=8@^+W+&1P,LbR$',
         'db' => 'saad_ascus_scratch'
     ),

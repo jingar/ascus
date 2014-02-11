@@ -26,7 +26,12 @@ class Hash {
     }
 
     public static function generateUniqueNumber() {
-        return substr(static::generate(uniqid(rand(), TRUE), PASSWORD_DEFAULT), 16, 32);
+        
+        $unique = static::generate(uniqid(rand(), TRUE), PASSWORD_DEFAULT);
+        $length = strlen($unique);
+        //unique number length is 20
+        $result = substr($unique,$length-20,$length);
+        return $result;
     }
 
 }
