@@ -31,7 +31,7 @@ if (Input::exists()) {
                 Session::put("time", time());
                 session_regenerate_id();
                 Session::flash("Login Success", "Logged in");
-                //Redirect::to('homepage.php');
+                Redirect::to('homepage.php');
             } else {
                 Session::flash("Login Failure", "Could not Log in");
                 Redirect::to('login.php');

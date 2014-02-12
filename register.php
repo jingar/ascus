@@ -36,7 +36,7 @@ if (Input::exists()) {
             $member = new Member();
             $member->register(array(Input::get('name'), Input::get('profession'), Input::get('email'),
                 Input::get('username'), $hashed_password, NULL, NULL, $confirmation_key, 0, NULL));
-            Mailer::send_mail(Input::get('name'), Input::get('email'), $confirmation_key);
+            //Mailer::send_mail(Input::get('name'), Input::get('email'), $confirmation_key);
             Session::flash('Success Registered', 'Registered sucessfully but you must activate your account before logging in');
             Redirect::to('homepage.php');
         } else {
@@ -48,7 +48,6 @@ if (Input::exists()) {
                 $error_html.= "<li> $error </li>";
             }
             $error_html.= "</ul>";
-            $error_html.= "</div>";
             $error_html.= "</div>";
         }
     } catch (Exception $ex) {
@@ -111,7 +110,7 @@ if (Input::exists()) {
                         </div>
                     </div>
 
-                    <input type="hidden" name="csrf_token" value="<?php Token::generate(); ?>"
+                    <input type="hidden" name="csrf_token" value="<?php echo Token::generate(); ?>"
                     <div class = "form-group">
                         <div class = "col-md-offset-2 col-md-4">
                             <button name = "register" id = "register" type = "submit" class = "btn btn-default grey-background">Sign Up</button>

@@ -21,6 +21,5 @@ if (Input::exists('get')){
         <title>Ascus</title>
     </head>
     <body>
-        <input type="hidden" name="csrf_token" value="<?php Token::generate(); ?>"
     </body>
 </html>

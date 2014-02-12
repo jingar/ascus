@@ -7,24 +7,21 @@ class Member {
 
     public function __construct($user = NULL) {
         $this->_database_connection = Database::getInstance();
-        echo 'member constructor';
         if (!$user) {
             if (Session::exists(Config::get('session/session_name'))) {
-                echo 'if sessions exists';
                 $user = Session::get(Config::get('session/session_name'));
                 if ($this->_database_connection->rowExists('members_id',$user)) {
                     $this->_data = $this->findByID($user);
                     $this->_isLoggedIn = TRUE;
                 }
                 else
-                {   echo 'member constructor logout';
+                {
                     $this->logOut();
                 }
             }
         }
         else
         {
-            echo 'member constructor id passed';
             $this->_data = $this->findByUsername($user);
         }
     }
@@ -54,7 +51,6 @@ class Member {
         
     }
     public function login($username = NULL, $password = NULL) {
-        echo 'login';
         if ($this->_database_connection->rowExists("username", $username)) {
             $user = $this->findByUsername($username);
             if (Hash::check($password, $user->password)) {
@@ -72,13 +68,12 @@ class Member {
     public function activateAccount($fields)
     {
         array_unshift($fields, "1");
-        var_dump($fields);
         $this->_database_connection->query("UPDATE `members` SET `status` = ? WHERE `email` = ?"
             . " AND `confirmation_key` = ?",$fields);
     }
     
     public function isAccountActivated($username) {
-        echo 'is account activiated';
+    
         $user = $this->findByUsername($username);
         if (!empty($user)) {
             if ($user->status !== "0") {
@@ -87,13 +82,9 @@ class Member {
         }
         return false;
     }
-
-    public function editProfile($fields,$id = NULL) {
-        if(!$id)
-        {
-            $fields['members_id'] = $this->_data->members_id;   
-        }
-        $this->_database_connection->query("UPDATE `members` SET `name` = ?, `city` = ? WHERE `members_id` = ?", $fields);
+    public function editMember($fields,$id = NULL) {
+        if(!$id){ $fields[] = $this->_data->members_id; }
+        $this->_database_connection->query("UPDATE `members` SET `name` = ?, `city` = ?, `country` = ?,`bio` = ? WHERE `members_id` = ?", $fields);
     }   
 
     public function isLoggedIn(){

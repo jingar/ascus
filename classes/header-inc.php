@@ -7,7 +7,6 @@
                 <li><a href="#">About</a></li>
                 <?php
                 $member = new Member();
-                var_dump($_SESSION);
                 if($member->isLoggedIn()){ ?>
                 <li class="dropdown">
                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown">

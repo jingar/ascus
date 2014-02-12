@@ -23,8 +23,6 @@ class Database {
     }
 
     public function query($sql, array $params = array()) {
-        var_dump($sql);
-        var_dump($params);
         $this->_query = $this->_pdo->prepare($sql);
         $position = 1;
         if (count($params)){
@@ -52,7 +50,6 @@ class Database {
     
     public function rowExists($column, $value)
     {
-        echo 'row exists';
         $this->find("members", $column, $value);
         if(!empty($this->getResults()))
         {
