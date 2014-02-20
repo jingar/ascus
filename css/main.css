@@ -300,3 +300,7 @@ li img
 .error {
    color: #a94442;
 }
+.bar {
+    height: 18px;
+    background: green;
+}

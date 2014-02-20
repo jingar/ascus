@@ -1,5 +1,4 @@
 <?php
-
 require_once './core/init.php';
 $error_html = NULL;
 if (Input::exists()) {

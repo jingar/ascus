@@ -9,7 +9,8 @@ $(document).ready(function() {
         $("#registration_form").validate({
             rules: {
                 name: {
-                    required: true
+                    required: true,
+                    number: false
                 },
                 username: {
                     required: true,

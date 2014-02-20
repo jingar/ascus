@@ -48,9 +48,9 @@ class Database {
         return $this->getResults();
     }
     
-    public function rowExists($column, $value)
+    public function rowExists($table,$column, $value)
     {
-        $this->find("members", $column, $value);
+        $this->find($table, $column, $value);
         if(!empty($this->getResults()))
         {
             return true;

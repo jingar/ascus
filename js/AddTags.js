@@ -1,9 +1,11 @@
 $(document).ready(function() {
     $("#tags").tagit({
+    	beforeTagAdded: function(event, ui) {
+    		$('#tagChanges ul').append("<li>" + ui.tagLabel + "</li>");
+    	},
         fieldName: "tags[]",
         allowSpaces: true,
-        availableTags: ["C++","Python","Java"],
         autocomplete: {delay: 0, minLength: 2},
-        tagLimit: 20
+        tagLimit: 3
     });
 });

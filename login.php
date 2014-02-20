@@ -4,10 +4,10 @@ require_once './core/init.php';
 if (Session::exists('Login Success')) {
     echo "<div class=\"alert alert-success\">" . Session::flash('Login Success') . "</div>";
 }
-if (Session::exists('Login Failure')) {
+else if (Session::exists('Login Failure')) {
     echo "<div class=\"alert alert-danger\">" . Session::flash('Login Failure') . "</div>";
 } 
-if (Session::exists('Email Failure')) {
+else if (Session::exists('Email Failure')) {
     echo "<div class=\"alert alert-danger\">" . Session::flash('Email Failure') . "</div>";
 }
 
@@ -24,8 +24,8 @@ if (Input::exists()) {
 
     if (empty($validatorManager->getErrors())) {
         $member = new Member();
-        if ($member->isAccountActivated(Input::get('username'))) {
-            if ($member->login(Input::get('username'), Input::get('password'))) {   
+        if ($member->login(Input::get('username'), Input::get('password'))) {
+            if ($member->isAccountActivated(Input::get('username'))) {   
                 Session::put(Config::get('session/session_name'), $member->findByUsername(
                     Input::get('username'))->members_id);
                 Session::put("time", time());
@@ -33,15 +33,15 @@ if (Input::exists()) {
                 Session::flash("Login Success", "Logged in");
                 Redirect::to('homepage.php');
             } else {
-                Session::flash("Login Failure", "Could not Log in");
-                Redirect::to('login.php');
+                Session::flash("Email Failure", "Email not activiated");
+                var_dump($member->isAccountActivated(Input::get('username')));
+                Redirect::to('login.php');   
             }
         }
         else
         {
-            Session::flash("Email Failure", "Email not activiated");
-            var_dump($member->isAccountActivated(Input::get('username')));
-            //Redirect::to('login.php');   
+            Session::flash("Login Failure", "Username and password combiniation does not match");
+                Redirect::to('login.php');
         }
     } else {
         var_dump($validatorManager->getErrors());

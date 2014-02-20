@@ -10,7 +10,7 @@ class Member {
         if (!$user) {
             if (Session::exists(Config::get('session/session_name'))) {
                 $user = Session::get(Config::get('session/session_name'));
-                if ($this->_database_connection->rowExists('members_id',$user)) {
+                if ($this->_database_connection->rowExists('members','members_id',$user)) {
                     $this->_data = $this->findByID($user);
                     $this->_isLoggedIn = TRUE;
                 }
@@ -51,7 +51,7 @@ class Member {
         
     }
     public function login($username = NULL, $password = NULL) {
-        if ($this->_database_connection->rowExists("username", $username)) {
+        if ($this->_database_connection->rowExists('members',"username", $username)) {
             $user = $this->findByUsername($username);
             if (Hash::check($password, $user->password)) {
                 return true;
