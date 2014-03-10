@@ -27,7 +27,7 @@ if (Input::exists()) {
             $deletedTagsId = array();
 
             //check if the entered tags match the tags that were already in the database
-            //the ones that are in the database and not in entered means they must be deleted
+            //the ones that are in the database and not in input means they must be deleted
             if(!empty(Input::get('tags')))
             {
                 //get the ids of tags that the member is deleted
@@ -76,6 +76,7 @@ if (Input::exists()) {
     <?php require_once('./classes/css-js-inc.php'); ?>
     <link rel="stylesheet" href="css/jquery.tagit.css" type="text/css">
     <link rel="stylesheet" href="css/tagit.ui-zendesk.css" type="text/css">
+    <script type="text/javascript" src="js/editprofile.js"></script>
     <script type="text/javascript" src="js/GetTags.js"></script>
     <script type="text/javascript" src="js/AddTags.js"></script>
 </head>
@@ -94,12 +95,12 @@ if (Input::exists()) {
                 </li>
                 <li><a href="#">Username & Password</a></li>
                 <li>
-                    <a href="<?php echo Sanitize::escape('worksample.php?id=' . $member->getData()->members_id)?>">
+                    <a href="<?php echo Sanitize::escape('showworksamples.php?id=' . $member->getData()->members_id)?>">
                         Work Samples
                     </a>
                 </li>
             </ul>
-            <form id="registration_form" class="push-down" role="form" method ="POST" action ="">
+            <form id="editprofile_form" class="push-down" role="form" method ="POST" action ="">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input name="name" type="text" class="form-control" id="name" 
@@ -131,7 +132,7 @@ if (Input::exists()) {
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
-                        <button name="register" id = "register" type="submit" class="btn btn-default grey-background">Save Changes</button>
+                        <button name="editprofile" id = "editprofile" type="submit" class="btn btn-default grey-background">Save Changes</button>
                     </div>
                 </div>
             </form>

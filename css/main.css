@@ -304,3 +304,18 @@ li img
     height: 18px;
     background: green;
 }
+
+.width-set {
+    max-width: 100px;
+}
+
+.height-set {
+    max-height: 100px;
+}
+
+.banner
+{
+    background-image: url('../images/banner.png');
+    width: 100%;
+    height: 210px;
+}

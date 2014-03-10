@@ -14,8 +14,9 @@
                         <span class="caret"></span>
                     </a>
                  <ul class="dropdown-menu" role="menu"aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="<?php echo Sanitize::escape('editprofile.php?id=' . $member->getData()->members_id) ?>">
+                        <li><a href="<?php echo Sanitize::escape('profile.php?id=' . $member->getData()->members_id) ?>">
+                        Profile</a></li>
+                        <li><a href=" <?php echo Sanitize::escape('editprofile.php?id=' . $member->getData()->members_id) ?>">
                         Settings</a></li>
                         <li role="presentation" class="divider"></li>
                         <li><a href="logout.php">Sign Out</a></li>

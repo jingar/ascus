@@ -111,7 +111,7 @@ if (Input::exists()) {
 
                     <input type="hidden" name="csrf_token" value="<?php echo Token::generate(); ?>"
                     <div class = "form-group">
-                        <div class = "col-md-offset-2 col-md-4">
+                        <div class = "col-md-offset-4 col-md-4">
                             <button name = "register" id = "register" type = "submit" class = "btn btn-default grey-background">Sign Up</button>
                         </div>
                     </div>
