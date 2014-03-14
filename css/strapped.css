@@ -1,0 +1,328 @@
+@font-face {
+  font-family: "gandhi sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/gandhi-sans.ttf), url(../fonts/gandhi-serif.eot);
+}
+@font-face {
+  font-family: "gandhi sans";
+  font-style: normal;
+  font-weight: 700;
+  src: url(/fonts/gandhi-bold-sans.ttf), url(../fonts/gandhi-bold-sans.eot);
+}
+@font-face {
+  font-family: "gandhi serif";
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/gandhi-serif.ttf), url(../fonts/gandhi-serif.eot);
+}
+@font-face {
+  font-family: "gandhi serif";
+  font-style: normal;
+  font-weight: 700;
+  src: url(/fonts/gandhi-bold-serif.ttf), url(../fonts/gandhi-bold-serif.eot);
+}
+html
+{
+  height: 100%;
+}
+body
+{
+  font-size: 14px;
+  height: 100%;
+  color: white;
+}
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: "gandhi sans", helvetica, sans-serif;
+}
+.btn {
+  border-radius: 2px;
+}
+.btn-warning
+{
+  background-color: #ed9c28;
+}
+.container {
+  max-width: 920px;
+}
+.navbar {
+  background: #111;
+  padding: 0.3em 0;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+.navbar .navbar-brand {
+  color: #fff;
+  font-family: "gandhi serif", georgia, serif;
+  font-weight: bold;
+}
+.navbar ul.nav li a {
+  color: #fff;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0 1.5em;
+}
+.navbar ul.nav li button {
+  margin: 0.7em 0 0 1em;
+}
+#jumbo-container
+{
+  background-image:url(/images/noisy_net.png);
+  height: 91%;
+}
+.jumbotron {
+  background: url(/images/noisy_net.png);
+  color: #fff;
+  padding: 6.5em 0 6em;
+  text-align: center;
+  margin: 0;
+  height: 100%
+}
+.jumbotron h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 3em;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px #000;
+}
+.jumbotron h2 {
+  font-size: 1.2em;
+  font-style: italic;
+  font-weight: normal;
+  line-height: 1.4em;
+  margin-bottom: 1.4em;
+}
+.jumbotron .btn {
+  box-shadow: 1px 1px 3px #000;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0.3em 2.5em 0.5em;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.jumbotron .btn .glyphicon {
+  margin-left: 0.2em;
+  position: relative;
+  top: 3px;
+}
+.sect-border {
+  border-top: 1px dashed #d6d6d6;
+  border-bottom: 1px dashed #f6f6f6;
+  margin: 2em 8% 2.4em;
+}
+.subhead {
+  color: #000;
+  font-family: "gandhi serif", georgia, serif;
+  font-size: 3em;
+  font-weight: bold;
+  text-align: center;
+  margin: 0.3em 0;
+}
+.benefit {
+  margin: 0.8em 0;
+  text-align: center;
+}
+.benefit .benefit-ball {
+  background: #428bca;
+  border-radius: 50%;
+  color: #fff;
+  display: inline-block;
+  line-height: 1em;
+  padding: 3em;
+}
+.benefit .benefit-ball .glyphicon {
+  font-size: 4em;
+  position: relative;
+  top: -3px;
+  right: 1px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.benefit h3 {
+  color: #000;
+  font-family: "gandhi serif", georgia, serif;
+  font-size: 2em;
+  font-weight: bold;
+}
+#slideshow {
+  margin: 0.5em 0 1.5em;
+}
+#slideshow .carousel-inner img {
+  background: #000;
+  height: 500px;
+  width: 100%;
+}
+footer {
+  background: #111;
+  color: #fff;
+  margin: 0;
+  padding: 1.5em 0 0.8em;
+  height: 9%;
+}
+@media screen and (max-width: 768px) {
+  .navbar ul.nav li {
+    text-align: center;
+  }
+  .navbar ul.nav li button {
+    margin: 1em 0;
+  }
+  .jumbotron {
+    font-size: 14px;
+    padding: 6em 0 4em;
+  }
+  .benefit {
+    margin-bottom: 2em;
+  }
+}
+@media screen and (max-width: 480px) {
+  body {
+    font-size: 12px;
+  }
+  .jumbotron {
+    font-size: 12px;
+  }
+  footer .pull-right {
+    display: none;
+  }
+}
+
+.login-button
+{
+  background-color: #ed9c28;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+}
+
+
+#error-explanation {
+    color: #f00;
+    margin-top: 4%;
+    ul {
+        list-style: none;
+        margin: 0 0 18px 0;
+    }
+}
+
+.error {
+   color: #a94442;
+}
+
+.alert-succes
+{
+  background-color: #bde6ac;
+  border-color: #b9e098;
+  color: #245724;
+}
+
+.push-down
+{
+    margin-top: 20px;
+
+}
+.push-down-further
+{
+    margin-top: 70px;
+
+}
+.navbar-nav > li > .dropdown-menu
+{
+  right:0;
+  left: 0;
+  margin: 1px 10px;
+  border-radius: 4px;
+}
+
+li > a:hover
+{
+  background-color: red;
+}
+
+.navbar-inverse .navbar-nav>.open>a, 
+.navbar-inverse .navbar-nav>.open>a:hover, 
+.navbar-inverse .navbar-nav>.open>a:focus
+{
+  background-color: transparent;
+}
+
+.location-block
+{
+  padding-bottom: 5px;
+  text-align: center;
+}
+
+.location
+{
+  display: inline;
+}
+
+.box {
+    padding: 1%;
+    margin: 4% 10%;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
+    height: inherit;
+    width: 940;
+    background-color: #FFFFFF;
+}
+.profile-pic
+{
+  margin-left: 23%;
+  height:150px;
+  width: 150px;
+  border-radius: 125px;
+  -webkit-border-radius: 125px;
+  -moz-border-radius: 125px;
+  background: url(http://link-to-your/image.jpg) no-repeat;
+  box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+  color: red;
+  background-color: #111111;
+  background-image: none;
+  filter: none;
+  } 
+  .blueimp-gallery > .description {
+  position: absolute;
+  top: 30px;
+  left: 15px;
+  color: #fff;
+  display: none;
+}
+.blueimp-gallery-controls > .description {
+  display: block;
+}
+
+
+img.worksample
+{
+  max-height:150px;
+  max-width: 100%;
+  margin: 10px 10px;
+}
+
+.noisy-net
+{
+  height: 100%;
+  background-image: url(../images/noisy_net.png);
+}
+
+div.profile-list
+{
+  margin-left: 23%;
+}
+
+div.content
+{
+
+  border-left: 1px solid #eee;
+}
+
+a:hover
+{
+  color: transparent;
+  cursor: inherit;
+};
+
+div > hr
+{
+  border-top: 1px dashed #ed9c28;
+}
