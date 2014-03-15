@@ -28,7 +28,7 @@ if (Session::exists('Email Not Activated')) {
   <link href='http://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <?php require_once 'classes/header-inc.php'; ?>
+  <?php require_once 'includes/header-inc.php'; ?>
   <div id="jumbo-container">
     <?php echo $error; ?>   
     <div id="top" class="jumbotron">

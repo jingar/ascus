@@ -73,18 +73,16 @@ if (Input::exists()) {
 <head>
     <title>Edit Profile</title>
     <meta charset="UTF-8">
-    <?php require_once('./classes/css-js-inc.php'); ?>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/jquery.tagit.css" type="text/css">
     <link rel="stylesheet" href="css/tagit.ui-zendesk.css" type="text/css">
-    <script type="text/javascript" src="js/editprofile.js"></script>
-    <script type="text/javascript" src="js/GetTags.js"></script>
-    <script type="text/javascript" src="js/AddTags.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/strapped.css">
 </head>
-<?php require_once('./classes/header-inc.php'); ?>
+<?php require_once('./includes/header-inc.php'); ?>
 <body>
     <div class="container">
-        <div class ="box">
-            <fieldset class="push-down-further">
+        <div class="push-down">
+            <fieldset>
                 <legend>Edit Profile</legend>
             </fieldset>
             <ul class="nav nav-tabs">
@@ -130,13 +128,19 @@ if (Input::exists()) {
                     <ul>
                     </ul>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-4">
-                        <button name="editprofile" id = "editprofile" type="submit" class="btn btn-default grey-background">Save Changes</button>
-                    </div>
+                <div>
+                    <button name="editprofile" id = "editprofile" type="submit" class="btn btn-warning">Save Changes</button>
+                </div>
                 </div>
             </form>
         </div>
-    </div>  
+    </div> 
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="js/editprofile.js"></script>
+    <script type="text/javascript" src="js/tag-it.min.js"></script>
+    <script type="text/javascript" src="js/GetTags.js"></script>
+    <script type="text/javascript" src="js/AddTags.js"></script>
 </body>
 </html>

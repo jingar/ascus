@@ -56,10 +56,10 @@ if (Input::exists()) {
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/strapped.css">
     </head>
-    <?php require_once('./classes/header-inc.php'); ?>
+    <?php require_once('./includes/header-inc.php'); ?>
     <body>
         <div class="container login">
-            <div box> 
+            <div> 
                 <form id="login_form" class="form-horizontal push-down" role="form" method ="post" action ="">
                     <fieldset>
                     <legend>Login</legend>

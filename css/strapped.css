@@ -211,6 +211,11 @@ footer {
   border-color: #b9e098;
   color: #245724;
 }
+.alert
+{
+  padding: 0;
+  border-radius: 0;
+}
 
 .push-down
 {
@@ -228,11 +233,6 @@ footer {
   left: 0;
   margin: 1px 10px;
   border-radius: 4px;
-}
-
-li > a:hover
-{
-  background-color: red;
 }
 
 .navbar-inverse .navbar-nav>.open>a, 
@@ -344,4 +344,10 @@ div.login
 legend
 {
   color: white;
+}
+.nav>li>a:hover, .nav>li>a:focus
+{
+  text-decoration: none;
+  background-color: transparent;
+  color: #2a6496;
 }

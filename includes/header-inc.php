@@ -16,7 +16,6 @@
                 <?php
                 $member = new Member();
                 if($member->isLoggedIn()){ ?>
-                <li><a href="#profile" class="nav-link">Profile</a></li>
                 <li class="dropdown dropdown-transparent">
                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown">
                         Account

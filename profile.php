@@ -15,7 +15,7 @@ $member_data = $member->findByID(Input::get('id'));
     <title>Profile</title>
 </head>
 <body class="noisy-net">
-    <?php require_once('classes/header-inc.php'); ?> 
+    <?php require_once('includes/header-inc.php'); ?> 
     <div class="profile-content">
         <div class ="col-md-3 profile-left-section">
             <h1 style="text-align: center"><?php echo $member_data->name; ?></h1>

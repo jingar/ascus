@@ -58,18 +58,18 @@ if (Input::exists()) {
 <html lang="en">
     <head>
         <title>Registration</title>
-        <?php require_once('./classes/css-js-inc.php'); ?>
-        <script type="text/javascript" src="js/registeration-validation.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/strapped.css" rel="stylesheet">
     </head>
-    <?php require_once('./classes/header-inc.php'); ?>
+    <?php require_once('./includes/header-inc.php'); ?>
     <body>
         <div class="container">
-            <div class="box">
-                <fieldset class="push-down-further">
+            <div class="push-down">
+                <fieldset>
                     <legend> Registration </legend>
                 </fieldset>
                 <?php echo $error_html ?>
-                <form id = "registration_form" class = "form-horizontal push-down" role = "form" method = "POST" action = "">
+                <form id = "registration_form" role = "form" method = "POST" action = "">
                     <div class = "form-group">
                         <label for = "name">Name</label>
                         <div>
@@ -111,12 +111,15 @@ if (Input::exists()) {
 
                     <input type="hidden" name="csrf_token" value="<?php echo Token::generate(); ?>"
                     <div class = "form-group">
-                        <div class = "col-md-offset-4 col-md-4">
-                            <button name = "register" id = "register" type = "submit" class = "btn btn-default grey-background">Sign Up</button>
+                        <div>
+                            <button name = "register" id = "register" type = "submit" class = "btn btn-warning">Sign Up</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascrippt" src="js/registeration-validation.js"></script>
     </body>
 </html>
