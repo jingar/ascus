@@ -7,7 +7,7 @@ $(document).ready(function() {
                     number: false
                 },
                 bio:{
-                    maxlength: 700;
+                    maxlength: 700
                 }
             },
             messages: {

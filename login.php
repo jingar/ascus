@@ -53,14 +53,17 @@ if (Input::exists()) {
     <head>
         <meta charset="utf-8">
         <title>Login</title>
-        <?php require_once('./classes/css-js-inc.php'); ?>
-        <script type="text/javascript" src="js/login-validation.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/strapped.css">
     </head>
     <?php require_once('./classes/header-inc.php'); ?>
     <body>
-        <div class="container push-down-further">
-            <div class="box"> 
+        <div class="container login">
+            <div box> 
                 <form id="login_form" class="form-horizontal push-down" role="form" method ="post" action ="">
+                    <fieldset>
+                    <legend>Login</legend>
+                    </fieldset>
                     <div class="form-group">
                         <label for="username" class="col-md-2 control-label">Username</label>
                         <div class="col-md-8">
@@ -76,11 +79,15 @@ if (Input::exists()) {
                     <input type="hidden" name="token" value="<?php Token::generate(); ?>">
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <button name="login" id="login" type="submit" class="btn btn-default">Log in</button>
+                            <button name="login" id="login" type="submit" class="btn btn-warning">Log in</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+        <?php require_once 'includes/footer.php' ?>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/login-validation.js"></script>
+        <script src="js/bootstrap.min.js"></script>
     </body>
 </html>
