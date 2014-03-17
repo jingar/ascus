@@ -60,6 +60,15 @@ if (Input::exists()) {
                 // add the tags / replace any that were already inserted
                 $memberExpertise->deleteAllByExpertiseId($deletedTagsId);
             }
+
+            $interest = new Interest();
+            $interest->deleteAll(array($member->getData()->members_id));
+            if(!empty(Input::get('interest-tags')))
+            {
+                foreach (Input::get('interest-tags') as $interest_tag) {
+                    $interest->addInterest(array($member->getData()->members_id,$interest_tag));
+                }
+            }
             
         } catch (Exception $ex) {
             echo $ex; 
@@ -105,8 +114,14 @@ if (Input::exists()) {
                     value="<?php echo Sanitize::escape($member->getData()->name); ?>">
                 </div>
                 <div class="form-group">
-                    <label>Expertise</label>
+                    <label>Skills</label>
                     <ul class="tagit ui-widget ui-widget-content ui-corner-all" id="tags">
+                    </ul> 
+                </div>
+
+                <div class="form-group">
+                    <label>Interests</label>
+                    <ul class="tagit ui-widget ui-widget-content ui-corner-all" id="interest-tags">
                     </ul> 
                 </div>
                 <div class="form-group">
@@ -138,9 +153,13 @@ if (Input::exists()) {
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/jquery-ui.min.js"></script>
     <script src="js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/additional-methods.js"></script>
     <script type="text/javascript" src="js/editprofile.js"></script>
     <script type="text/javascript" src="js/tag-it.min.js"></script>
     <script type="text/javascript" src="js/GetTags.js"></script>
     <script type="text/javascript" src="js/AddTags.js"></script>
-</body>
+    <script type="text/javascript" src="js/AddInterestTags.js"></script>
+    <script type="text/javascript" src="js/GetInterestTags.js"></script>
+    </body>
 </html>

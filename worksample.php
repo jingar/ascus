@@ -15,12 +15,12 @@ if($member->getData()->members_id !== Input::get('id'))
 <head>
     <title>Edit Profile</title>
     <meta charset="UTF-8">
-    <?php require_once('./classes/css-js-inc.php'); ?>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/strapped.css">
     <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
     <link rel="stylesheet" href="css/jquery.fileupload.css">
 </head>
-<?php require_once('./classes/header-inc.php'); ?>
+<?php require_once('./includes/header-inc.php'); ?>
 <body>
     <div class="container">
         <div class ="box">

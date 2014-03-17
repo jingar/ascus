@@ -16,6 +16,9 @@ if (Session::exists('Failure')) {
 if (Session::exists('Email Not Activated')) {
   $error = '<div class="alert alert-danger">' . Session::flash('Email Not Activated') . '</div>';
 }
+if (Session::exists('Email Activated')) {
+  $error = '<div class="alert alert-success"> <strong>' . Session::flash("Email Activated"). '</strong></div>';
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">

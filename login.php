@@ -1,14 +1,14 @@
 <?php
 require_once './core/init.php';
-
+$flash = NULL;
 if (Session::exists('Login Success')) {
-    echo "<div class=\"alert alert-success\">" . Session::flash('Login Success') . "</div>";
+    $flash = "<div class=\"alert alert-success\">" . Session::flash('Login Success') . "</div>";
 }
 else if (Session::exists('Login Failure')) {
-    echo "<div class=\"alert alert-danger\">" . Session::flash('Login Failure') . "</div>";
+    $flash =  "<div class=\"alert alert-danger\">" . Session::flash('Login Failure') . "</div>";
 } 
 else if (Session::exists('Email Failure')) {
-    echo "<div class=\"alert alert-danger\">" . Session::flash('Email Failure') . "</div>";
+    $flash =  "<div class=\"alert alert-danger\">" . Session::flash('Email Failure') . "</div>";
 }
 
 if (Input::exists()) {
@@ -58,6 +58,7 @@ if (Input::exists()) {
     </head>
     <?php require_once('./includes/header-inc.php'); ?>
     <body>
+    <?php echo $flash ;?>
         <div class="container login">
             <div> 
                 <form id="login_form" class="form-horizontal push-down" role="form" method ="post" action ="">
@@ -89,5 +90,7 @@ if (Input::exists()) {
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="js/login-validation.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="js/additional-methods.js"></script>
     </body>
 </html>

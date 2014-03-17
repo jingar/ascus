@@ -185,7 +185,7 @@ footer {
 }
 
 .login-button
-{]
+{
   background-color: #ed9c28;
   border-top: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 2px;
@@ -329,7 +329,7 @@ div > hr
 
 div.profile-left-section, div.profile-right-section
 {
-  height: 95%;
+  height: 99%;
 }
 
 div.profile-right-section
@@ -350,4 +350,8 @@ legend
   text-decoration: none;
   background-color: transparent;
   color: #2a6496;
+}
+.table > thead > tr > th
+{
+  border: none;
 }

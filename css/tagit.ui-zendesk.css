@@ -11,18 +11,35 @@ ul.tagit {
     border-radius: 6px;
     -webkit-border-radius: 6px;
 }
-ul.tagit li.tagit-choice {
+
+ul#display-tags, ul#display-interest-tags{
+    border-style: none;
+    background: transparent;
     -moz-border-radius: 6px;
     border-radius: 6px;
     -webkit-border-radius: 6px;
-    border: 1px solid #CAD8F3;
+}
+ul#tags li.tagit-choice, ul#display-tags li.tagit-choice {
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border: 1px solid #FF8300;
     background: none;
-    background-color: #DEE7F8;
-
+    background-color: #FF832C;
+    font-weight: normal
+}
+ul#interest-tags li.tagit-choice,ul#display-interest-tags li.tagit-choice {
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border: 1px solid #46b8da;
+    background: none;
+    background-color: #5bc0de;
     font-weight: normal;
 }
-ul.tagit li.tagit-choice .tagit-label:not(a) {
-    color: #555;
+
+    ul.tagit li.tagit-choice .tagit-label:not(a) {
+    color: white;
 }
 ul.tagit li.tagit-choice a.tagit-close {
     text-decoration: none;
@@ -38,7 +55,7 @@ ul.tagit li.tagit-choice .tagit-close .text-icon {
     font-family: arial, sans-serif;
     font-size: 16px;
     line-height: 16px;
-    color: #777;
+    color: white;
 }
 ul.tagit li.tagit-choice:hover, ul.tagit li.tagit-choice.remove {
     background-color: #bbcef1;

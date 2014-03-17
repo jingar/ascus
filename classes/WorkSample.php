@@ -1,5 +1,3 @@
-
-
 <?php
 
 /*
@@ -23,7 +21,6 @@ class WorkSample {
 
     public function addWorkSample($fields)
     {
-        var_dump($fields);
     	$this->_database_connection->query("INSERT into `work_samples`
     		VALUES (?,?, ?, ?, ?,?)",$fields);
     }

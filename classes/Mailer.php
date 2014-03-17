@@ -37,17 +37,15 @@ class Mailer {
                 . "Welcome to Ascus, Please confirm $email as your email address by clicking"
                 . " this link: <br>"
                 . "<br>"
-                . "www.saad.bytenet.co.uk/confirmationpage.php?email=$email&confirmation_key=$confirmation_key"
+                . "<a href= \"www.saad.bytenet.co.uk/confirmationpage.php?email=$email&confirmation_key=$confirmation_key\">"
+                . "www.saad.bytenet.co.uk/confirmationpage.php?email=$email&confirmation_key=$confirmation_key</a>"
                 . "<br><br> -- ASCUS Team";
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
         if (!$mail->send()) {
             echo 'Message could not be sent.';
             echo 'Mailer Error: ' . $mail->ErrorInfo;
-            exit;
         }
-
-        echo 'Message has been sent';
     }
 
 }

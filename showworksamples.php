@@ -10,21 +10,25 @@ if($member->getData()->members_id !== Input::get('id'))
 {
     Redirect::to(404);
 }
+
+$flash = "";
+if (Session::exists('File uploaded')) {
+  $flash = '<div class="alert alert-success"> <strong>' . Session::flash("File uploaded"). '</strong></div>';
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Edit Profile</title>
     <meta charset="UTF-8">
-    <?php require_once('./classes/css-js-inc.php'); ?>
-    <link rel="stylesheet" href="css/style.css">
-    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/strapped.css">
 </head>
-<?php require_once('./classes/header-inc.php'); ?>
+<?php require_once('./includes/header-inc.php'); ?>
 <body>
     <div class="container">
-        <div class ="box">
-            <fieldset class="push-down-further">
+        <div>
+            <fieldset class="push-down">
                 <legend>Work Samples</legend>
             </fieldset>
             <ul class="nav nav-tabs">
@@ -39,11 +43,12 @@ if($member->getData()->members_id !== Input::get('id'))
                     </a>
                 </li>
             </ul>
-            <a class="btn btn-primary" href="<?php echo Sanitize::escape('addworksample.php?id=' . $member->getData()->members_id)?>">
+            <?php echo $flash; ?>   
+            <a class="btn btn-primary push-down" href="<?php echo Sanitize::escape('addworksample.php?id=' . $member->getData()->members_id)?>">
                 Add Work Sample
             </a>
       
-            <table class="table table-stripped table-hover">
+            <table class="table table-stripped">
             <thead>
                 <th>Image</th>
                 <th>Title</th>
@@ -56,10 +61,9 @@ if($member->getData()->members_id !== Input::get('id'))
                     foreach($worksamples as $ws)
                     {
                         echo "<tr>
-                                <td><img src=" . $ws->path . " class=\"width-set height-set\"></img></td>
+                                <td><img src=" . $ws->path . " class=\"worksample\"></img></td>
                                 <td>" . $ws->title . "</td>
                                 <td style=\"word-break: break-all\">" . $ws->description . "</td>
-                                <td><button type=\"button\" class=\"btn btn-info\">Edit</td>
                                 <td>
                                     <a href= \"deleteworksample.php?id=" . $member->getData()->members_id . 
                                         "&worksampleid=". $ws->work_samples_id . 
@@ -74,5 +78,7 @@ if($member->getData()->members_id !== Input::get('id'))
             </table>
         </div>
     </div>  
+      <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

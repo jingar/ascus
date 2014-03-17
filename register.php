@@ -3,7 +3,8 @@ require_once './core/init.php';
 $error_html = NULL;
 if (Input::exists()) {
     if (Token::check(Input::get('csrf_token')) === FALSE) {
-        Redirect::to(404);
+        // Redirect::to(404);
+        // echo 'TOKEN ERROR';
     }
     try {
         $hashed_password = Hash::generate(Input::get('password'));
@@ -35,11 +36,10 @@ if (Input::exists()) {
             $member = new Member();
             $member->register(array(Input::get('name'), Input::get('profession'), Input::get('email'),
                 Input::get('username'), $hashed_password, NULL, NULL, $confirmation_key, 0, NULL));
-            //Mailer::send_mail(Input::get('name'), Input::get('email'), $confirmation_key);
+            Mailer::send_mail(Input::get('name'), Input::get('email'), $confirmation_key);
             Session::flash('Success Registered', 'Registered sucessfully but you must activate your account before logging in');
             Redirect::to('homepage.php');
         } else {
-            Redirect::to(404);
             $error_html.="<div id =\"error-explanation\">";
             $error_html.="<div class=\"alert alert-danger\">";
             $error_html.="<ul>";
@@ -47,6 +47,7 @@ if (Input::exists()) {
                 $error_html.= "<li> $error </li>";
             }
             $error_html.= "</ul>";
+            $error_html.= "</div>";
             $error_html.= "</div>";
         }
     } catch (Exception $ex) {
@@ -120,6 +121,8 @@ if (Input::exists()) {
         </div>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="js/additional-methods.js"></script>
         <script type="text/javascrippt" src="js/registeration-validation.js"></script>
     </body>
 </html>

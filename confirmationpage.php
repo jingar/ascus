@@ -4,7 +4,7 @@ if (Input::exists('get')){
     try {
         $member = new Member();
         $member->activateAccount(array(Input::get('email'),Input::get('confirmation_key')));
-        Session::flash('Email Activated', "Your account has been activiated you may now login");
+        Session::flash('Email Activated', "Your account has been activiated, you may now login");
         Redirect::to('homepage.php');
     } 
     catch (Exception $ex) {

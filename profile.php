@@ -10,6 +10,8 @@ $member_data = $member->findByID(Input::get('id'));
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/strapped.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery.tagit.css" type="text/css">
+    <link rel="stylesheet" href="css/tagit.ui-zendesk.css" type="text/css">
     <link href="css/galleria.classic.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
     <title>Profile</title>
@@ -30,10 +32,15 @@ $member_data = $member->findByID(Input::get('id'));
             <div class="profile-list">
                 <div>
                     <h4>Skills</h4>
-                    <ul>
-                        <li>Photography</li>
-                        <li>Art</li>
-                    </ul>
+                    <ul class="tagit ui-widget ui-widget-content ui-corner-all" id="display-tags">
+                    </ul> 
+                </div>
+            </div>
+            <div class="profile-list">
+                <div>
+                    <h4>Interests</h4>
+                    <ul class="tagit ui-widget ui-widget-content ui-corner-all" id="display-interest-tags">
+                    </ul> 
                 </div>
             </div>
             <div class="profile-list">
@@ -93,6 +100,9 @@ $member_data = $member->findByID(Input::get('id'));
     
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/tag-it.min.js"></script>
+    <script type="text/javascript" src="js/DisplayTags.js"></script>
     <script src="js/galleria-1.3.5.min.js"></script>
     <script>
         Galleria.loadTheme('js/galleria.classic.min.js');

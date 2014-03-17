@@ -17,6 +17,9 @@ if (Input::exists()) {
     if(Token::check(Input::get('csrf_token')))
     {
         try {
+            // need this because upload library makes uppercase extension to lowercase while it keeps the actuall
+            // name unchanged.
+            $_FILES['file']['name'] = strtolower($_FILES['file']['name']);
             $worksample = new WorkSample();
             $worksample->addWorkSample(array(NULL,$member->getData()->members_id,
                 $_FILES['file']['name'],
@@ -25,18 +28,25 @@ if (Input::exists()) {
                 Input::get('description'),
                 ));
             $handle = new upload($_FILES['file']);
+            $error = "none";
             if($handle->uploaded)
             {
                 $handle->image_ratio = true;
                 $handle->file_is_image = true;
+                $handle->image_resize = true;
+                $handle->image_x = 700;
+                $handle->image_x = 550;
                 $handle->process('worksamples');
-
+                $error = " uploaded";
                 if($handle->processed)
                 {
-                    echo 'worked';
+                    $error = " processed";
+                    Session::flash('File uploaded', 'File uploaded successfully');
+                    Redirect::to('showworksamples.php?id=' . $member->getData()->members_id);
                 }
                 else
                 {
+                    $error = "not processed";
                     echo 'error : ' . $handle->error;
                     echo $handle->log;
                 }
@@ -53,18 +63,17 @@ if (Input::exists()) {
 <head>
     <title>Edit Profile</title>
     <meta charset="UTF-8">
-    <?php require_once('./classes/css-js-inc.php'); ?>
-    <link rel="stylesheet" href="css/style.css">
     <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jquery.fileupload.css">
-    <script type="text/javascript" src="js/uploadFile.js"></script>
-    <script type="text/javascript" src="js/addWorkSample.js"></script>
+    <link rel="stylesheet" href="css/strapped.css">
+
 </head>
-<?php require_once('./classes/header-inc.php'); ?>
+<?php require_once('./includes/header-inc.php'); ?>
 <body>
     <div class="container">
-        <div class ="box">
-            <fieldset class="push-down-further">
+        <div class ="push-down">
+            <fieldset>
                 <legend>Work Samples</legend>
             </fieldset>
             <ul class="nav nav-tabs">
@@ -78,6 +87,7 @@ if (Input::exists()) {
                     <a href="<?php echo Sanitize::escape('showworksamples.php?id=' . $member->getData()->members_id)?>">Work Samples
                     </a>
             </ul>
+            <p> <?php echo $error ;?> </p>
             <form id="worksample_form" class="push-down" role="form" method ="post" enctype="multipart/form-data" action ="">
                 <div class="form-group">
                     <span id="file_span" class="btn btn-success fileinput-button">
@@ -99,12 +109,19 @@ if (Input::exists()) {
                 </div>
                 <input type="hidden" name="csrf_token" value="<?php echo Token::generate(); ?>">
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-4">
-                        <button name="addworksample" id = "addworksample" type="submit" class="btn btn-default grey-background">Add Work Sample</button>
+                    <div>
+                        <button name="addworksample" id = "addworksample" type="submit" class="btn btn-primary">Add Work Sample</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>  
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/additional-methods.js"></script>
+    <script type="text/javascript" src="js/uploadFile.js"></script>
+    <script type="text/javascript" src="js/addWorkSample.js"></script> 
 </body>
 </html>
