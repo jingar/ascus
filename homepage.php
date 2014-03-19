@@ -24,9 +24,11 @@ if (Session::exists('Email Activated')) {
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ascus &mdash; Artist & Scientist Collaboration</title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-theme.min.css" rel="stylesheet">
   <link href="css/strapped.css" rel="stylesheet">
   <link href='http://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
 </head>
@@ -40,15 +42,17 @@ if (Session::exists('Email Activated')) {
         <hr>
         <h2>Find collaborators like yourselves and make awesome works of art. 100% free</h2>
         <p><a class="btn btn-warning btn-lg" href="register.php">Sign Up Today <span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+        <form class="form-horizontal" role="form">
+          <div class="offset col-md-2">
+            <div class="left-inner-addon">
+              <i class="glyphicon glyphicon-user"></i>
+              <input type="text" class="form-control" id="occupation" placeholder="Occupation">
+            </div>
+          </div>
+        </form> 
       </div> <!-- /.container -->
     </div> <!-- /.jumbotron -->
   </div>
- <!--  <div style="background-color:white;">
-    <div class="container">
-      <h3 class="subhead">Search</h3>
-      <hr>
-    </div>
-  </div> -->
   <?php require_once 'includes/footer.php' ?>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="js/bootstrap.min.js"></script>

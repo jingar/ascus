@@ -33,6 +33,8 @@ body
   height: 100%;
   color: white;
   background-image:url(/images/noisy_net.png);
+  margin: 0px;
+  padding: 0px;
 }
 body, h1, h2, h3, h4, h5, h6 {
   font-family: "gandhi sans", helvetica, sans-serif;
@@ -52,6 +54,7 @@ body, h1, h2, h3, h4, h5, h6 {
   padding: 0.3em 0;
   border-radius: 0;
   margin-bottom: 0;
+  z-index: 10;
 }
 .navbar .navbar-brand {
   color: #fff;
@@ -70,7 +73,7 @@ body, h1, h2, h3, h4, h5, h6 {
 #jumbo-container
 {
   background-image:url(/images/noisy_net.png);
-  height: 83.5%;
+  height: 85%;
 }
 .jumbotron {
   background: url(/images/noisy_net.png);
@@ -78,7 +81,8 @@ body, h1, h2, h3, h4, h5, h6 {
   padding: 6.5em 0 6em;
   text-align: center;
   margin: 0;
-  height: 100%
+  height: 100%;
+  word-wrap: break-word;
 }
 .jumbotron h1 {
   font-family: 'Cinzel', serif;
@@ -152,6 +156,7 @@ body, h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 footer {
+  height: 6%;
   background: #111;
   color: #fff;
   margin: 0;
@@ -236,12 +241,15 @@ footer {
 }
 
 .navbar-inverse .navbar-nav>.open>a, 
-.navbar-inverse .navbar-nav>.open>a:hover, 
+  .navbar-inverse .navbar-nav>.open>a:hover, 
 .navbar-inverse .navbar-nav>.open>a:focus
 {
-  background-color: transparent;
+  background-color: #111;
 }
-
+.navbar-collapse
+{
+  background-color: #111;
+}
 .location-block
 {
   padding-bottom: 5px;
@@ -264,7 +272,9 @@ footer {
 }
 .profile-pic
 {
-  margin-left: 23%;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
   height:150px;
   width: 150px;
   border-radius: 125px;
@@ -301,6 +311,10 @@ img.worksample
   margin: 10px 10px;
 }
 
+.form-group img
+{
+  margin-right: 2%;
+}
 .noisy-net
 {
   height: 100%;
@@ -329,9 +343,13 @@ div > hr
 
 div.profile-left-section, div.profile-right-section
 {
-  height: 99%;
+  height: 100%;
 }
 
+div.profile-left-section
+{
+  max-width: 310px;
+}
 div.profile-right-section
 {
   border-left: 1px solid #eee;
@@ -348,10 +366,22 @@ legend
 .nav>li>a:hover, .nav>li>a:focus
 {
   text-decoration: none;
-  background-color: transparent;
+/*  background-color: transparent;*/
   color: #2a6496;
 }
 .table > thead > tr > th
 {
   border: none;
+}
+
+.left-inner-addon {
+    position: relative;
+}
+.left-inner-addon input {
+    padding-left: 30px;    
+}
+.left-inner-addon i {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
 }

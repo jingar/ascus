@@ -13,62 +13,86 @@ if (Input::exists()) {
     if(Token::check(Input::get('csrf_token')))
     {
         try {
-            $member->editMember(array(Input::get('name'),Input::get('city'),Input::get('country'),
-                Input::get('bio')));
 
-            $expertise = new Expertise();
-            $memberExpertise = new MemberExpertise();
-
-            // Add the expertise entered, takes care of duplicated expertise
-            $expertise->addExpertise(Input::get('tags'));
-
-            //Find all the expertise related to the member
-            $expertiseRows = $memberExpertise->findAllMemberExpertise($member->getData()->members_id);
-            $deletedTagsId = array();
-
-            //check if the entered tags match the tags that were already in the database
-            //the ones that are in the database and not in input means they must be deleted
-            if(!empty(Input::get('tags')))
+            // need this because upload library makes uppercase extension to lowercase while it keeps the actuall
+            // name unchanged.
+            var_dump($_FILES);
+            $_FILES['file']['name'] = strtolower($_FILES['file']['name']);
+            $handle = new upload($_FILES['file']);
+            if($handle->uploaded)
             {
-                //get the ids of tags that the member is deleted
-                foreach($expertiseRows as $expertiseRow)
+                $handle->image_ratio = true;
+                $handle->file_is_image = true;
+                $handle->image_resize = true;
+                $handle->image_x = 150;
+                $handle->image_x = 150;
+                $handle->process('worksamples/profile-pic');
+                if($handle->processed)
                 {
-                    if(array_search($expertiseRow->expertise,Input::get('tags')) === FALSE)
+                    $member->editMember(array(Input::get('name'),Input::get('city'),Input::get('country'),
+                        Input::get('bio'),'worksamples/profile-pic/' . $_FILES['file']['name']));
+
+                    $expertise = new Expertise();
+                    $memberExpertise = new MemberExpertise();
+
+                    // Add the expertise entered, takes care of duplicated expertise
+                    $expertise->addExpertise(Input::get('tags'));
+
+                    //Find all the expertise related to the member
+                    $expertiseRows = $memberExpertise->findAllMemberExpertise($member->getData()->members_id);
+                    $deletedTagsId = array();
+
+                    //check if the entered tags match the tags that were already in the database
+                    //the ones that are in the database and not in input means they must be deleted
+                    if(!empty(Input::get('tags')))
                     {
-                        $deletedTagsId [] = $expertiseRow->expertise_id;
+                        //get the ids of tags that the member is deleted
+                        foreach($expertiseRows as $expertiseRow)
+                        {
+                            if(array_search($expertiseRow->expertise,Input::get('tags')) === FALSE)
+                            {
+                                $deletedTagsId [] = $expertiseRow->expertise_id;
+                            }
+                        }
+
+                        // for each tag entered link it to the member
+                        foreach(Input::get('tags') as $tag)
+                        {
+                            $memberExpertise->addMemberExpertise($member->getData()->members_id,
+                                $expertise->findByExpertise($tag)->expertise_id);
+                        }
+                    }
+                    else
+                    {
+                        //if the input tags are empty delete all expertise related to that user
+                        foreach ($expertiseRows as $expertiseRow) {
+                            $deletedTagsId [] = $expertiseRow->expertise_id;
+                        }
+                    }
+
+                    //delete tags realted to the member if their are any
+                    if(!empty($deletedTagsId))
+                    {
+                       // add the tags / replace any that were already inserted
+                        $memberExpertise->deleteAllByExpertiseId($deletedTagsId);
+                    }
+
+                    $interest = new Interest();
+                    $interest->deleteAll(array($member->getData()->members_id));
+                    if(!empty(Input::get('interest-tags')))
+                    {
+                        foreach (Input::get('interest-tags') as $interest_tag) {
+                            $interest->addInterest(array($member->getData()->members_id,$interest_tag));
+                        }
                     }
                 }
-
-                // for each tag entered link it to the member
-                foreach(Input::get('tags') as $tag)
+                else
                 {
-                    $memberExpertise->addMemberExpertise($member->getData()->members_id,
-                        $expertise->findByExpertise($tag)->expertise_id);
-                }
-            }
-            else
-            {
-                //if the input tags are empty delete all expertise related to that user
-                foreach ($expertiseRows as $expertiseRow) {
-                    $deletedTagsId [] = $expertiseRow->expertise_id;
+                    echo 'error : ' . $handle->error;
+                    echo $handle->log;
                 }
             }
 
-             //delete tags realted to the member if their are any
-            if(!empty($deletedTagsId))
-            {
-                // add the tags / replace any that were already inserted
-                $memberExpertise->deleteAllByExpertiseId($deletedTagsId);
-            }
-
-            $interest = new Interest();
-            $interest->deleteAll(array($member->getData()->members_id));
-            if(!empty(Input::get('interest-tags')))
-            {
-                foreach (Input::get('interest-tags') as $interest_tag) {
-                    $interest->addInterest(array($member->getData()->members_id,$interest_tag));
-                }
-            }
             
         } catch (Exception $ex) {
             echo $ex; 
@@ -85,6 +109,7 @@ if (Input::exists()) {
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/jquery.tagit.css" type="text/css">
     <link rel="stylesheet" href="css/tagit.ui-zendesk.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery.fileupload.css">
     <link rel="stylesheet" type="text/css" href="css/strapped.css">
 </head>
 <?php require_once('./includes/header-inc.php'); ?>
@@ -107,7 +132,7 @@ if (Input::exists()) {
                     </a>
                 </li>
             </ul>
-            <form id="editprofile_form" class="push-down" role="form" method ="POST" action ="">
+            <form id="editprofile_form" class="push-down" role="form" method ="POST" enctype="multipart/form-data" action ="">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input name="name" type="text" class="form-control" id="name" 
@@ -136,7 +161,18 @@ if (Input::exists()) {
                 </div>
                 <div class="form-group">
                     <label for="bio">Bio</label>
-                    <textarea name ="bio" class="form-control" rows="3"><?php echo Sanitize::escape($member->getData()->bio); ?></textarea>
+                    <textarea id="bio" name ="bio" class="form-control" rows="3"><?php echo Sanitize::escape($member->getData()->bio); ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="profile-pic">Profile Picture</label>
+                    <div>
+                        <img id="profile-pic" src="<?php echo Sanitize::escape($member->getData()->profile_pic); ?>" width="75px">
+                        <span id="file_span" class="btn btn-success fileinput-button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>Pick a profile picture</span>
+                            <input type="file" name="file" id="file" onchange="readURL(this);">             
+                        </span>
+                    </div>
                 </div>
                 <input type="hidden" name="csrf_token" value="<?php echo Token::generate(); ?>">
                 <div id="tagChanges" style="display: none;">
@@ -146,10 +182,10 @@ if (Input::exists()) {
                 <div>
                     <button name="editprofile" id = "editprofile" type="submit" class="btn btn-warning">Save Changes</button>
                 </div>
-                </div>
             </form>
-        </div>
-    </div> 
+        </div> 
+    </div>
+    <?php require_once 'includes/footer.php' ?>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/jquery-ui.min.js"></script>
     <script src="js/bootstrap.min.js"></script> 
@@ -161,5 +197,16 @@ if (Input::exists()) {
     <script type="text/javascript" src="js/AddTags.js"></script>
     <script type="text/javascript" src="js/AddInterestTags.js"></script>
     <script type="text/javascript" src="js/GetInterestTags.js"></script>
-    </body>
+    <script type="text/javascript">
+        function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#profile-pic').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    </script>
+</body>
 </html>

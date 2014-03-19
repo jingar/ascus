@@ -19,7 +19,9 @@ if (Input::exists()) {
         try {
             // need this because upload library makes uppercase extension to lowercase while it keeps the actuall
             // name unchanged.
+            
             $_FILES['file']['name'] = strtolower($_FILES['file']['name']);
+            var_dump($_FILES);
             $worksample = new WorkSample();
             $worksample->addWorkSample(array(NULL,$member->getData()->members_id,
                 $_FILES['file']['name'],
@@ -28,7 +30,6 @@ if (Input::exists()) {
                 Input::get('description'),
                 ));
             $handle = new upload($_FILES['file']);
-            $error = "none";
             if($handle->uploaded)
             {
                 $handle->image_ratio = true;
@@ -40,13 +41,12 @@ if (Input::exists()) {
                 $error = " uploaded";
                 if($handle->processed)
                 {
-                    $error = " processed";
+                 
                     Session::flash('File uploaded', 'File uploaded successfully');
                     Redirect::to('showworksamples.php?id=' . $member->getData()->members_id);
                 }
                 else
                 {
-                    $error = "not processed";
                     echo 'error : ' . $handle->error;
                     echo $handle->log;
                 }
@@ -87,13 +87,12 @@ if (Input::exists()) {
                     <a href="<?php echo Sanitize::escape('showworksamples.php?id=' . $member->getData()->members_id)?>">Work Samples
                     </a>
             </ul>
-            <p> <?php echo $error ;?> </p>
             <form id="worksample_form" class="push-down" role="form" method ="post" enctype="multipart/form-data" action ="">
                 <div class="form-group">
                     <span id="file_span" class="btn btn-success fileinput-button">
                         <i class="glyphicon glyphicon-plus"></i>
                         <span>Pick a file</span>
-                        <input name="file" type="file" name="files" id="file">
+                        <input type="file" name="file" id="file">
                     </span>
                     <span id="fileName"></span>
                 </div>
@@ -105,7 +104,7 @@ if (Input::exists()) {
                 </div>
                 <div class="form-group">
                 <label for="description">Description</label>
-                    <textarea name ="description" class="form-control" rows="3"></textarea>
+                    <textarea name ="description" class="form-control" rows="3" id="description"></textarea>
                 </div>
                 <input type="hidden" name="csrf_token" value="<?php echo Token::generate(); ?>">
                 <div class="form-group">

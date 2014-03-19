@@ -40,7 +40,6 @@ class Mailer {
                 . "<a href= \"www.saad.bytenet.co.uk/confirmationpage.php?email=$email&confirmation_key=$confirmation_key\">"
                 . "www.saad.bytenet.co.uk/confirmationpage.php?email=$email&confirmation_key=$confirmation_key</a>"
                 . "<br><br> -- ASCUS Team";
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
         if (!$mail->send()) {
             echo 'Message could not be sent.';
