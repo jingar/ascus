@@ -10,7 +10,8 @@ $(document).ready(function() {
             rules: {
                 file: {
                     required: true,
-                    extension: "png|jpg|jpeg|gif"
+                    extension: "png|jpg|jpeg|gif",
+                    filesize: 5242880
                 },
                 title: {
                     required: true,

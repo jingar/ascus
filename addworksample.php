@@ -21,17 +21,12 @@ if (Input::exists()) {
             // name unchanged.
             
             $_FILES['file']['name'] = strtolower($_FILES['file']['name']);
-            var_dump($_FILES);
-            $worksample = new WorkSample();
-            $worksample->addWorkSample(array(NULL,$member->getData()->members_id,
-                $_FILES['file']['name'],
-                'worksamples/' . $_FILES['file']['name'],
-                Input::get('title'),
-                Input::get('description'),
-                ));
+            //unqiue file name so images with the same name can be uploaded
+            $uniqueFileName = uniqid(rand(),true);
             $handle = new upload($_FILES['file']);
             if($handle->uploaded)
             {
+                $handle->file_name_body_add = $uniqueFileName;
                 $handle->image_ratio = true;
                 $handle->file_is_image = true;
                 $handle->image_resize = true;
@@ -42,6 +37,13 @@ if (Input::exists()) {
                 if($handle->processed)
                 {
                  
+                    $worksample = new WorkSample();
+                    $worksample->addWorkSample(array(NULL,$member->getData()->members_id,
+                        $_FILES['file']['name'],
+                        'worksamples/' . $handle->file_dst_name,
+                        Input::get('title'),
+                        Input::get('description'),
+                        ));
                     Session::flash('File uploaded', 'File uploaded successfully');
                     Redirect::to('showworksamples.php?id=' . $member->getData()->members_id);
                 }
