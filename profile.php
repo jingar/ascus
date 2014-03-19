@@ -1,7 +1,6 @@
 <?php
 require_once 'core/init.php';
-$member = new Member();
-$member_data = $member->findByID(Input::get('id'));
+$member = new Member(Input::get('id'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,14 +19,14 @@ $member_data = $member->findByID(Input::get('id'));
     <?php require_once('includes/header-inc.php'); ?> 
     <div class="profile-content">
         <div class ="col-md-3 profile-left-section">
-            <h1 style="text-align: center"><?php echo $member_data->name; ?></h1>
+            <h1 style="text-align: center"><?php echo $member->getData()->name; ?></h1>
             <div class="location-block">
                 <i class="glyphicon glyphicon-map-marker">
                 </i>
                 <h4 class="location">Moscow, Russia</h4>
             </div>
             <div>
-                <img class = "profile-pic" src="<?php echo $member_data->profile_pic; ?>"/>
+                <img class = "profile-pic" src="<?php echo $member->getData()->profile_pic; ?>"/>
             </div>
             <div class="profile-list">
                 <div>
@@ -56,7 +55,7 @@ $member_data = $member->findByID(Input::get('id'));
         <div class ="col-md-9 profile-right-section">
             <h2>Bio</h2>
             <p>
-                <?php echo $member_data->bio; ?>
+                <?php echo $member->getData()->bio; ?>
             </p>
             <hr>
             <h2> Work Samples </h2>

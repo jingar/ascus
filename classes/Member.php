@@ -22,7 +22,7 @@ class Member {
         }
         else
         {
-            $this->_data = $this->findByUsername($user);
+            $this->_data = $this->findByID($user);
         }
     }
 

@@ -13,86 +13,93 @@ if (Input::exists()) {
     if(Token::check(Input::get('csrf_token')))
     {
         try {
-
+            //if profile picture is picked then upload
+            if(!empty($_FILES['file']['name']))
+            {
             // need this because upload library makes uppercase extension to lowercase while it keeps the actuall
             // name unchanged.
-            var_dump($_FILES);
-            $_FILES['file']['name'] = strtolower($_FILES['file']['name']);
-            $handle = new upload($_FILES['file']);
-            if($handle->uploaded)
-            {
-                $handle->image_ratio = true;
-                $handle->file_is_image = true;
-                $handle->image_resize = true;
-                $handle->image_x = 150;
-                $handle->image_x = 150;
-                $handle->process('worksamples/profile-pic');
-                if($handle->processed)
+                $_FILES['file']['name'] = strtolower($_FILES['file']['name']);
+                $handle = new upload($_FILES['file']);
+                if($handle->uploaded)
                 {
-                    $member->editMember(array(Input::get('name'),Input::get('city'),Input::get('country'),
-                        Input::get('bio'),'worksamples/profile-pic/' . $_FILES['file']['name']));
-
-                    $expertise = new Expertise();
-                    $memberExpertise = new MemberExpertise();
-
-                    // Add the expertise entered, takes care of duplicated expertise
-                    $expertise->addExpertise(Input::get('tags'));
-
-                    //Find all the expertise related to the member
-                    $expertiseRows = $memberExpertise->findAllMemberExpertise($member->getData()->members_id);
-                    $deletedTagsId = array();
-
-                    //check if the entered tags match the tags that were already in the database
-                    //the ones that are in the database and not in input means they must be deleted
-                    if(!empty(Input::get('tags')))
+                    $handle->image_ratio = true;
+                    $handle->file_is_image = true;
+                    $handle->image_resize = true;
+                    $handle->image_x = 150;
+                    $handle->image_x = 150;
+                    $handle->process('worksamples/profile-pic');
+                    if($handle->processed)
                     {
-                        //get the ids of tags that the member is deleted
-                        foreach($expertiseRows as $expertiseRow)
-                        {
-                            if(array_search($expertiseRow->expertise,Input::get('tags')) === FALSE)
-                            {
-                                $deletedTagsId [] = $expertiseRow->expertise_id;
-                            }
-                        }
-
-                        // for each tag entered link it to the member
-                        foreach(Input::get('tags') as $tag)
-                        {
-                            $memberExpertise->addMemberExpertise($member->getData()->members_id,
-                                $expertise->findByExpertise($tag)->expertise_id);
-                        }
+                        $member->editMember(array(Input::get('name'),Input::get('city'),Input::get('country'),
+                            Input::get('bio'),'worksamples/profile-pic/' . $_FILES['file']['name']));
                     }
-                    else
+                    else 
                     {
-                        //if the input tags are empty delete all expertise related to that user
-                        foreach ($expertiseRows as $expertiseRow) {
-                            $deletedTagsId [] = $expertiseRow->expertise_id;
-                        }
-                    }
-
-                    //delete tags realted to the member if their are any
-                    if(!empty($deletedTagsId))
-                    {
-                       // add the tags / replace any that were already inserted
-                        $memberExpertise->deleteAllByExpertiseId($deletedTagsId);
-                    }
-
-                    $interest = new Interest();
-                    $interest->deleteAll(array($member->getData()->members_id));
-                    if(!empty(Input::get('interest-tags')))
-                    {
-                        foreach (Input::get('interest-tags') as $interest_tag) {
-                            $interest->addInterest(array($member->getData()->members_id,$interest_tag));
-                        }
+                        echo 'error : ' . $handle->error;
+                        var_dump($handle->log);
                     }
                 }
-                else
+            }
+            else
+            {
+                var_dump($member->getData()->profile_pic);
+                $member->editMember(array(Input::get('name'),Input::get('city'),Input::get('country'),
+                    Input::get('bio'),$member->getData()->profile_pic));
+            }
+
+            $expertise = new Expertise();
+            $memberExpertise = new MemberExpertise();
+
+            // Add the expertise entered, takes care of duplicated expertise
+            $expertise->addExpertise(Input::get('tags'));
+
+            //Find all the expertise related to the member
+            $expertiseRows = $memberExpertise->findAllMemberExpertise($member->getData()->members_id);
+            $deletedTagsId = array();
+
+            //check if the entered tags match the tags that were already in the database
+            //the ones that are in the database and not in input means they must be deleted
+            if(!empty(Input::get('tags')))
+            {
+                //get the ids of tags that the member is deleted
+                foreach($expertiseRows as $expertiseRow)
                 {
-                    echo 'error : ' . $handle->error;
-                    echo $handle->log;
+                    if(array_search($expertiseRow->expertise,Input::get('tags')) === FALSE)
+                    {
+                        $deletedTagsId [] = $expertiseRow->expertise_id;
+                    }
+                }
+
+                // for each tag entered link it to the member
+                foreach(Input::get('tags') as $tag)
+                {
+                    $memberExpertise->addMemberExpertise($member->getData()->members_id,
+                        $expertise->findByExpertise($tag)->expertise_id);
+                }
+            }
+            else
+            {
+                //if the input tags are empty delete all expertise related to that user
+                foreach ($expertiseRows as $expertiseRow) {
+                    $deletedTagsId [] = $expertiseRow->expertise_id;
                 }
             }
 
+                    //delete tags realted to the member if their are any
+            if(!empty($deletedTagsId))
+            {
+                       // add the tags / replace any that were already inserted
+                $memberExpertise->deleteAllByExpertiseId($deletedTagsId);
+            }
+
+            $interest = new Interest();
+            $interest->deleteAll(array($member->getData()->members_id));
+            if(!empty(Input::get('interest-tags')))
+            {
+                foreach (Input::get('interest-tags') as $interest_tag) {
+                    $interest->addInterest(array($member->getData()->members_id,$interest_tag));
+                }
+            }
             
         } catch (Exception $ex) {
             echo $ex; 
