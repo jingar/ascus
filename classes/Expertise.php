@@ -13,7 +13,7 @@
  */
 class Expertise {
 
-    private $_datab;
+    private $_database_connection;
 
     public function __construct() {
         $this->_database_connection = Database::getInstance();

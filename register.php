@@ -64,61 +64,64 @@ if (Input::exists()) {
     </head>
     <?php require_once('./includes/header-inc.php'); ?>
     <body>
-        <div class="container">
-            <div class="push-down">
-                <fieldset>
-                    <legend> Registration </legend>
-                </fieldset>
-                <?php echo $error_html ?>
-                <form id = "registration_form" role = "form" method = "POST" action = "">
-                    <div class = "form-group">
-                        <label for = "name">Name</label>
-                        <div>
-                            <input name = "name" type = "text" class = "form-control" id = "name" placeholder = "First Name">
+        <div class="">
+            <div class="container height100">
+                <div class="push-down height100">
+                    <fieldset>
+                        <legend> Registration </legend>
+                    </fieldset>
+                    <?php echo $error_html ?>
+                    <form id = "registration_form" style="height: 90%" role = "form" method = "POST" action = "">
+                        <div class = "form-group">
+                            <label for = "name">Name</label>
+                            <div>
+                                <input name = "name" type = "text" class = "form-control" id = "name" placeholder = "First Name">
+                            </div>
                         </div>
-                    </div>
-                    <div class = "form-group">
-                        <label for = "profession">Profession</label>
-                        <select name = "profession" class = "form-control" id = "profession">
-                            <option value = "artist">Artist</option>
-                            <option value = "scientist">Scientist</option>
-                        </select>
-                    </div>
-                    <div class = "form-group">
-                        <label for = "email">Email</label>
-                        <div>
-                            <input name = "email" type = "email" class = "form-control" id = "email" placeholder = "Email">
+                        <div class = "form-group">
+                            <label for = "profession">Profession</label>
+                            <select name = "profession" class = "form-control" id = "profession">
+                                <option value = "artist">Artist</option>
+                                <option value = "scientist">Scientist</option>
+                            </select>
                         </div>
-                    </div>
+                        <div class = "form-group">
+                            <label for = "email">Email</label>
+                            <div>
+                                <input name = "email" type = "email" class = "form-control" id = "email" placeholder = "Email">
+                            </div>
+                        </div>
 
-                    <div class = "form-group">
-                        <label for = "username">Username</label>
-                        <div>
-                            <input name = "username" type = "text" class = "form-control" id = "username" placeholder = "Username">
+                        <div class = "form-group">
+                            <label for = "username">Username</label>
+                            <div>
+                                <input name = "username" type = "text" class = "form-control" id = "username" placeholder = "Username">
+                            </div>
                         </div>
-                    </div>
-                    <div class = "form-group">
-                        <label for = "password">Password</label>
-                        <div>
-                            <input name = "password" type = "password" class = "form-control" id = "password" placeholder = "Password">
+                        <div class = "form-group">
+                            <label for = "password">Password</label>
+                            <div>
+                                <input name = "password" type = "password" class = "form-control" id = "password" placeholder = "Password">
+                            </div>
                         </div>
-                    </div>
-                    <div class = "form-group">
-                        <label for = "confirmPassword">Confirm Password</label>
-                        <div>
-                            <input name = "confirmPassword" type = "password" class = "form-control" id = "confirmPassword" placeholder = "Confirm Password">
+                        <div class = "form-group">
+                            <label for = "confirmPassword">Confirm Password</label>
+                            <div>
+                                <input name = "confirmPassword" type = "password" class = "form-control" id = "confirmPassword" placeholder = "Confirm Password">
+                            </div>
                         </div>
-                    </div>
 
-                    <input type="hidden" name="csrf_token" value="<?php echo Token::generate(); ?>"
-                    <div class = "form-group">
-                        <div>
-                            <button name = "register" id = "register" type = "submit" class = "btn btn-warning">Sign Up</button>
+                        <input type="hidden" name="csrf_token" value="<?php echo Token::generate(); ?>"
+                        <div class = "form-group">
+                            <div>
+                                <button name = "register" id = "register" type = "submit" class = "btn btn-warning">Sign Up</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
+        <?php require_once 'includes/footer.php' ?>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>

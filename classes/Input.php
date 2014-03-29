@@ -24,6 +24,17 @@ class Input {
         }
     }
 
+    public static function valueExists($value,$type = 'post')
+    {
+        switch ($type) {
+            case 'post':
+               return (!empty($_POST[$value])) ? true : false;
+            case 'get':
+               return (!empty($_GET[$value])) ? true : false;
+            default:
+               break;
+        }
+    }
     public static function get($item) {
         if (isset($_POST[$item])) {
             return $_POST[$item];

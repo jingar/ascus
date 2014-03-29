@@ -1,6 +1,6 @@
 <?php
 require_once 'core/init.php';
-$member = new Member(Input::get('id'));
+$memberData = new Member(Input::get('id'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,14 +19,28 @@ $member = new Member(Input::get('id'));
     <?php require_once('includes/header-inc.php'); ?> 
     <div class="profile-content">
         <div class ="col-md-3 profile-left-section">
-            <h1 style="text-align: center"><?php echo $member->getData()->name; ?></h1>
+            <h1 style="text-align: center"><?php echo $memberData->getData()->name; ?></h1>
             <div class="location-block">
-                <i class="glyphicon glyphicon-map-marker">
-                </i>
-                <h4 class="location">Moscow, Russia</h4>
+                <?php
+                if(!empty($member->getData()->country) && !empty($member->getData()->country))
+                {
+                    echo '<i class="glyphicon glyphicon-map-marker"></i>', PHP_EOL;
+                    echo '<h4 class="location">' . $member->getData()->city . ',' . $member->getData()->country . '</h4>';
+                }
+                else if(empty($member->getData()->city) && !empty($member->getData()->country))
+                {
+                    echo '<i class="glyphicon glyphicon-map-marker"></i>', PHP_EOL;
+                    echo '<h4 class="location">' . $member->getData()->country . '</h4>';
+                }
+                else if(empty($member->getData()->country) && !empty($member->getData()->city))
+                {
+                    echo '<i class="glyphicon glyphicon-map-marker"></i>', PHP_EOL;
+                    echo '<h4 class="location">' . $member->getData()->city . '</h4>';
+                }
+                ?>
             </div>
             <div>
-                <img class = "profile-pic" src="<?php echo $member->getData()->profile_pic; ?>"/>
+            <img class="profile-pic" src="<?php echo $memberData->getData()->profile_pic; ?>">
             </div>
             <div class="profile-list">
                 <div>
@@ -43,26 +57,39 @@ $member = new Member(Input::get('id'));
                 </div>
             </div>
             <div class="profile-list">
-                <div >
+                <div>
                     <h4>Experience</h4>
-                    <ul>
-                        <li>Maecenas vitae euismod tortor.</li>
-                        <li>Integer ornare nullam</li>
-                    </ul>
+                    <?php
+                    $experience = new Experience();
+                    $experienceArray = $experience->findAllExperiences($member->getData()->members_id);
+                    foreach ($experienceArray as $value) {
+                        echo '<div class="experience-unit">';
+                        echo   '<div>';
+                        echo    '<span class="glyphicon glyphicon-briefcase"></span>';
+                        echo     '<p class="work-project-name">' . $value->work_project_name . '</p>';
+                        echo   '</div>';
+                        echo   '<div>';
+                        echo    '<span class="glyphicon glyphicon-share"></span>';
+                        echo    '<p class="work-project-name"> <a href=' . $value->link .' >' . 
+                                    $value->link . '</a></p>';
+                        echo   '</div>';
+                        echo '</div>';
+                    }
+                    ?>
                 </div>
             </div>
         </div>
         <div class ="col-md-9 profile-right-section">
-            <h2>Bio</h2>
+            <h2>About Me</h2>
             <p>
-                <?php echo $member->getData()->bio; ?>
+                <?php echo $memberData->getData()->bio; ?>
             </p>
             <hr>
             <h2> Work Samples </h2>
             <div class="galleria">
                 <?php
                 $workSample = new WorkSample();
-                $memberWorkSamples = $workSample->findByMemberID(array($member->getData()->members_id));
+                $memberWorkSamples = $workSample->findByMemberID(array($memberData->getData()->members_id));
                 foreach ($memberWorkSamples as $w) {
                     echo '<img class="worksample"src="'. $w->path .'" data-title="'. $w->title . 
                     '" data-description="' . $w->description.'">';                    
@@ -75,6 +102,7 @@ $member = new Member(Input::get('id'));
     <script src="js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/tag-it.min.js"></script>
+    <script type="text/javascript" src="js/UrlParser.js"></script>
     <script type="text/javascript" src="js/DisplayTags.js"></script>
     <script src="js/galleria-1.3.5.min.js"></script>
     <script>

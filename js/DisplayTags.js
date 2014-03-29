@@ -10,7 +10,7 @@ $(function() {
 
 
 $.ajax({
-  url: 'gettags.php',
+  url: 'gettags.php?id=' + getParameterByName("id"),
   dataType: 'json',
   success:function (data){
       //data should be a json object that returns an array
@@ -23,7 +23,7 @@ $.ajax({
   });
 
   $.ajax({
-    url: 'getinteresttags.php',
+    url: 'getinteresttags.php?id=' + getParameterByName("id"),
     dataType: 'json',
     success:function (data){
       //data should be a json object that returns an array

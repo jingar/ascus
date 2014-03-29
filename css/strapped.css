@@ -1,3 +1,4 @@
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
 @font-face {
   font-family: "gandhi sans";
   font-style: normal;
@@ -73,7 +74,7 @@ body, h1, h2, h3, h4, h5, h6 {
 #jumbo-container
 {
   background-image:url(/images/noisy_net.png);
-  height: 85%;
+  height: 85.6%;
 }
 .jumbotron {
   background: url(/images/noisy_net.png);
@@ -325,21 +326,17 @@ div.profile-list
 {
   margin-left: 23%;
 }
-a:hover
+/*a:hover
 {
   color: transparent;
   cursor: inherit;
-};
+}*/
 
-div > hr
-{
-  border-top: 1px dashed #ed9c28;
-}
 
 .galleria
-  { 
-    width: 100%; height: 400px; background: transparent;
-  }
+{ 
+  width: 100%; height: 400px; background: transparent;
+}
 
 div.profile-left-section, div.profile-right-section
 {
@@ -349,10 +346,7 @@ div.profile-left-section, div.profile-right-section
 div.profile-left-section
 {
   max-width: 310px;
-}
-div.profile-right-section
-{
-  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
 }
 div.login
 {
@@ -384,4 +378,24 @@ legend
     position: absolute;
     padding: 10px 12px;
     pointer-events: none;
+}
+.experience-input
+{
+  margin-bottom: 1%;
+}
+div.profile-content
+{
+ /* height: 90%;*/
+}
+p.work-project-name, p.work-project-name a:hover
+{
+  display: inline;
+  margin-left: 1%;
+  word-wrap: break-word;
+  background-color: transparent;
+  word-break:break-all;
+}
+div.experience-unit
+{
+  margin-bottom: 5%;
 }

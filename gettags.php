@@ -1,7 +1,7 @@
 <?php 
 
 require_once 'core/init.php';
-$member = new Member();
+$member = new Member(Input::get('id'));
 $memberExpertise = new MemberExpertise();
 $allMemberExpertise = $memberExpertise->findAllMemberExpertise($member->getData()->members_id);
 $tags = array();

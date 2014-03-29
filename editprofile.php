@@ -1,6 +1,8 @@
 <?php
 require_once 'core/init.php';
 $member = new Member();
+$memberCollaborationTypes = new MemberCollaborationType();
+$experience = new Experience();
 
 if(!$member->isLoggedIn()){
     Redirect::to('homepage.php');
@@ -31,7 +33,7 @@ if (Input::exists()) {
                     if($handle->processed)
                     {
                         $member->editMember(array(Input::get('name'),Input::get('city'),Input::get('country'),
-                            Input::get('bio'),'worksamples/profile-pic/' . $_FILES['file']['name']));
+                            Input::get('bio'),'worksamples/profile-pic/' . $_FILES['file']['name'],Input::get('collaboration-time')));
                     }
                     else 
                     {
@@ -42,9 +44,8 @@ if (Input::exists()) {
             }
             else
             {
-                var_dump($member->getData()->profile_pic);
                 $member->editMember(array(Input::get('name'),Input::get('city'),Input::get('country'),
-                    Input::get('bio'),$member->getData()->profile_pic));
+                    Input::get('bio'),$member->getData()->profile_pic,Input::get('collaboration-time')));
             }
 
             $expertise = new Expertise();
@@ -100,7 +101,22 @@ if (Input::exists()) {
                     $interest->addInterest(array($member->getData()->members_id,$interest_tag));
                 }
             }
-            
+
+            $memberCollaborationTypes->deleteAll($member->getData()->members_id);
+            if(!empty(Input::get('collaboration_type')))
+            {
+                $collaborationType = new CollaborationType();
+                foreach (Input::get('collaboration_type') as $c)
+                {
+                    $memberCollaborationTypes->addMemberCollaborationType($member->getData()->members_id,
+                       $collaborationType->findCollaborationId($c)->collaboration_type_id);
+                }
+            }
+            $experience->deleteAll($member->getData()->members_id);
+            if(Input::valueExists('experience'))
+            {
+                $experience->addExperiences($member->getData()->members_id,Input::get('experience'));
+            }
         } catch (Exception $ex) {
             echo $ex; 
         }
@@ -156,6 +172,67 @@ if (Input::exists()) {
                     <ul class="tagit ui-widget ui-widget-content ui-corner-all" id="interest-tags">
                     </ul> 
                 </div>
+                <div id="experience_form">
+                    <label>Experience</label>
+                    <?php 
+                      $experienceArray = $experience->findAllExperiences($member->getData()->members_id);
+                    ?>
+                    <div class="form-group" id="<?php echo count($experienceArray);?>">
+                        <button name="add_experience" id="add_experience" type ="button" class="btn btn-success">Add Experience</button>
+                    </div>
+                    <?php
+                    $counter = 0;
+                    foreach ($experienceArray as $exp)
+                    {
+                        echo "<div class=\"form-group\">" .
+                        "<input name=\"experience[". $counter ."][work_project]\" type=\"text\" class=\"form-control experience-input\" value=\"" . $exp->work_project_name . "\" placeholder=\"Work Place/ Project Name\">" .
+                        "<input name=\"experience[". $counter ."][link]\" type=\"text\" class=\"form-control experience-input\" value=\"". $exp->link . "\" placeholder=\"Link to your work place or project\">" .
+                        "<button name=\"remove_button\" type=\"button\" class=\"btn btn-danger\">remove</button>" .
+                        "</div>";
+                        ++$counter;
+                    }
+                    ?>
+                </div>
+                <div>
+                    <label>Collaboration</label>
+                    <div>
+                        <div class="form-group">
+                            <?php  
+                            $collaborationTypeArray = array();
+                            foreach ($memberCollaborationTypes->FindAllMemberCollaborationTypes($member->getData()->members_id) as $v) {
+                                $collaborationTypeArray[] = $v->collaboration_type;
+                            }
+                            ?>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input name="collaboration_type[]" type="checkbox" value="No Collaboration" <?php echo (in_array("No Collaboration" , $collaborationTypeArray) ? "Checked" : "")?> > No Collaboration
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input name="collaboration_type[]" type="checkbox" value="Paid Work" <?php echo (in_array("Paid Work" , $collaborationTypeArray) ? "Checked" : "")?> > Paid Work
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input name="collaboration_type[]" type="checkbox" value="Volunteer Work" <?php echo (in_array("Volunteer Work" , $collaborationTypeArray) ? "Checked" : "")?> > Volunteer Work
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="collaboration-time">
+                        <div class="form-group">
+                        <select name="collaboration-time" class="form-control">
+                        <?php $collaborationAmount = $member->getData()->collaboration_amount ?>
+                            <option <?php echo (($collaborationAmount === "10 Hours per Week") ? "selected" : "");?> >10 Hours per Week</option>
+                            <option <?php echo (($collaborationAmount === "20 Hours per Week") ? "selected" : "");?> >20 Hours per Week</option>
+                            <option <?php echo (($collaborationAmount === "30 Hours per Week") ? "selected" : "") ;?> >30 Hours per Week</option>
+                            <option <?php echo (($collaborationAmount === "40+ Hours per Week") ? "selected" : "") ;?> >40+ Hours per Week</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="city">City</label>
                     <input name="city" type="text" class="form-control" id="city" placeholder="City"
@@ -200,20 +277,21 @@ if (Input::exists()) {
     <script type="text/javascript" src="js/additional-methods.js"></script>
     <script type="text/javascript" src="js/editprofile.js"></script>
     <script type="text/javascript" src="js/tag-it.min.js"></script>
+    <script type="text/javascript" src="js/UrlParser.js"></script>
     <script type="text/javascript" src="js/GetTags.js"></script>
     <script type="text/javascript" src="js/AddTags.js"></script>
-    <script type="text/javascript" src="js/AddInterestTags.js"></script>
-    <script type="text/javascript" src="js/GetInterestTags.js"></script>
+    <script type="text/javascript" src="js/AddExperience.js"></script>
     <script type="text/javascript">
         function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#profile-pic').attr('src', e.target.result);
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#profile-pic').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
             }
-            reader.readAsDataURL(input.files[0]);
         }
-    }
+        $('#datepicker').datepicker();
     </script>
 </body>
 </html>

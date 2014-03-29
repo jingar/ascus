@@ -5,13 +5,14 @@ class Member {
             $_data = NULL,
             $_isLoggedIn = FALSE;
 
-    public function __construct($user = NULL) {
+    public function __construct($id = NULL) {
+
         $this->_database_connection = Database::getInstance();
-        if (!$user) {
+        if (!$id) {
             if (Session::exists(Config::get('session/session_name'))) {
-                $user = Session::get(Config::get('session/session_name'));
-                if ($this->_database_connection->rowExists('members','members_id',$user)) {
-                    $this->_data = $this->findByID($user);
+                $id = Session::get(Config::get('session/session_name'));
+                if ($this->_database_connection->rowExists('members','members_id',$id)) {
+                    $this->_data = $this->findByID($id);
                     $this->_isLoggedIn = TRUE;
                 }
                 else
@@ -22,7 +23,8 @@ class Member {
         }
         else
         {
-            $this->_data = $this->findByID($user);
+
+            $this->_data = $this->findByID($id);
         }
     }
 
@@ -84,7 +86,7 @@ class Member {
     }
     public function editMember($fields,$id = NULL) {
         if(!$id){ $fields[] = $this->_data->members_id; }
-        $this->_database_connection->query("UPDATE `members` SET `name` = ?, `city` = ?, `country` = ?,`bio` = ?, `profile_pic` = ? WHERE `members_id` = ?", $fields);
+        $this->_database_connection->query("UPDATE `members` SET `name` = ?, `city` = ?, `country` = ?,`bio` = ?, `profile_pic` = ?, collaboration_amount = ?  WHERE `members_id` = ?", $fields);
     }   
 
     public function isLoggedIn(){

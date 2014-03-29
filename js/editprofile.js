@@ -25,5 +25,29 @@ $(document).ready(function() {
             }
         });
     });
+    if($('input[value="No Collaboration"]').prop("checked"))
+        {
+            $('[name=collaboration-time]').removeAttr('name');
+            $('#collaboration-time').hide('slow');
+        }
+        else
+        {
+            $('select').attr('name','collaboration-time');
+            $('#collaboration-time').show('slow');
+        }
+
+    $('input[value="No Collaboration"]').click(function(event) {
+        if($(this).prop("checked"))
+        {
+            $('[name=collaboration-time]').removeAttr('name');
+            $('#collaboration-time').hide('slow');
+        }
+        else
+        {
+            $('select').attr('name','collaboration-time');
+            $('#collaboration-time').show('slow');
+        }
+    });
+
 });
 

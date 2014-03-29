@@ -43,12 +43,12 @@ if (Session::exists('Email Activated')) {
         <h2>Find collaborators like yourselves and make awesome works of art. 100% free</h2>
         <p><a class="btn btn-warning btn-lg" href="register.php">Sign Up Today <span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
         <form class="form-horizontal" role="form">
-          <div class="offset col-md-2">
+<!--           <div class="offset col-md-2">
             <div class="left-inner-addon">
               <i class="glyphicon glyphicon-user"></i>
               <input type="text" class="form-control" id="occupation" placeholder="Occupation">
             </div>
-          </div>
+          </div> -->
         </form> 
       </div> <!-- /.container -->
     </div> <!-- /.jumbotron -->
