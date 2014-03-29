@@ -88,17 +88,22 @@ $memberData = new Member(Input::get('id'));
                 <hr>
             </div>
             <div>
-                <h2>Collaboration</h2>
-                <p>
-                <?php 
-                $memberCollaboration = new MemberCollaborationType();
-                $memberCollaborationTypes = $memberCollaboration->FindAllMemberCollaborationTypes($member->getData()->members_id);
-                foreach ($memberCollaborationTypes as $collaboration) {
-                    echo $collaboration->collaboration_type, PHP_EOL;
-                }
-                echo $member->getData()->collaboration_amount;
-                ?>
-                </p>
+                <div class="collaboration-amount">
+                    <h2>Collaboration</h2>
+                    <p>
+                        <?php 
+                        $memberCollaboration = new MemberCollaborationType();
+                        $memberCollaborationTypes = $memberCollaboration->FindAllMemberCollaborationTypes($member->getData()->members_id);
+                        foreach ($memberCollaborationTypes as $collaboration) {
+                            echo $collaboration->collaboration_type, PHP_EOL;
+                        }
+                        ?>
+                    </p>
+                </div>
+                <div class="collaboration-type">
+                    <h2>Availability</h2>
+                    <p><?php   echo $member->getData()->collaboration_amount; ?></p>
+                </div>
                 <hr>
             </div>
             <div>

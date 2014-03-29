@@ -397,10 +397,17 @@ div.experience-unit
 {
   margin-bottom: 5%;
 }
-.mask {
+div.mask
+{
   display: inline-block;
   width: 100px;
   height: 100px;
   border-radius: 50%;
   overflow: hidden;
-  }
+}
+
+div.collaboration-type, div.collaboration-amount
+{
+  display: inline-block;
+  margin-left: 20%;
+}
