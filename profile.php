@@ -40,7 +40,7 @@ $memberData = new Member(Input::get('id'));
                 ?>
             </div>
             <div>
-            <img class="profile-pic" src="<?php echo $memberData->getData()->profile_pic; ?>">
+                <img class="profile-pic" src="<?php echo $memberData->getData()->profile_pic; ?>">
             </div>
             <div class="profile-list">
                 <div>
@@ -80,21 +80,39 @@ $memberData = new Member(Input::get('id'));
             </div>
         </div>
         <div class ="col-md-9 profile-right-section">
-            <h2>About Me</h2>
-            <p>
-                <?php echo $memberData->getData()->bio; ?>
-            </p>
-            <hr>
-            <h2> Work Samples </h2>
-            <div class="galleria">
-                <?php
-                $workSample = new WorkSample();
-                $memberWorkSamples = $workSample->findByMemberID(array($memberData->getData()->members_id));
-                foreach ($memberWorkSamples as $w) {
-                    echo '<img class="worksample"src="'. $w->path .'" data-title="'. $w->title . 
-                    '" data-description="' . $w->description.'">';                    
+            <div>
+                <h2>About Me</h2>
+                <p>
+                    <?php echo $memberData->getData()->bio; ?>
+                </p>
+                <hr>
+            </div>
+            <div>
+                <h2>Collaboration</h2>
+                <p>
+                <?php 
+                $memberCollaboration = new MemberCollaborationType();
+                $memberCollaborationTypes = $memberCollaboration->FindAllMemberCollaborationTypes($member->getData()->members_id);
+                foreach ($memberCollaborationTypes as $collaboration) {
+                    echo $collaboration->collaboration_type, PHP_EOL;
                 }
+                echo $member->getData()->collaboration_amount;
                 ?>
+                </p>
+                <hr>
+            </div>
+            <div>
+                <h2> Work Samples </h2>
+                <div class="galleria">
+                    <?php
+                    $workSample = new WorkSample();
+                    $memberWorkSamples = $workSample->findByMemberID(array($memberData->getData()->members_id));
+                    foreach ($memberWorkSamples as $w) {
+                        echo '<img class="worksample"src="'. $w->path .'" data-title="'. $w->title . 
+                        '" data-description="' . $w->description.'">';                    
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>
