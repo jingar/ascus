@@ -37,6 +37,15 @@ ul#interest-tags li.tagit-choice,ul#display-interest-tags li.tagit-choice {
     background-color: #5bc0de;
     font-weight: normal;
 }
+ul#search-tags li.tagit-choice,ul#display-search-tags li.tagit-choice {
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border: 1px solid rgba(65, 194, 90, 1);
+    background: none;
+    background-color: rgba(65, 194, 90, 1);
+    font-weight: normal;
+}
 
     ul.tagit li.tagit-choice .tagit-label:not(a) {
     color: white;

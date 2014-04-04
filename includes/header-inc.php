@@ -10,7 +10,7 @@
         </div> <!-- /.navbar-header -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#tour" class="nav-link">People</a></li>
+                <li><a href="people.php" class="nav-link">People</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#contact">Contact Us</a></li>
                 <?php

@@ -21,7 +21,7 @@
   font-family: "gandhi serif";
   font-style: normal;
   font-weight: 700;
-  src: url(/fonts/gandhi-bold-serif.ttf), url(../fonts/gandhi-bold-serif.eot);
+  src: url(/fonts/gandhi-bold-serif.ttf) url(../fonts/gandhi-bold-serif.eot);
 }
 html
 {
@@ -260,6 +260,7 @@ footer {
 .location
 {
   display: inline;
+  margin-left: 1%;
 }
 
 .box {
@@ -344,7 +345,10 @@ div.profile-left-section, div.profile-right-section
 div.profile-left-section
 {
   max-width: 310px;
-  border-right: 1px solid #eee;
+}
+div.profile-right-section
+{
+  border-left: 1px solid #eee;
 }
 div.login
 {
@@ -393,10 +397,12 @@ p.work-project-name, p.work-project-name a:hover
   background-color: transparent;
   word-break:break-all;
 }
+
 div.experience-unit
 {
   margin-bottom: 5%;
 }
+
 div.mask
 {
   display: inline-block;
@@ -409,5 +415,114 @@ div.mask
 div.collaboration-type, div.collaboration-amount
 {
   display: inline-block;
-  margin-left: 20%;
+  margin-left: 2%;
+}
+div.collaboration-amount
+{
+  float: left;   
+  margin-left: 17%;
+  margin-right: 17%;
+}
+
+div.collaboration-type > p, div.collaboration-amount > p
+{
+  margin-left: 18%;
+  font-weight: bold;
+}
+/* Green tags for collaboration types => rgba(65, 194, 90, 1)*/
+
+input#search {
+  background: transparent;
+  background: white;
+  background-clip: padding-box;
+  border: none;
+  border-radius:         26px;
+  -moz-border-radius:    26px;
+  -o-border-radius:      26px;
+  -webkit-border-radius: 26px;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  outline: none;
+  padding: 1.5% 5%;
+  display: inline;
+
+}
+
+input#search:focus 
+{
+  background: white;
+}
+div.search-container
+{
+  margin-bottom: 3%;
+  width:50%;
+  height: 10%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.left-inner-addon {
+  position: relative;
+}
+.left-inner-addon input {
+  padding-left: 30px;    
+}
+.left-inner-addon i {
+  position: absolute;
+  padding: 10px 12px;
+  pointer-events: none;
+}
+div.search-header
+{
+  width: 23%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 19%;
+}
+
+div.search-header > h1
+{
+  font-family: 'Cinzel', serif;
+  font-size: 3em;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px #000;
+}
+p.lead
+{
+  margin-bottom: 0;
+  text-align: center;
+}
+
+div.profile-info
+{
+  box-shadow: 0px 0px 4px 0px black;
+  margin-right: 5%;
+}
+
+hr.hr-search-profile
+{
+  margin-top: 0;
+}
+
+img.search-profile-image
+{
+  height: 100px;
+  width: auto;
+  border-radius: 8%;
+  -webkit-radius: 8%;
+  display: inline-block;
+}
+div.occupation
+{
+  margin-bottom: 0;
+  margin-right: auto;
+  margin-left: auto;
+  width:13%;
+  font-family: 'Cinzel';
+}
+
+div.search-profile-image-container,div.search-name-location
+{
+  display: inline-block;
 }

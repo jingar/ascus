@@ -24,7 +24,7 @@ $memberData = new Member(Input::get('id'));
                 <?php
                 if(!empty($member->getData()->country) && !empty($member->getData()->country))
                 {
-                    echo '<i class="glyphicon glyphicon-map-marker"></i>', PHP_EOL;
+                    echo '<i class="glyphicon glyphicon-map-marker"></i>';
                     echo '<h4 class="location">' . $member->getData()->city . ',' . $member->getData()->country . '</h4>';
                 }
                 else if(empty($member->getData()->city) && !empty($member->getData()->country))
@@ -87,22 +87,35 @@ $memberData = new Member(Input::get('id'));
                 </p>
                 <hr>
             </div>
+            <?php 
+            $memberCollaboration = new MemberCollaborationType();
+            $memberCollaborationTypes = $memberCollaboration->FindAllMemberCollaborationTypes($member->getData()->members_id);
+            if(!empty($memberCollaborationTypes))
+            {
+            ?>
             <div>
                 <div class="collaboration-amount">
-                    <h2>Collaboration</h2>
-                    <p>
+                    <h2><i class="glyphicon glyphicon-time"></i> Collaboration</h2>
+                    <?php 
+                    foreach ($memberCollaborationTypes as $collaboration) {
+                        echo '<p>' . $collaboration->collaboration_type . '</p>';
+                    }
+                    }
+                    ?>
+                </div>
+                 <?php 
+                 if(!empty($member->getData()->collaboration_amount))
+                 {
+                   $collaborationAmountArray = explode("(",$member->getData()->collaboration_amount); 
+                 ?>
+                <div class="collaboration-type">
+                    <h2><i class="glyphicon glyphicon-calendar"></i> Availability</h2>
                         <?php 
-                        $memberCollaboration = new MemberCollaborationType();
-                        $memberCollaborationTypes = $memberCollaboration->FindAllMemberCollaborationTypes($member->getData()->members_id);
-                        foreach ($memberCollaborationTypes as $collaboration) {
-                            echo $collaboration->collaboration_type, PHP_EOL;
+                            $collaborationAmountArray = explode("(",$member->getData()->collaboration_amount); 
+                            echo '<p>' . $collaborationAmountArray[0] . '</p>';
+                            echo '<p>' . explode(')', $collaborationAmountArray[1])[0] . '</p>';
                         }
                         ?>
-                    </p>
-                </div>
-                <div class="collaboration-type">
-                    <h2>Availability</h2>
-                    <p><?php   echo $member->getData()->collaboration_amount; ?></p>
                 </div>
                 <hr>
             </div>
