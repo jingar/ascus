@@ -260,7 +260,6 @@ footer {
 .location
 {
   display: inline;
-  margin-left: 1%;
 }
 
 .box {
@@ -515,14 +514,21 @@ img.search-profile-image
 }
 div.occupation
 {
+  font-weight: bold;
   margin-bottom: 0;
-  margin-right: auto;
-  margin-left: auto;
-  width:13%;
-  font-family: 'Cinzel';
+  text-align: center;
 }
 
-div.search-profile-image-container,div.search-name-location
+div.search-profile-image-container,div.search-name-location,div.info-label,
+div.info-skills,div.info-interests,div.info-work-experience
 {
   display: inline-block;
+}
+div.search-name-location
+{
+  margin-left: 4%;
+}
+div.row
+{
+  margin-bottom: 2%;
 }
