@@ -22,20 +22,20 @@ $memberData = new Member(Input::get('id'));
             <h1 style="text-align: center"><?php echo $memberData->getData()->name; ?></h1>
             <div class="location-block">
                 <?php
-                if(!empty($member->getData()->country) && !empty($member->getData()->country))
+                if(!empty($memberData->getData()->country) && !empty($memberData->getData()->country))
                 {
                     echo '<i class="glyphicon glyphicon-map-marker"></i>';
-                    echo '<h4 class="location">' . $member->getData()->city . ',' . $member->getData()->country . '</h4>';
+                    echo '<h4 class="location">' . $memberData->getData()->city . ',' . $memberData->getData()->country . '</h4>';
                 }
-                else if(empty($member->getData()->city) && !empty($member->getData()->country))
+                else if(empty($memberData->getData()->city) && !empty($memberData->getData()->country))
                 {
                     echo '<i class="glyphicon glyphicon-map-marker"></i>', PHP_EOL;
-                    echo '<h4 class="location">' . $member->getData()->country . '</h4>';
+                    echo '<h4 class="location">' . $memberData->getData()->country . '</h4>';
                 }
-                else if(empty($member->getData()->country) && !empty($member->getData()->city))
+                else if(empty($memberData->getData()->country) && !empty($memberData->getData()->city))
                 {
                     echo '<i class="glyphicon glyphicon-map-marker"></i>', PHP_EOL;
-                    echo '<h4 class="location">' . $member->getData()->city . '</h4>';
+                    echo '<h4 class="location">' . $memberData->getData()->city . '</h4>';
                 }
                 ?>
             </div>
@@ -61,7 +61,7 @@ $memberData = new Member(Input::get('id'));
                     <h4>Experience</h4>
                     <?php
                     $experience = new Experience();
-                    $experienceArray = $experience->findAllExperiences($member->getData()->members_id);
+                    $experienceArray = $experience->findAllExperiences($memberData->getData()->members_id);
                     foreach ($experienceArray as $value) {
                         echo '<div class="experience-unit">';
                         echo   '<div>';
@@ -89,7 +89,7 @@ $memberData = new Member(Input::get('id'));
             </div>
             <?php 
             $memberCollaboration = new MemberCollaborationType();
-            $memberCollaborationTypes = $memberCollaboration->FindAllMemberCollaborationTypes($member->getData()->members_id);
+            $memberCollaborationTypes = $memberCollaboration->FindAllMemberCollaborationTypes($memberData->getData()->members_id);
             if(!empty($memberCollaborationTypes))
             {
             ?>
@@ -104,14 +104,14 @@ $memberData = new Member(Input::get('id'));
                     ?>
                 </div>
                  <?php 
-                 if(!empty($member->getData()->collaboration_amount))
+                 if(!empty($memberData->getData()->collaboration_amount))
                  {
-                   $collaborationAmountArray = explode("(",$member->getData()->collaboration_amount); 
+                   $collaborationAmountArray = explode("(",$memberData->getData()->collaboration_amount); 
                  ?>
                 <div class="collaboration-type">
                     <h2><i class="glyphicon glyphicon-calendar"></i> Availability</h2>
                         <?php 
-                            $collaborationAmountArray = explode("(",$member->getData()->collaboration_amount); 
+                            $collaborationAmountArray = explode("(",$memberData->getData()->collaboration_amount); 
                             echo '<p>' . $collaborationAmountArray[0] . '</p>';
                             echo '<p>' . explode(')', $collaborationAmountArray[1])[0] . '</p>';
                         }
