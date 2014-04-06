@@ -44,13 +44,25 @@ if (Session::exists('File uploaded')) {
                 </li>
             </ul>
             <?php echo $flash; ?>   
-            <a class="btn btn-primary push-down" href="<?php echo Sanitize::escape('addworksample.php?id=' . $member->getData()->members_id)?>">
+            <a class="btn btn-primary push-down" 
+            href="<?php if($member->getData()->profession === 'Artist')
+                        {
+                            echo Sanitize::escape('addworksample.php?id=' . $member->getData()->members_id);
+                        }
+                        else
+                        {
+                            echo Sanitize::escape('addworksamplescientist.php?id=' . $member->getData()->members_id);
+                        }
+                ?>">
                 Add Work Sample
             </a>
       
             <table class="table table-stripped">
             <thead>
+                <?php if($member->getData()->profession === 'Artist')
+                { ?>
                 <th>Image</th>
+                <?php }?>
                 <th>Title</th>
                 <th>Description</th>
             </thead>
@@ -60,18 +72,38 @@ if (Session::exists('File uploaded')) {
                     $worksamples = $worksample->findByMemberID(array($member->getData()->members_id));
                     foreach($worksamples as $ws)
                     {
-                        echo "<tr>
-                                <td><img src=" . $ws->path . " class=\"worksample\"></img></td>
+                        if($member->getData()->profession === 'Artist')
+                        {
+                            echo "<tr>
+                                    <td><img src=" . $ws->path . " class=\"worksample\"></img></td>
+                                    <td>" . $ws->title . "</td>
+                                    <td style=\"word-break: break-all\">" . $ws->description . "</td>
+                                    <td>
+                                        <a href= \"deleteworksample.php?id=" . $member->getData()->members_id . 
+                                          "&worksampleid=". $ws->work_samples_id . 
+                                          "&imagename=" . $ws->name. "\"class=\"btn btn-danger\"
+                                           onclick=\"return confirm('Are you sure?');\">Delete
+                                           </a>
+                                    </td>
+                                </tr>";
+                        }
+                        else
+                        {
+                            if(empty($ws->path))
+                            {
+                                echo "<tr>
                                 <td>" . $ws->title . "</td>
                                 <td style=\"word-break: break-all\">" . $ws->description . "</td>
                                 <td>
                                     <a href= \"deleteworksample.php?id=" . $member->getData()->members_id . 
-                                        "&worksampleid=". $ws->work_samples_id . 
-                                        "&imagename=" . $ws->name. "\"class=\"btn btn-danger\"
-                                         onclick=\"return confirm('Are you sure?');\">Delete
-                                    </a>
-                                </td>
-                             </tr>";
+                                      "&worksampleid=". $ws->work_samples_id . 
+                                      "&imagename=" . $ws->name. "\"class=\"btn btn-danger\"
+                                      onclick=\"return confirm('Are you sure?');\">Delete
+                                  </a>
+                              </td>
+                          </tr>";
+                            }
+                        }
                     }
                     ?>
                 </tbody>

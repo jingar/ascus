@@ -32,7 +32,7 @@ if (Input::exists()) {
                     $handle->process('worksamples/profile-pic');
                     if($handle->processed)
                     {
-                        $member->editMember(array(Input::get('name'),Input::get('city'),Input::get('country'),
+                        $member->editMember(array(Input::get('name'),Input::get('profession'),Input::get('city'),Input::get('country'),
                             Input::get('bio'),'worksamples/profile-pic/' . $_FILES['file']['name'],Input::get('collaboration-time')));
                     }
                     else 
@@ -44,14 +44,12 @@ if (Input::exists()) {
             }
             else
             {
-                $member->editMember(array(Input::get('name'),Input::get('city'),Input::get('country'),
+                $member->editMember(array(Input::get('name'),Input::get('profession'),Input::get('city'),Input::get('country'),
                     Input::get('bio'),$member->getData()->profile_pic,Input::get('collaboration-time')));
             }
 
             $expertise = new Expertise();
-            $memberExpertise = new MemberExpertise();
-
-            // Add the expertise entered, takes care of duplicated expertise
+            $memberExpertise = new MemberExpertise();            
             $expertise->addExpertise(Input::get('tags'));
 
             //Find all the expertise related to the member
@@ -162,6 +160,14 @@ if (Input::exists()) {
                     value="<?php echo Sanitize::escape($member->getData()->name); ?>">
                 </div>
                 <div class="form-group">
+                    <label for="professions">Profession</label>
+                    <?php $profession = $member->getData()->profession?>
+                    <select name="profession" class="form-control">
+                        <option value="Artist" <?php echo (($profession === "Artist") ? "selected" : "");?> >Artist</option>
+                        <option value="Scientist" <?php echo (($profession === "Scientist") ? "selected" : "");?> >Scientist</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>Skills</label>
                     <ul class="tagit ui-widget ui-widget-content ui-corner-all" id="tags">
                     </ul> 
@@ -223,13 +229,13 @@ if (Input::exists()) {
                     </div>
                     <div id="collaboration-time">
                         <div class="form-group">
-                        <select name="collaboration-time" class="form-control">
-                        <?php $collaborationAmount = $member->getData()->collaboration_amount; var_dump($collaborationAmount);?>
-                            <option <?php echo (($collaborationAmount === "Weekends(8 Hours per Week)") ? "selected" : "");?> >Weekends(8 Hours per Week)</option>
-                            <option <?php echo (($collaborationAmount === "Part Time(20 Hours per Week)") ? "selected" : "");?> >Part Time(20 Hours per Week)</option>
-                            <option <?php echo (($collaborationAmount === "Full Time(40 Hours per Week)") ? "selected" : "") ;?> >Full Time(40 Hours per Week)</option>
-                            <option <?php echo (($collaborationAmount === "Every day(60 Hours per Week)") ? "selected" : "") ;?> >Every day(60 Hours per Week)</option>
-                        </select>
+                            <select name="collaboration-time" class="form-control">
+                                <?php $collaborationAmount = $member->getData()->collaboration_amount; var_dump($collaborationAmount);?>
+                                <option <?php echo (($collaborationAmount === "Weekends(8 Hours per Week)") ? "selected" : "");?> >Weekends(8 Hours per Week)</option>
+                                <option <?php echo (($collaborationAmount === "Part Time(20 Hours per Week)") ? "selected" : "");?> >Part Time(20 Hours per Week)</option>
+                                <option <?php echo (($collaborationAmount === "Full Time(40 Hours per Week)") ? "selected" : "") ;?> >Full Time(40 Hours per Week)</option>
+                                <option <?php echo (($collaborationAmount === "Every day(60 Hours per Week)") ? "selected" : "") ;?> >Every day(60 Hours per Week)</option>
+                            </select>
                         </div>
                     </div>
                 </div>

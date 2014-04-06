@@ -32,7 +32,7 @@ $(document).ready(function() {
         }
         else
         {
-            $('select').attr('name','collaboration-time');
+            $('select#collaboration-time').attr('name','collaboration-time');
             $('#collaboration-time').show('slow');
         }
 
@@ -44,7 +44,7 @@ $(document).ready(function() {
         }
         else
         {
-            $('select').attr('name','collaboration-time');
+            $('select#collaboration-time').attr('name','collaboration-time');
             $('#collaboration-time').show('slow');
         }
     });

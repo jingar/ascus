@@ -86,7 +86,7 @@ class Member {
     }
     public function editMember($fields,$id = NULL) {
         if(!$id){ $fields[] = $this->_data->members_id; }
-        $this->_database_connection->query("UPDATE `members` SET `name` = ?, `city` = ?, `country` = ?,`bio` = ?, `profile_pic` = ?, collaboration_amount = ?  WHERE `members_id` = ?", $fields);
+        $this->_database_connection->query("UPDATE `members` SET `name` = ?, `profession` =?, `city` = ?, `country` = ?,`bio` = ?, `profile_pic` = ?, collaboration_amount = ?  WHERE `members_id` = ?", $fields);
     }   
 
     public function isLoggedIn(){
