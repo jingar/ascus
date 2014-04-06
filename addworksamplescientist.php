@@ -20,7 +20,7 @@ if (Input::exists()) {
     		$worksample = new WorkSample();
     		$worksample->addWorkSample(array(NULL,$member->getData()->members_id,NULL,NULL,Input::get('title'),
     			Input::get('description')));
-    		Session::flash('File uploaded', 'File uploaded successfully');
+    		Session::flash('Work sample uploaded', 'Work sample uploaded successfully');
     		Redirect::to('showworksamples.php?id=' . $member->getData()->members_id);
     	} catch (Exception $ex) {
     		echo $ex; 

@@ -15,6 +15,10 @@ $flash = "";
 if (Session::exists('File uploaded')) {
   $flash = '<div class="alert alert-success"> <strong>' . Session::flash("File uploaded"). '</strong></div>';
 } 
+
+if (Session::exists('Work sample uploaded')) {
+  $flash = '<div class="alert alert-success"> <strong>' . Session::flash("Work sample uploaded"). '</strong></div>';
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">

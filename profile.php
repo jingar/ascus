@@ -121,16 +121,28 @@ $memberData = new Member(Input::get('id'));
             </div>
             <div>
                 <h2> Work Samples </h2>
+                <?php 
+                $workSample = new WorkSample();
+                $memberWorkSamples = $workSample->findByMemberID(array($memberData->getData()->members_id));
+                if($memberData->getData()->profession === 'Artist') { ?>
                 <div class="galleria">
                     <?php
-                    $workSample = new WorkSample();
-                    $memberWorkSamples = $workSample->findByMemberID(array($memberData->getData()->members_id));
                     foreach ($memberWorkSamples as $w) {
                         echo '<img class="worksample"src="'. $w->path .'" data-title="'. $w->title . 
                         '" data-description="' . $w->description.'">';                    
                     }
                     ?>
                 </div>
+                <?php } else{
+                    foreach ($memberWorkSamples as $w) {
+                        if(empty($w->path))
+                        {
+                            echo '<h2>'. $w->title .'</h2>';                    
+                            echo '<p>'. $w->description .'</p>';
+                        }
+                    }
+
+                }?>
             </div>
         </div>
     </div>
