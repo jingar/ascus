@@ -25,19 +25,27 @@ $memberData = new Member(Input::get('id'));
                 if(!empty($memberData->getData()->country) && !empty($memberData->getData()->country))
                 {
                     echo '<i class="glyphicon glyphicon-map-marker"></i>';
-                    echo '<h4 class="location">' . $memberData->getData()->city . ',' . $memberData->getData()->country . '</h4>';
+                    echo '<h5 class="location">' . $memberData->getData()->city . ',' . $memberData->getData()->country . '</h5>';
                 }
                 else if(empty($memberData->getData()->city) && !empty($memberData->getData()->country))
                 {
                     echo '<i class="glyphicon glyphicon-map-marker"></i>', PHP_EOL;
-                    echo '<h4 class="location">' . $memberData->getData()->country . '</h4>';
+                    echo '<h5 class="location">' . $memberData->getData()->country . '</h5>';
                 }
                 else if(empty($memberData->getData()->country) && !empty($memberData->getData()->city))
                 {
                     echo '<i class="glyphicon glyphicon-map-marker"></i>', PHP_EOL;
-                    echo '<h4 class="location">' . $memberData->getData()->city . '</h4>';
+                    echo '<h5 class="location">' . $memberData->getData()->city . '</h5>';
                 }
                 ?>
+            </div>
+            <div class="location-block">
+                <i class="glyphicon glyphicon-envelope"></i>
+                <h5 class="location">saadarif295@hotmail.co.uk</h5>
+            </div>
+            <div class="location-block">
+            <i class="glyphicon glyphicon-share-alt"></i>
+                <h5 class="location"><a>www.my-awesome-site.com</a></h5>
             </div>
             <div>
                 <img class="profile-pic" src="<?php echo $memberData->getData()->profile_pic; ?>">

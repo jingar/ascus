@@ -35,4 +35,5 @@ class MemberExpertise
 		$this->_database_connection->query("REPLACE INTO `members_area_of_expertise` 
 			(`members_id`,`expertise_id`) VALUES (?,?)",array($members_id,$expertiseId));
 	}
+
 }

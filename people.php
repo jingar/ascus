@@ -1,5 +1,31 @@
 <?php
 require_once './core/init.php';
+$finalMembers = array();
+if (Input::exists()) {
+    if(Token::check(Input::get('csrf_token')))
+    {
+      $tags = Input::get('tags');
+      $expertise = new Expertise();
+      $mergedMembers = array();
+      $finalMembers = array();
+      //get a multidimensional array of users
+      foreach ($tags as $tag) {
+        $mergedMembers[] = $expertise->findMembersByExpertise($tag);
+      }
+      //remove any null values
+      $mergedMembers = array_filter($mergedMembers);
+      //if any users were found, flatten the array and then remove duplicates
+      if(!empty($mergedMembers))
+      {
+        $mergedMembers = call_user_func_array('array_merge', $mergedMembers);
+        foreach ($mergedMembers as $current) {
+          if ( ! in_array($current, $finalMembers)) {
+            $finalMembers[] = $current;
+          }
+        }
+      }
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,22 +47,34 @@ require_once './core/init.php';
     <div class="search-header">
       <h1> Find Talent </h1>
     </div>
-    <div class="search-container"> 
-      <div>
-        <ul class="tagit ui-widget ui-widget-content ui-corner-all" id="search-tags">
-        </ul>
+    <form id="editprofile_form" class="push-down" role="form" method ="POST" enctype="multipart/form-data" action ="">
+      <div class="search-container"> 
+        <div>
+          <ul class="tagit ui-widget ui-widget-content ui-corner-all" id="search-tags">
+          </ul>
+        </div>
+        <div>
+          <button name="editprofile" id = "editprofile" type="submit" class="btn btn-info">Search</button>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-offset-1 col-md-3 profile-info">
+      <input type="hidden" name="csrf_token" value="<?php echo Token::generate(); ?>">
+    </form>
+    <?php
+    $counter = 0;
+    if($counter % 3 === 0){echo '<div class="row">';}
+    foreach ($finalMembers as $member) {
+      ?>
+      <div class="<?php if($counter % 3 === 0){echo 'col-md-offset-1';} ?> col-md-3 profile-info">
         <div class="occupation">
-          <p>Artist</p>
+          <p><?php echo $member->profession; ?></p>
         </div>
         <hr class="hr-search-profile">
-        <div>
-          <img class="search-profile-image"src="https://graph.facebook.com/72612657/picture?width=90&height=90">
-          <div class ="search-name-location">
-            <p class="lead name">Fred Yelagavich</p>
+        <div class="row">
+          <div class="col-md-5">
+            <img class="search-profile-image"src="https://graph.facebook.com/72612657/picture?width=90&height=90">
+          </div>
+          <div c Lassc ="col-md-7">
+            <p class="lead name"><?php echo $member->name; ?></p>
             <div>
               <i class="glyphicon glyphicon-map-marker" style="float:left"></i>
               <p>Moscow, Russia </p>
@@ -48,28 +86,54 @@ require_once './core/init.php';
           <div class="info-label">
             <p>Skills: </p> 
           </div>
-          <div class="info-skills">
-            <p> Photography,Art</p>
+          <div>
+            <?php $memberExpertise = new MemberExpertise(); 
+                  $memberExpertiseArray = $memberExpertise->findAllMemberExpertise($member->members_id);
+                  echo '<ul class="tagit ui-widget ui-widget-content ui-corner-all search-expertise-tags" id="search_tags_' . $counter . '">';
+                  foreach ($memberExpertiseArray as $expertise) 
+                  {
+                    echo '<li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-read-only">
+                            <span class="tagit-label">' . $expertise->expertise .'</span>
+                            <input type="hidden" value="photography" name="tags" class="tagit-hidden-field">
+                          </li>';
+                        }
+                  echo '</ul>';                  
+            ?>
           </div>
+  <!--           <div class="info-skills">
+            <p> Photography,Art</p>
+          </div> -->
         </div>
         <div>
           <div class="info-label">
             <p>Interests: </p> 
           </div>
-          <div class="info-interests">
-            <p>Digital Photography, Sculpture</p>
+          <div>
+           <?php $memberInterest = new Interest(); 
+           $memberInterestArray = $memberInterest->findAllInterests(array($member->members_id));
+           echo '<ul class="tagit ui-widget ui-widget-content ui-corner-all search-interest-tags" id="search_tags_' . $counter . '">';
+           foreach ($memberInterestArray as $interest) 
+           {
+            echo '<li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-read-only">
+            <span class="tagit-label">' . $interest->interest .'</span>
+            <input type="hidden" value="photography" name="tags" class="tagit-hidden-field">
+          </li>';
+        }
+        echo '</ul>';                  
+        ?>
           </div>
         </div>
         <div>
           <div class="info-label">
             <p>Experience: </p> 
           </div>
-          <div class="info-work-experience">
-            <p>North Park University,</p>
-          </div>
-          <div class="info-work-experience">
-            <p>The Kentucky Center</p>
-          </div>
+          <?php
+          $experience = new Experience();
+          $memberExperiences = $experience->findAllExperiences($member->members_id);
+          foreach ($memberExperiences as $exp) {
+            echo '<div class="info-work-experience"><p> ' . $exp->work_project_name . ' </p></div>';
+          }
+          ?>
         </div>
         <div>
           <div class="info-label">
@@ -80,7 +144,12 @@ require_once './core/init.php';
           </div>
         </div>
       </div>
-      <div class="col-md-3 profile-info">
+      <?php 
+      if(($counter + 1) % 3 === 0){echo '</div> <!-- /row -->';}
+      $counter++;}
+      if($counter % 3 !== 0){echo '</div> <!-- /row -->';}
+      ?>
+     <!--  <div class="col-md-3 profile-info">
         <div class="occupation">
           <p>Scientist</p>
         </div>
@@ -149,8 +218,7 @@ require_once './core/init.php';
         <div class="info-work-experience">
           <p>Free lancing, Sculpture David</p>
         </div>
-      </div>
-    </div> <!-- /row -->
+      </div> --> 
   <?php require_once 'includes/footer.php' ?>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/jquery-ui.min.js"></script>

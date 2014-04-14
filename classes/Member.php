@@ -96,6 +96,14 @@ class Member {
     public function getData(){
         return $this->_data;
     }
+
+    public function findAllByExpertise($epxertise)
+    {
+        $query = "select profession,name,city,country,work_project_name from members,experiences
+        inner join (select members_id from members_area_of_expertise where expertise_id = 118) t 
+        on members.members_id = t.members_id experiences.members_id = members.members_id";
+
+    }
 }
 
 ?>

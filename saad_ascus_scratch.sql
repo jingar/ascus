@@ -27,7 +27,7 @@ CREATE TABLE `area_of_expertise` (
   `expertise` varchar(50) NOT NULL,
   PRIMARY KEY (`expertise_id`),
   UNIQUE KEY `expertise` (`expertise`)
-) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +80,7 @@ CREATE TABLE `experiences` (
   PRIMARY KEY (`experience_id`),
   KEY `experience_ibfk_1` (`members_id`),
   CONSTRAINT `experience_ibfk_1` FOREIGN KEY (`members_id`) REFERENCES `members` (`members_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +89,7 @@ CREATE TABLE `experiences` (
 
 LOCK TABLES `experiences` WRITE;
 /*!40000 ALTER TABLE `experiences` DISABLE KEYS */;
-INSERT INTO `experiences` VALUES (139,1,'Microsoft','https://www.microsoft.com/en-gb/default.aspx'),(140,1,'Greggs','https://www.greggs.co.uk/');
+INSERT INTO `experiences` VALUES (155,1,'Microsoft','https://www.microsoft.com/en-gb/default.aspx'),(156,1,'Greggs','https://www.greggs.co.uk/');
 /*!40000 ALTER TABLE `experiences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,7 +108,7 @@ CREATE TABLE `interests` (
   UNIQUE KEY `member_interest_unique` (`members_id`,`interest`),
   KEY `members_id_key` (`members_id`),
   KEY `interest_key` (`interest`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +184,8 @@ CREATE TABLE `members` (
 
 LOCK TABLES `members` WRITE;
 /*!40000 ALTER TABLE `members` DISABLE KEYS */;
-INSERT INTO `members` VALUES (1,'N97SqS./eZu8sxT9n0Ta',1,'Edinburgh','Scotland','saadoo','$2y$10$VqoOVJnYPaZyHUu94mTDO.x110M5UW6xuVrgY1qpp/2jjG3DIxKJy','saadarif006@gmail.com','Saad Arif','Artist','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer consectetur vel risus sed egestas. Praesent at lorem rhoncus, semper metus non, consequat felis. Maecenas ultrices tincidunt velit quis sollicitudin. Quisque feugiat suscipit turpis id molestie. In interdum risus lectus, a interdum massa lobortis eget. Etiam sed tortor imperdiet, facilisis orci et, laoreet tellus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque quis lobortis metus.','Weekends(8 Hours per Week)','images/defaultprofile.png');
+INSERT INTO `members` VALUES (1,'N97SqS./eZu8sxT9n0Ta',1,'Edinburgh','Scotland','saadoo','$2y$10$VqoOVJnYPaZyHUu94mTDO.x110M5UW6xuVrgY1qpp/2jjG3DIxKJy','saadarif006@gmail.com','Saad Arif','Scientist','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer consectetur vel risus sed egestas. Praesent at lorem rhoncus, semper metus non, consequat felis. Maecenas ultrices tincidunt velit quis sollicitudin. Quisque feugiat suscipit turpis id molestie. In interdum risus lectus, a interdum massa lobortis eget. Etiam sed tortor imperdiet, facilisis orci et, laoreet tellus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque quis lobortis metus.','Weekends(8 Hours per Week)','worksamples/profile-pic/screenshot_2014-04-10-20-48-16.png');
+INSERT INTO `members` VALUES (2,'N97SqS./eZu8sxT9n0Tb',1,'Edinburgh','Scotland','saadoo2','$2y$10$VqoOVJnYPaZyHUu94mTDO.x110M5UW6xuVrgY1qpp/2jjG3DIxKJy','saadarif007@gmail.com','Saad Arif','Scientist','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer consectetur vel risus sed egestas. Praesent at lorem rhoncus, semper metus non, consequat felis. Maecenas ultrices tincidunt velit quis sollicitudin. Quisque feugiat suscipit turpis id molestie. In interdum risus lectus, a interdum massa lobortis eget. Etiam sed tortor imperdiet, facilisis orci et, laoreet tellus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque quis lobortis metus.','Weekends(8 Hours per Week)','worksamples/profile-pic/screenshot_2014-04-10-20-48-16.png');
 /*!40000 ALTER TABLE `members` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,10 +202,10 @@ CREATE TABLE `members_area_of_expertise` (
   `expertise_id` int(11) NOT NULL,
   PRIMARY KEY (`members_area_of_expertise_id`),
   UNIQUE KEY `members_id` (`members_id`,`expertise_id`),
-  UNIQUE KEY `expertise_id` (`expertise_id`),
+  KEY `expertise_id` (`expertise_id`),
   CONSTRAINT `members_area_of_expertise_ibfk_1` FOREIGN KEY (`members_id`) REFERENCES `members` (`members_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `members_area_of_expertise_ibfk_2` FOREIGN KEY (`expertise_id`) REFERENCES `area_of_expertise` (`expertise_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=338 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=362 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -213,7 +214,7 @@ CREATE TABLE `members_area_of_expertise` (
 
 LOCK TABLES `members_area_of_expertise` WRITE;
 /*!40000 ALTER TABLE `members_area_of_expertise` DISABLE KEYS */;
-INSERT INTO `members_area_of_expertise` VALUES (335,1,5),(336,1,118),(337,1,120);
+INSERT INTO `members_area_of_expertise` VALUES (359,1,5),(360,1,118),(361,1,120);
 /*!40000 ALTER TABLE `members_area_of_expertise` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +234,7 @@ CREATE TABLE `members_collaboration_types` (
   KEY `members_collaboration_types_ibfk_2` (`collaboration_type_id`),
   CONSTRAINT `members_collaboration_types_ibfk_1` FOREIGN KEY (`members_id`) REFERENCES `members` (`members_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `members_collaboration_types_ibfk_2` FOREIGN KEY (`collaboration_type_id`) REFERENCES `collaboration_types` (`collaboration_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,7 +243,7 @@ CREATE TABLE `members_collaboration_types` (
 
 LOCK TABLES `members_collaboration_types` WRITE;
 /*!40000 ALTER TABLE `members_collaboration_types` DISABLE KEYS */;
-INSERT INTO `members_collaboration_types` VALUES (136,2,1);
+INSERT INTO `members_collaboration_types` VALUES (144,2,1);
 /*!40000 ALTER TABLE `members_collaboration_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,7 +266,7 @@ CREATE TABLE `work_samples` (
   KEY `description` (`description`(255)),
   KEY `path` (`path`),
   KEY `work_samples_ibfk_1` (`members_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -274,7 +275,7 @@ CREATE TABLE `work_samples` (
 
 LOCK TABLES `work_samples` WRITE;
 /*!40000 ALTER TABLE `work_samples` DISABLE KEYS */;
-INSERT INTO `work_samples` VALUES (3,1,'cat1.png','worksamples/cat1501460316533758830ca033.98621739.png','cat','cat');
+INSERT INTO `work_samples` VALUES (3,1,'cat1.png','worksamples/cat1501460316533758830ca033.98621739.png','cat','cat'),(6,1,NULL,NULL,'lorem','Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tristique arcu quis interdum ultricies. Donec sit amet porta diam. Nullam ullamcorper, orci eu tristique dictum, massa nisl volutpat metus, sit amet convallis dui erat a mi. Maecenas consectetur semper porttitor. In hac habitasse platea dictumst. Integer quis lorem sagittis, rhoncus justo quis, ultricies odio. Vivamus facilisis sapien libero, ut sodales est iaculis in. Duis sem massa, faucibus id massa at, accumsan luctus est cras amet.'),(7,1,NULL,NULL,'test','teasdasdasd asdas da adsds d');
 /*!40000 ALTER TABLE `work_samples` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -287,4 +288,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-06 18:21:35
+-- Dump completed on 2014-04-11  0:59:31

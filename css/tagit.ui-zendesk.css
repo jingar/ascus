@@ -12,23 +12,24 @@ ul.tagit {
     -webkit-border-radius: 6px;
 }
 
-ul#display-tags, ul#display-interest-tags{
+ul#display-tags, ul#display-interest-tags, ul.search-expertise-tags,ul.search-interest-tags{
     border-style: none;
     background: transparent;
     -moz-border-radius: 6px;
     border-radius: 6px;
     -webkit-border-radius: 6px;
 }
-ul#tags li.tagit-choice, ul#display-tags li.tagit-choice {
+ul#tags li.tagit-choice, ul#display-tags li.tagit-choice, ul.search-expertise-tags li.tagit-choice {
     -moz-border-radius: 6px;
     border-radius: 6px;
     -webkit-border-radius: 6px;
-    border: 1px solid #FF8300;
+    border: 1px solid #FF8300 !important;
     background: none;
-    background-color: #FF832C;
+    background-color: #FF832C !important;
     font-weight: normal
 }
-ul#interest-tags li.tagit-choice,ul#display-interest-tags li.tagit-choice {
+ul#interest-tags li.tagit-choice,ul#display-interest-tags li.tagit-choice,
+ul.search-interest-tags li.tagit-choice {
     -moz-border-radius: 6px;
     border-radius: 6px;
     -webkit-border-radius: 6px;

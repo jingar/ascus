@@ -490,7 +490,6 @@ div.search-header > h1
 p.lead
 {
   margin-bottom: 0;
-  text-align: center;
 }
 
 div.profile-info
@@ -511,6 +510,7 @@ img.search-profile-image
   border-radius: 8%;
   -webkit-radius: 8%;
   display: inline-block;
+  float:left;
 }
 div.occupation
 {
@@ -523,6 +523,10 @@ div.search-profile-image-container,div.search-name-location,div.info-label,
 div.info-skills,div.info-interests,div.info-work-experience
 {
   display: inline-block;
+}
+div.info-work-experience
+{
+  margin: 0px 5px;
 }
 div.search-name-location
 {
