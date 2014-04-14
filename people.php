@@ -71,7 +71,7 @@ if (Input::exists()) {
         <hr class="hr-search-profile">
         <div class="row">
           <div class="col-md-5">
-            <img class="search-profile-image"src="https://graph.facebook.com/72612657/picture?width=90&height=90">
+            <img class="search-profile-image"src="<?php echo $member->profile_pic; ?>">
           </div>
           <div c Lassc ="col-md-7">
             <p class="lead name"><?php echo $member->name; ?></p>
@@ -97,12 +97,15 @@ if (Input::exists()) {
                             <input type="hidden" value="photography" name="tags" class="tagit-hidden-field">
                           </li>';
                         }
+                  if(count($memberExpertiseArray) >= 3)
+                    {  
+                      echo '<li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-read-only">
+                      <span class="tagit-label">...</span>
+                      <input type="hidden" value="photography" name="tags" class="tagit-hidden-field">
+                    </li>';}                  
                   echo '</ul>';                  
             ?>
           </div>
-  <!--           <div class="info-skills">
-            <p> Photography,Art</p>
-          </div> -->
         </div>
         <div>
           <div class="info-label">
@@ -119,7 +122,14 @@ if (Input::exists()) {
             <input type="hidden" value="photography" name="tags" class="tagit-hidden-field">
           </li>';
         }
-        echo '</ul>';                  
+        if(count($memberInterestArray) >= 3)
+        {
+          echo '<li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-read-only">
+            <span class="tagit-label">...</span>
+            <input type="hidden" value="photography" name="tags" class="tagit-hidden-field">
+          </li>';
+        }                  
+        echo '</ul>';
         ?>
           </div>
         </div>

@@ -65,7 +65,7 @@ class Expertise {
         $result = $this->findByExpertise($expertise);
         if(!empty($result))
         {
-            $query = "select members.members_id,profession,name,city,country from members
+            $query = "select members.members_id,profession,name,city,country,profile_pic from members
             inner join (select members_id from members_area_of_expertise where expertise_id = ?) ids
             on members.members_id = ids.members_id";
             $this->_database_connection->query($query,array($result->expertise_id));
