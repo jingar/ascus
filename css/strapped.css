@@ -416,7 +416,7 @@ div.collaboration-type, div.collaboration-amount
   display: inline-block;
   margin-left: 2%;
 }
-div.collaboration-amount
+div.collaboration-type
 {
   float: left;   
   margin-left: 17%;
