@@ -20,7 +20,7 @@ if (Input::exists()) {
             {
             // need this because upload library makes uppercase extension to lowercase while it keeps the actuall
             // name unchanged.
-                $_FILES['file']['name'] = strtolower($_FILES['file']['name']);
+                $fileName = File::uniqueFileName($_FILES['file']['name']);
                 $handle = new upload($_FILES['file']);
                 if($handle->uploaded)
                 {
@@ -29,11 +29,12 @@ if (Input::exists()) {
                     $handle->image_resize = true;
                     $handle->image_x = 150;
                     $handle->image_x = 150;
+                    $handle->file_new_name_body = $fileName;
                     $handle->process('worksamples/profile-pic');
                     if($handle->processed)
                     {
                         $member->editMember(array(Input::get('name'),Input::get('profession'),Input::get('city'),Input::get('country'),
-                            Input::get('bio'),'worksamples/profile-pic/' . $_FILES['file']['name'],Input::get('collaboration-time')));
+                            Input::get('bio'),'worksamples/profile-pic/' . $handle->file_dst_name,Input::get('collaboration-time')));
                     }
                     else 
                     {
