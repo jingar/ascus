@@ -29,6 +29,7 @@ class Expertise {
         $result = $this->_database_connection->find("area_of_expertise", "expertise", $expertise);
         return (empty($result)) ? $result : $result[0];
     }
+    
     public function findByExpertiseMultiple($expertise_array)
     {
         $result_array = array();
@@ -70,7 +71,7 @@ class Expertise {
             on members.members_id = ids.members_id";
             $this->_database_connection->query($query,array($result->expertise_id));
             return $this->_database_connection->getResults();
-    }
+        }
 
     }
 }

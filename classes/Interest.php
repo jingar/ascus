@@ -33,6 +33,25 @@ class Interest {
     	$this->_database_connection->query("SELECT interest from interests where members_id = ?" , $field);
         return $this->_database_connection->getResults();
     }
+
+    public function findByInterest($interest)
+    {
+        $result = $this->_database_connection->find("interests", "interest", $interest);
+        return (empty($result)) ? $result : $result[0];
+    }
+    public function findMembersByInterest($interest)
+    {
+        $result = $this->findByInterest($interest);
+        if(!empty($result))
+        {
+            $query = "select members.members_id,profession,name,city,country,profile_pic from members
+            inner join (select members_id from interests where interest = ?) ids
+            on members.members_id = ids.members_id";
+            $this->_database_connection->query($query,array($result->interest));
+            return $this->_database_connection->getResults();
+        }
+
+    }
 }
 
 

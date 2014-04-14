@@ -4,27 +4,42 @@ $finalMembers = array();
 if (Input::exists()) {
     if(Token::check(Input::get('csrf_token')))
     {
+      //tags entered by users
       $tags = Input::get('tags');
+      //objectes used to search the area_of_expertise table and interests
       $expertise = new Expertise();
+      $interest = new Interest();
       $mergedMembers = array();
-      $finalMembers = array();
-      //get a multidimensional array of users
+
+      //get a multidimensional array of users which match the tags entered, have to look through
+      //expertise and interests as we dont which type is entered
       foreach ($tags as $tag) {
         $mergedMembers[] = $expertise->findMembersByExpertise($tag);
+        $mergedMembers[] = $interest->findMembersByInterest($tag);
       }
+
       //remove any null values
       $mergedMembers = array_filter($mergedMembers);
+
       //if any users were found, flatten the array and then remove duplicates
       if(!empty($mergedMembers))
       {
         $mergedMembers = call_user_func_array('array_merge', $mergedMembers);
         foreach ($mergedMembers as $current) {
-          if ( ! in_array($current, $finalMembers)) {
+          if (!in_array($current, $finalMembers)) {
             $finalMembers[] = $current;
           }
         }
       }
     }
+  }
+  else
+  {
+    $databaseConnection = Database::getInstance();
+    $query = "select members.members_id,profession,name,city,country,profile_pic from members
+    LIMIT 0, 12";
+    $databaseConnection->query($query);
+    $finalMembers = $databaseConnection->getResults();
   }
 ?>
 <!DOCTYPE html>
@@ -49,7 +64,7 @@ if (Input::exists()) {
     </div>
     <form id="editprofile_form" class="push-down" role="form" method ="POST" enctype="multipart/form-data" action ="">
       <div class="search-container"> 
-        <div>
+        <div class="col-md-10 col-sm-3">
           <ul class="tagit ui-widget ui-widget-content ui-corner-all" id="search-tags">
           </ul>
         </div>
@@ -70,10 +85,10 @@ if (Input::exists()) {
         </div>
         <hr class="hr-search-profile">
         <div class="row">
-          <div class="col-md-5">
+          <div class="col-md-4 col-sm-4">
             <img class="search-profile-image"src="<?php echo $member->profile_pic; ?>">
           </div>
-          <div c Lassc ="col-md-7">
+          <div class ="col-md-7">
             <p class="lead name"><?php echo $member->name; ?></p>
             <div>
               <i class="glyphicon glyphicon-map-marker" style="float:left"></i>
@@ -157,78 +172,8 @@ if (Input::exists()) {
       <?php 
       if(($counter + 1) % 3 === 0){echo '</div> <!-- /row -->';}
       $counter++;}
-      if($counter % 3 !== 0){echo '</div> <!-- /row -->';}
+      if($counter % 3 !== 0 || $counter === 0){echo '</div> <!-- /row -->';}
       ?>
-     <!--  <div class="col-md-3 profile-info">
-        <div class="occupation">
-          <p>Scientist</p>
-        </div>
-        <hr class="hr-search-profile">
-        <div>
-         <img class="search-profile-image" src="https://graph.facebook.com/100001048910716/picture?width=90&height=90">
-         <div class ="search-name-location">
-          <p class="lead name">Charles Darwin</p>
-          <div>
-            <i class="glyphicon glyphicon-map-marker" style="float:left"></i>
-            <p>London, United Kingdom </p>
-          </div>
-        </div>
-        </div>
-        <hr>
-        <div class="info-label">
-          <p>Skills: </p> 
-        </div>
-        <div class="info-skills">
-          <p>Genetics, Biology</p>
-        </div>
-        <div class="info-label">
-          <p>Interests: </p> 
-        </div>
-        <div class="info-interests">
-          <p>Start Ups, Educational Tools</p>
-        </div>
-        <div class="info-label">
-          <p>Experience: </p> 
-        </div>
-        <div class="info-work-experience">
-          <p>The Open Data Institute , Teach First</p>
-        </div>
-      </div>
-      <div class="col-md-3 profile-info">
-        <div class="occupation">
-          <p>Artist</p>
-        </div>
-        <hr class="hr-search-profile">
-        <img class="search-profile-image" src="http://www.michelangelo.com/buon/images/bio-splash-l-bw.gif">
-        <div class="search-name-location">
-          <p class="lead name">Michelangelo</p>
-          <div class ="person-location">
-            <i class="glyphicon glyphicon-map-marker" style="float:left"></i>
-            <p>Rome, Italy </p>
-          </div>
-        </div>
-        <hr>
-        <div>
-          <div class="info-label">
-            <p>Skills: </p> 
-          </div>
-          <div class="info-skills">
-            <p>Sculptor, Painting</p>
-          </div>
-        </div>
-        <div class="info-label">
-          <p>Interests: </p> 
-        </div>
-        <div class="info-interests">
-          <p>Cultural Critique , Art/Cultural Theory</p>
-        </div>
-        <div class="info-label">
-          <p>Experience: </p> 
-        </div>
-        <div class="info-work-experience">
-          <p>Free lancing, Sculpture David</p>
-        </div>
-      </div> --> 
   <?php require_once 'includes/footer.php' ?>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/jquery-ui.min.js"></script>

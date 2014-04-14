@@ -18,7 +18,7 @@ $memberData = new Member(Input::get('id'));
 <body class="noisy-net">
     <?php require_once('includes/header-inc.php'); ?> 
     <div class="profile-content">
-        <div class ="col-md-3 profile-left-section">
+        <div class ="col-md-3 col-sm-3 profile-left-section">
             <h1 style="text-align: center"><?php echo $memberData->getData()->name; ?></h1>
             <div class="location-block">
                 <?php
@@ -87,7 +87,7 @@ $memberData = new Member(Input::get('id'));
                 </div>
             </div>
         </div>
-        <div class ="col-md-9 profile-right-section">
+        <div class ="col-md-9 col-sm-9 profile-right-section">
             <div>
                 <h2>About Me</h2>
                 <p>
@@ -111,19 +111,19 @@ $memberData = new Member(Input::get('id'));
                     }
                     ?>
                 </div>
-                 <?php 
-                 if(!empty($memberData->getData()->collaboration_amount))
-                 {
-                   $collaborationAmountArray = explode("(",$memberData->getData()->collaboration_amount); 
-                 ?>
+                <?php 
+                if(!empty($memberData->getData()->collaboration_amount))
+                {
+                    $collaborationAmountArray = explode("(",$memberData->getData()->collaboration_amount); 
+                ?>
                 <div class="collaboration-type">
                     <h2><i class="glyphicon glyphicon-calendar"></i> Availability</h2>
-                        <?php 
+                    <?php 
                             $collaborationAmountArray = explode("(",$memberData->getData()->collaboration_amount); 
                             echo '<p>' . $collaborationAmountArray[0] . '</p>';
                             echo '<p>' . explode(')', $collaborationAmountArray[1])[0] . '</p>';
-                        }
-                        ?>
+                    }
+                    ?>
                 </div>
                 <hr>
             </div>

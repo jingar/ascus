@@ -157,7 +157,7 @@ body, h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 footer {
-  height: 6%;
+/*  height: 6%;*/
   background: #111;
   color: #fff;
   margin: 0;
@@ -477,7 +477,6 @@ div.search-header
   width: 23%;
   margin-left: auto;
   margin-right: auto;
-  height: 19%;
 }
 
 div.search-header > h1
