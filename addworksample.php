@@ -17,29 +17,25 @@ if (Input::exists()) {
     if(Token::check(Input::get('csrf_token')))
     {
         try {
-            // need this because upload library makes uppercase extension to lowercase while it keeps the actuall
-            // name unchanged.
-            
-            $_FILES['file']['name'] = strtolower($_FILES['file']['name']);
+
             //unqiue file name so images with the same name can be uploaded
-            $uniqueFileName = uniqid(rand(),true);
+            $fileName = File::uniqueFileName($_FILES['file']['name']);
             $handle = new upload($_FILES['file']);
             if($handle->uploaded)
             {
-                $handle->file_name_body_add = $uniqueFileName;
                 $handle->image_ratio = true;
                 $handle->file_is_image = true;
                 $handle->image_resize = true;
                 $handle->image_x = 700;
                 $handle->image_x = 550;
+                $handle->file_new_name_body = $fileName;
                 $handle->process('worksamples');
-                $error = " uploaded";
                 if($handle->processed)
                 {
                  
                     $worksample = new WorkSample();
                     $worksample->addWorkSample(array(NULL,$member->getData()->members_id,
-                        $_FILES['file']['name'],
+                        $handle->file_dst_name,
                         'worksamples/' . $handle->file_dst_name,
                         Input::get('title'),
                         Input::get('description'),

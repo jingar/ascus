@@ -1,19 +1,28 @@
 <?php
 require_once './core/init.php';
 $finalMembers = array();
-if (Input::exists()) {
+if (Input::exists() && !empty(Input::get('tags'))) {
     if(Token::check(Input::get('csrf_token')))
     {
+
       //tags entered by users
-      $tags = Input::get('tags');
+      $inputTags = Input::get('tags');
+      $finalTags = array();
       //objectes used to search the area_of_expertise table and interests
       $expertise = new Expertise();
       $interest = new Interest();
       $mergedMembers = array();
+      $finalTags = array_merge($finalTags,$inputTags);
 
+      //For each tag given look for similar tags
+      $wordManager = new WordManager();
+      $finalTags = array_merge($finalTags,$wordManager->findAnyLinkedWordArray($inputTags));
+      // $finalTags = array_merge($finalTags,$wordManager->findSynonymsArray($inputTags));
+      
       //get a multidimensional array of users which match the tags entered, have to look through
       //expertise and interests as we dont which type is entered
-      foreach ($tags as $tag) {
+      foreach ($finalTags as $tag) {
+        $tag = (is_object($tag)) ? $tag->lemma : $tag;
         $mergedMembers[] = $expertise->findMembersByExpertise($tag);
         $mergedMembers[] = $interest->findMembersByInterest($tag);
       }
@@ -63,13 +72,23 @@ if (Input::exists()) {
       <h1> Find Talent </h1>
     </div>
     <form id="editprofile_form" class="push-down" role="form" method ="POST" enctype="multipart/form-data" action ="">
-      <div class="search-container"> 
-        <div class="col-md-10 col-sm-3">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-1">
+          <select name="search-profession" class="form-control">
+            <option value="Artist">Any</option>
+            <option value="Artist">Artist</option>
+            <option value="Scientist">Scientist</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <input name="location" type="text" class="form-control" id="location" value="" placeholder="City">
+        </div>
+        <div class="col-md-4 col-sm-3 col-xs-10">
           <ul class="tagit ui-widget ui-widget-content ui-corner-all" id="search-tags">
           </ul>
         </div>
-        <div>
-          <button name="editprofile" id = "editprofile" type="submit" class="btn btn-info">Search</button>
+        <div class="col-md-1">
+          <button name="searchButton" id = "editprofile" type="submit" class="btn btn-info">Search</button>
         </div>
       </div>
       <input type="hidden" name="csrf_token" value="<?php echo Token::generate(); ?>">

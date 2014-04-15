@@ -41,7 +41,7 @@ $memberData = new Member(Input::get('id'));
             </div>
             <div class="location-block">
                 <i class="glyphicon glyphicon-envelope"></i>
-                <h5 class="location">saadarif295@hotmail.co.uk</h5>
+                <h5 class="location"><?php echo $memberData->getData()->email; ?></h5>
             </div>
             <div class="location-block">
             <i class="glyphicon glyphicon-share-alt"></i>
@@ -102,31 +102,30 @@ $memberData = new Member(Input::get('id'));
             {
             ?>
             <div>
-                <div class="collaboration-amount">
+                <div class="collaboration-type">
                     <h2><i class="glyphicon glyphicon-time"></i> Collaboration</h2>
                     <?php 
                     foreach ($memberCollaborationTypes as $collaboration) {
                         echo '<p>' . $collaboration->collaboration_type . '</p>';
                     }
-                    }
                     ?>
                 </div>
-                <?php 
+                <?php } 
                 if(!empty($memberData->getData()->collaboration_amount))
                 {
                     $collaborationAmountArray = explode("(",$memberData->getData()->collaboration_amount); 
                 ?>
-                <div class="collaboration-type">
+                <div class="collaboration-amount">
                     <h2><i class="glyphicon glyphicon-calendar"></i> Availability</h2>
                     <?php 
                             $collaborationAmountArray = explode("(",$memberData->getData()->collaboration_amount); 
                             echo '<p>' . $collaborationAmountArray[0] . '</p>';
                             echo '<p>' . explode(')', $collaborationAmountArray[1])[0] . '</p>';
-                    }
                     ?>
                 </div>
+                <?php } ?>
                 <hr>
-            </div>
+
             <div>
                 <h2> Work Samples </h2>
                 <?php 
@@ -150,7 +149,7 @@ $memberData = new Member(Input::get('id'));
                         }
                     }
 
-                }?>
+                } ?>
             </div>
         </div>
     </div>
