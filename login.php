@@ -56,34 +56,36 @@ if (Input::exists()) {
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/strapped.css">
     </head>
-    <?php require_once('./includes/header-inc.php'); ?>
     <body>
-    <?php echo $flash ;?>
-        <div class="container login">
-            <div> 
-                <form id="login_form" class="form-horizontal push-down" role="form" method ="post" action ="">
-                    <fieldset>
-                    <legend>Login</legend>
-                    </fieldset>
-                    <div class="form-group">
-                        <label for="username" class="col-md-2 control-label">Username</label>
-                        <div class="col-md-8">
-                            <input name="username" type="text" class="form-control" id="username" placeholder="Username">
+        <div class="wrapper">
+            <?php require_once('./includes/header-inc.php'); ?>
+            <?php echo $flash ;?>
+            <div class="container login">
+                <div> 
+                    <form id="login_form" class="form-horizontal push-down" role="form" method ="post" action ="">
+                        <fieldset>
+                            <legend>Login</legend>
+                        </fieldset>
+                        <div class="form-group">
+                            <label for="username" class="col-md-2 control-label">Username</label>
+                            <div class="col-md-8">
+                                <input name="username" type="text" class="form-control" id="username" placeholder="Username">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="col-md-2 control-label">Password</label>
-                        <div class="col-md-8">
-                            <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+                        <div class="form-group">
+                            <label for="password" class="col-md-2 control-label">Password</label>
+                            <div class="col-md-8">
+                                <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+                            </div>
                         </div>
-                    </div>
-                    <input type="hidden" name="token" value="<?php Token::generate(); ?>">
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <button name="login" id="login" type="submit" class="btn btn-warning">Log in</button>
+                        <input type="hidden" name="token" value="<?php Token::generate(); ?>">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button name="login" id="login" type="submit" class="btn btn-warning">Log in</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
         <?php require_once 'includes/footer.php' ?>

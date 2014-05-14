@@ -80,7 +80,6 @@ if (Input::exists()) {
                         Edit Profile
                     </a>
                 </li>
-                <li><a href="#">Username & Password</a></li>
                 <li class="active">
                     <a href="<?php echo Sanitize::escape('showworksamples.php?id=' . $member->getData()->members_id)?>">Work Samples
                     </a>

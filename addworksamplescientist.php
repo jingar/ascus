@@ -53,10 +53,6 @@ if (Input::exists()) {
                         Edit Profile
                     </a>
                 </li>
-                <li><a href="#">Username & Password</a></li>
-                <li class="active">
-                    <a href="<?php echo Sanitize::escape('showworksamples.php?id=' . $member->getData()->members_id)?>">Work Samples
-                    </a>
             </ul>
             <form id="worksample_form" class="push-down" role="form" method ="post" enctype="multipart/form-data" action ="">
             	<div class="form-group">

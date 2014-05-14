@@ -51,6 +51,12 @@ class Expertise {
         $this->_database_connection->query("SELECT * from `area_of_expertise`");
         return $this->_database_connection->getResults();
     }
+    
+    public function findAllExpertiseNames()
+    {
+        $this->_database_connection->query("SELECT `expertise` from `area_of_expertise`");
+        return $this->_database_connection->getResults();
+    }
 
     public function addExpertise($expertise) {
         if(!empty($expertise) && is_array($expertise))
@@ -66,7 +72,8 @@ class Expertise {
         $result = $this->findByExpertise($expertise);
         if(!empty($result))
         {
-            $query = "select members.members_id,profession,name,city,country,profile_pic from members
+            $query = "select members.members_id,profession,name,city,country,
+            profile_pic,personal_site from members
             inner join (select members_id from members_area_of_expertise where expertise_id = ?) ids
             on members.members_id = ids.members_id";
             $this->_database_connection->query($query,array($result->expertise_id));

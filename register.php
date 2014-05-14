@@ -62,11 +62,11 @@ if (Input::exists()) {
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/strapped.css" rel="stylesheet">
     </head>
-    <?php require_once('./includes/header-inc.php'); ?>
     <body>
-        <div class="">
-            <div class="container height100">
-                <div class="push-down height100">
+        <div class="wrapper">
+            <?php require_once('./includes/header-inc.php'); ?>        
+            <div class="container">
+                <div class="push-down">
                     <fieldset>
                         <legend> Registration </legend>
                     </fieldset>

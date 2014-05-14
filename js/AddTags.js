@@ -4,8 +4,9 @@ $(document).ready(function() {
     		$('#tagChanges ul').append("<li>" + ui.tagLabel + "</li>");
     	},
         fieldName: "tags[]",
+        allowSpaces: true,
         autocomplete: {delay: 0, minLength: 2},
-        tagLimit: 3
+        tagLimit: 10
     });
     $("#interest-tags").tagit({
     	beforeTagAdded: function(event, ui) {
@@ -14,6 +15,6 @@ $(document).ready(function() {
     	fieldName: "interest-tags[]",
     	allowSpaces: true,
     	autocomplete: {delay: 0, minLength: 2},
-    	tagLimit: 3
+    	tagLimit: 10
     });
 });

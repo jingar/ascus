@@ -157,7 +157,7 @@ body, h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 footer {
-/*  height: 6%;*/
+  height: 40px;
   background: #111;
   color: #fff;
   margin: 0;
@@ -537,12 +537,29 @@ div.row
 {
   margin-bottom: 2%;
 }
-select[name=search-profession],input[name=location]
+select[name=search-profession],input[name=search-location]
 {
   width:auto;
 }
-select[name=search-profession],button[name=searchButton],input[name=location]
+select[name=search-profession],button[name=search-button],input[name=search-location]
 {
   width: 100%;
   height: 38px;
+}
+.wrapper
+{
+  min-height: 100%;
+  margin-bottom: -40px;
+}
+.wrapper:after
+{
+  content: "";
+  display: block;
+  height: 40px;
+}
+
+div.row
+{
+  margin-left:0;
+  margin-right:0;
 }

@@ -33,9 +33,9 @@ ul.search-interest-tags li.tagit-choice {
     -moz-border-radius: 6px;
     border-radius: 6px;
     -webkit-border-radius: 6px;
-    border: 1px solid #46b8da;
+    border: 1px solid #46b8da !important;
     background: none;
-    background-color: #5bc0de;
+    background-color: #5bc0de !important;
     font-weight: normal;
 }
 ul#search-tags li.tagit-choice,ul#display-search-tags li.tagit-choice {

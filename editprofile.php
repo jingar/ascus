@@ -5,11 +5,14 @@ $memberCollaborationTypes = new MemberCollaborationType();
 $experience = new Experience();
 
 if(!$member->isLoggedIn()){
+    Session::flash('Failure', 'You must login before you can edit a profile');
     Redirect::to('homepage.php');
 }
+
 if($member->getData()->members_id !== Input::get('id'))
 {
-    Redirect::to(404);
+    Session::flash('Failure', 'You do not have access to edit that users profile');
+    Redirect::to("homepage.php");
 }
 if (Input::exists()) {
     if(Token::check(Input::get('csrf_token')))
@@ -34,7 +37,8 @@ if (Input::exists()) {
                     if($handle->processed)
                     {
                         $member->editMember(array(Input::get('name'),Input::get('profession'),Input::get('city'),Input::get('country'),
-                            Input::get('bio'),'worksamples/profile-pic/' . $handle->file_dst_name,Input::get('collaboration-time')));
+                            Input::get('bio'),'worksamples/profile-pic/' . $handle->file_dst_name,Input::get('collaboration-time'),
+                            Input::get('personal_site')));
                     }
                     else 
                     {
@@ -46,7 +50,7 @@ if (Input::exists()) {
             else
             {
                 $member->editMember(array(Input::get('name'),Input::get('profession'),Input::get('city'),Input::get('country'),
-                    Input::get('bio'),$member->getData()->profile_pic,Input::get('collaboration-time')));
+                    Input::get('bio'),$member->getData()->profile_pic,Input::get('collaboration-time'),Input::get('personal_site')));
             }
 
             $expertise = new Expertise();
@@ -147,7 +151,6 @@ if (Input::exists()) {
                         Edit Profile
                     </a>
                 </li>
-                <li><a href="#">Username & Password</a></li>
                 <li>
                     <a href="<?php echo Sanitize::escape('showworksamples.php?id=' . $member->getData()->members_id)?>">
                         Work Samples
@@ -264,6 +267,11 @@ if (Input::exists()) {
                             <input type="file" name="file" id="file" onchange="readURL(this);">             
                         </span>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="personal_site">Personal Site</label>
+                    <input name="personal_site" type="text" class="form-control" id="city" placeholder="Personal Site"
+                    value="<?php echo Sanitize::escape($member->getData()->personal_site); ?>">
                 </div>
                 <input type="hidden" name="csrf_token" value="<?php echo Token::generate(); ?>">
                 <div id="tagChanges" style="display: none;">

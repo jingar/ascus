@@ -1,7 +1,7 @@
 <?php
 	class File
 	{
-		
+
 		public static function uniqueFileName($fileName)
 		{
 			$filename  = basename($fileName);

@@ -1,42 +1,67 @@
 <?php
 require_once './core/init.php';
-$finalMembers = array();
-if (Input::exists() && !empty(Input::get('tags'))) {
+$member = new Member();
+$mergedMembers = array();
+if (Input::exists()) {
     if(Token::check(Input::get('csrf_token')))
     {
-
-      //tags entered by users
-      $inputTags = Input::get('tags');
-      $finalTags = array();
-      //objectes used to search the area_of_expertise table and interests
-      $expertise = new Expertise();
-      $interest = new Interest();
-      $mergedMembers = array();
-      $finalTags = array_merge($finalTags,$inputTags);
-
-      //For each tag given look for similar tags
-      $wordManager = new WordManager();
-      $finalTags = array_merge($finalTags,$wordManager->findAnyLinkedWordArray($inputTags));
-      // $finalTags = array_merge($finalTags,$wordManager->findSynonymsArray($inputTags));
+      if(Input::get('search-profession') !== 'Any')
+      {
+        $mergedMembers = $member->findAllByProfession(Input::get('search-profession'));
+      }
+      else
+      {
+        $mergedMembers = $member->getAll();
+      }
       
-      //get a multidimensional array of users which match the tags entered, have to look through
-      //expertise and interests as we dont which type is entered
-      foreach ($finalTags as $tag) {
-        $tag = (is_object($tag)) ? $tag->lemma : $tag;
-        $mergedMembers[] = $expertise->findMembersByExpertise($tag);
-        $mergedMembers[] = $interest->findMembersByInterest($tag);
+      if(!empty(Input::get('search-location')))
+      {
+        foreach ($mergedMembers as $key => $member) {
+          if($member->city !== Input::get('search-location'))
+          {
+            unset($mergedMembers[$key]);
+          }
+        }
       }
 
-      //remove any null values
-      $mergedMembers = array_filter($mergedMembers);
-
-      //if any users were found, flatten the array and then remove duplicates
-      if(!empty($mergedMembers))
+      if(!empty(Input::get('tags')))
       {
-        $mergedMembers = call_user_func_array('array_merge', $mergedMembers);
-        foreach ($mergedMembers as $current) {
-          if (!in_array($current, $finalMembers)) {
-            $finalMembers[] = $current;
+
+        $expertise = new Expertise();
+        $interest = new Interest();
+        $wordManager = new WordManager();
+
+        $finalTags = Input::get('tags');
+        $finalTags = array_merge($finalTags,$wordManager->findAnyLinkedWordArray(Input::get('tags')));
+        $finalTags = array_merge($finalTags,$wordManager->findSynonymsArray(Input::get('tags')));
+        $foundTaggedMembers = array();
+        //get a multidimensional array of users which match the tags entered, have to look through
+        //expertise and interests as we dont which type is entered
+        foreach ($finalTags as $tag) {
+        //check if its tag entered by user (array) of if its a database row
+          $tag = (is_object($tag)) ? $tag->lemma : $tag;
+
+          $foundTaggedMembers[] = $expertise->findMembersByExpertise($tag);
+          $foundTaggedMembers[] = $interest->findMembersByInterest($tag);
+        }
+
+
+        //remove any null values
+        $foundTaggedMembers = array_filter($foundTaggedMembers);
+        //if any memebers with the inputted or similar tags were found, flatten the array 
+        //and then remove duplicates
+        if(!empty($foundTaggedMembers))
+        {
+          //flatten array
+          $foundTaggedMembers = call_user_func_array('array_merge', $foundTaggedMembers);
+          var_dump($foundTaggedMembers);
+          var_dump($mergedMembers);
+          //for each member found check if that member was in the tagged member array
+          // if not remove them         
+          foreach ($mergedMembers as $key => $current) {
+            if (!in_array($current, $foundTaggedMembers)) {
+              unset($mergedMembers[$key]);
+            }
           }
         }
       }
@@ -45,10 +70,10 @@ if (Input::exists() && !empty(Input::get('tags'))) {
   else
   {
     $databaseConnection = Database::getInstance();
-    $query = "select members.members_id,profession,name,city,country,profile_pic from members
+    $query = "select members.members_id,profession,name,city,country,profile_pic,personal_site from members
     LIMIT 0, 12";
     $databaseConnection->query($query);
-    $finalMembers = $databaseConnection->getResults();
+    $mergedMembers = $databaseConnection->getResults();
   }
 ?>
 <!DOCTYPE html>
@@ -66,6 +91,7 @@ if (Input::exists() && !empty(Input::get('tags'))) {
   <link href='http://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
 </head>
 <body>
+  <div class="wrapper">
   <?php require_once 'includes/header-inc.php'; ?>
   <div id="jumbo-container">
     <div class="search-header">
@@ -73,22 +99,22 @@ if (Input::exists() && !empty(Input::get('tags'))) {
     </div>
     <form id="editprofile_form" class="push-down" role="form" method ="POST" enctype="multipart/form-data" action ="">
       <div class="row">
-        <div class="col-md-offset-2 col-md-1">
-          <select name="search-profession" class="form-control">
-            <option value="Artist">Any</option>
+        <div class="col-md-offset-1 col-md-2">
+          <select name="search-profession" class="form-control"> 
+            <option value="Any">Any</option>
             <option value="Artist">Artist</option>
             <option value="Scientist">Scientist</option>
           </select>
         </div>
         <div class="col-md-3">
-          <input name="location" type="text" class="form-control" id="location" value="" placeholder="City">
+          <input name="search-location" type="text" class="form-control" value="" placeholder="City">
         </div>
-        <div class="col-md-4 col-sm-3 col-xs-10">
+        <div class="col-md-4">
           <ul class="tagit ui-widget ui-widget-content ui-corner-all" id="search-tags">
           </ul>
         </div>
         <div class="col-md-1">
-          <button name="searchButton" id = "editprofile" type="submit" class="btn btn-info">Search</button>
+          <button name="search-button" id = "editprofile" type="submit" class="btn btn-info">Search</button>
         </div>
       </div>
       <input type="hidden" name="csrf_token" value="<?php echo Token::generate(); ?>">
@@ -96,7 +122,7 @@ if (Input::exists() && !empty(Input::get('tags'))) {
     <?php
     $counter = 0;
     if($counter % 3 === 0){echo '<div class="row">';}
-    foreach ($finalMembers as $member) {
+    foreach ($mergedMembers as $member) {
       ?>
       <div class="<?php if($counter % 3 === 0){echo 'col-md-offset-1';} ?> col-md-3 profile-info">
         <div class="occupation">
@@ -105,13 +131,34 @@ if (Input::exists() && !empty(Input::get('tags'))) {
         <hr class="hr-search-profile">
         <div class="row">
           <div class="col-md-4 col-sm-4">
-            <img class="search-profile-image"src="<?php echo $member->profile_pic; ?>">
+            <a style="color:white" href="<?php echo Sanitize::escape('profile.php?id='. $member->members_id); ?>">
+              <img class="search-profile-image"src="<?php echo $member->profile_pic; ?>">
+            </a>
           </div>
           <div class ="col-md-7">
-            <p class="lead name"><?php echo $member->name; ?></p>
+            <p class="lead name">
+              <a style="color:white" href="<?php echo Sanitize::escape('profile.php?id='. $member->members_id); ?>">
+              <?php echo $member->name; ?>
+              </a>
+            </p>
             <div>
-              <i class="glyphicon glyphicon-map-marker" style="float:left"></i>
-              <p>Moscow, Russia </p>
+              <?php
+                if(!empty($member->country) && !empty($member->city))
+                {
+                    echo '<i class="glyphicon glyphicon-map-marker" style="float:left"></i>';
+                    echo '<p class="location">' . $member->city . ',' . $member->country . '</p>';
+                }
+                else if(empty($member->city) && !empty($member->country))
+                {
+                    echo '<i class="glyphicon glyphicon-map-marker"></i>', PHP_EOL;
+                    echo '<p class="location">' . $member->country . '</p>';
+                }
+                else if(empty($member->country) && !empty($member->city))
+                {
+                    echo '<i class="glyphicon glyphicon-map-marker"></i>', PHP_EOL;
+                    echo '<p class="location">' . $member->city . '</p>';
+                }
+                ?>
             </div>
           </div>
         </div>
@@ -131,7 +178,7 @@ if (Input::exists() && !empty(Input::get('tags'))) {
                             <input type="hidden" value="photography" name="tags" class="tagit-hidden-field">
                           </li>';
                         }
-                  if(count($memberExpertiseArray) >= 3)
+                  if(count($memberExpertiseArray) > 3)
                     {  
                       echo '<li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-read-only">
                       <span class="tagit-label">...</span>
@@ -156,7 +203,7 @@ if (Input::exists() && !empty(Input::get('tags'))) {
             <input type="hidden" value="photography" name="tags" class="tagit-hidden-field">
           </li>';
         }
-        if(count($memberInterestArray) >= 3)
+        if(count($memberInterestArray) > 3)
         {
           echo '<li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-read-only">
             <span class="tagit-label">...</span>
@@ -181,10 +228,12 @@ if (Input::exists() && !empty(Input::get('tags'))) {
         </div>
         <div>
           <div class="info-label">
-            <p>Blog: </p> 
+            <p>Personal Site: </p> 
           </div>
           <div class="info-work-experience">
-            <a>www.super-artist.blog.co.uk</a>
+            <a href="<?php echo Sanitize::escape($member->personal_site); ?>">
+            <?php echo Sanitize::escape($member->personal_site); ?>
+          </a>
           </div>
         </div>
       </div>
@@ -193,6 +242,8 @@ if (Input::exists() && !empty(Input::get('tags'))) {
       $counter++;}
       if($counter % 3 !== 0 || $counter === 0){echo '</div> <!-- /row -->';}
       ?>
+    </div>
+  </div>
   <?php require_once 'includes/footer.php' ?>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/jquery-ui.min.js"></script>

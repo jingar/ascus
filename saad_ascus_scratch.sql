@@ -59,7 +59,7 @@ CREATE TABLE `collaboration_types` (
 -- Dumping data for table `collaboration_types`
 --
 
-LOCK TABLES `collaboration_types` WRITE;
+  LOCK TABLES `collaboration_types` WRITE;
 /*!40000 ALTER TABLE `collaboration_types` DISABLE KEYS */;
 INSERT INTO `collaboration_types` VALUES (1,'No Collaboration'),(3,'Paid Work'),(2,'Volunteer Work');
 /*!40000 ALTER TABLE `collaboration_types` ENABLE KEYS */;
@@ -168,6 +168,7 @@ CREATE TABLE `members` (
   `bio` varchar(1000) DEFAULT NULL,
   `collaboration_amount` varchar(50) NOT NULL,
   `profile_pic` varchar(100) NOT NULL DEFAULT 'images/defaultprofile.png',
+  `personal_site` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`members_id`),
   UNIQUE KEY `key` (`confirmation_key`),
   UNIQUE KEY `email` (`email`),

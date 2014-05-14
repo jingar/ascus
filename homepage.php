@@ -33,17 +33,19 @@ if (Session::exists('Email Activated')) {
   <link href='http://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <?php require_once 'includes/header-inc.php'; ?>
-  <div id="jumbo-container">
-    <?php echo $error; ?>   
-    <div id="top" class="jumbotron">
-      <div class="container">
-        <h1>Artist and Scientist Collaboration</h1>
-        <hr>
-        <h2>Find collaborators like yourselves and make awesome works of art</h2>
-        <p><a class="btn btn-warning btn-lg" href="register.php">Sign Up Today <span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
-      </div> <!-- /.container -->
-    </div> <!-- /.jumbotron -->
+  <div class="wrapper">
+    <?php require_once 'includes/header-inc.php'; ?>
+    <div id="jumbo-container">
+      <?php echo $error; ?>   
+      <div id="top" class="jumbotron">
+        <div class="container">
+          <h1>Artist and Scientist Collaboration</h1>
+          <hr>
+          <h2>Find collaborators like yourselves and make awesome works of art</h2>
+          <p><a class="btn btn-warning btn-lg" href="register.php">Sign Up Today <span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+        </div> <!-- /.container -->
+      </div> <!-- /.jumbotron -->
+    </div>
   </div>
   <?php require_once 'includes/footer.php' ?>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>

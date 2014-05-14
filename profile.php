@@ -19,36 +19,40 @@ $memberData = new Member(Input::get('id'));
     <?php require_once('includes/header-inc.php'); ?> 
     <div class="profile-content">
         <div class ="col-md-3 col-sm-3 profile-left-section">
-            <h1 style="text-align: center"><?php echo $memberData->getData()->name; ?></h1>
+            <h1 style="text-align: center"><?php echo Sanitize::escape($memberData->getData()->name); ?></h1>
             <div class="location-block">
                 <?php
-                if(!empty($memberData->getData()->country) && !empty($memberData->getData()->country))
+                if(!empty($memberData->getData()->country) && !empty($memberData->getData()->city))
                 {
                     echo '<i class="glyphicon glyphicon-map-marker"></i>';
-                    echo '<h5 class="location">' . $memberData->getData()->city . ',' . $memberData->getData()->country . '</h5>';
+                    echo '<h5 class="location">' . Sanitize::escape($memberData->getData()->city) . ',' . 
+                    Sanitize::escape($memberData->getData()->country) . '</h5>';
                 }
                 else if(empty($memberData->getData()->city) && !empty($memberData->getData()->country))
                 {
                     echo '<i class="glyphicon glyphicon-map-marker"></i>', PHP_EOL;
-                    echo '<h5 class="location">' . $memberData->getData()->country . '</h5>';
+                    echo '<h5 class="location">' . Sanitize::escape($memberData->getData()->country) . '</h5>';
                 }
                 else if(empty($memberData->getData()->country) && !empty($memberData->getData()->city))
                 {
                     echo '<i class="glyphicon glyphicon-map-marker"></i>', PHP_EOL;
-                    echo '<h5 class="location">' . $memberData->getData()->city . '</h5>';
+                    echo '<h5 class="location">' . Sanitize::escape($memberData->getData()->city) . '</h5>';
                 }
                 ?>
             </div>
             <div class="location-block">
                 <i class="glyphicon glyphicon-envelope"></i>
-                <h5 class="location"><?php echo $memberData->getData()->email; ?></h5>
+                <h5 class="location"><?php echo Sanitize::escape($memberData->getData()->email); ?></h5>
             </div>
             <div class="location-block">
             <i class="glyphicon glyphicon-share-alt"></i>
-                <h5 class="location"><a>www.my-awesome-site.com</a></h5>
+                <h5 class="location"><a href="<?php echo Sanitize::escape($memberData->getData()->personal_site); ?>">
+                    <?php echo Sanitize::escape($memberData->getData()->personal_site); ?>
+                </a>
+                </h5>
             </div>
             <div>
-                <img class="profile-pic" src="<?php echo $memberData->getData()->profile_pic; ?>">
+                <img class="profile-pic" src="<?php echo Sanitize::escape($memberData->getData()->profile_pic); ?>">
             </div>
             <div class="profile-list">
                 <div>
@@ -74,12 +78,12 @@ $memberData = new Member(Input::get('id'));
                         echo '<div class="experience-unit">';
                         echo   '<div>';
                         echo    '<span class="glyphicon glyphicon-briefcase"></span>';
-                        echo     '<p class="work-project-name">' . $value->work_project_name . '</p>';
+                        echo     '<p class="work-project-name">' . Sanitize::escape($value->work_project_name) . '</p>';
                         echo   '</div>';
                         echo   '<div>';
                         echo    '<span class="glyphicon glyphicon-share"></span>';
-                        echo    '<p class="work-project-name"> <a href=' . $value->link .' >' . 
-                                    $value->link . '</a></p>';
+                        echo    '<p class="work-project-name"> <a href=' . Sanitize::escape($value->link) .' >' . 
+                                    Sanitize::escape($value->link) . '</a></p>';
                         echo   '</div>';
                         echo '</div>';
                     }
@@ -91,7 +95,7 @@ $memberData = new Member(Input::get('id'));
             <div>
                 <h2>About Me</h2>
                 <p>
-                    <?php echo $memberData->getData()->bio; ?>
+                    <?php echo Sanitize::escape($memberData->getData()->bio); ?>
                 </p>
                 <hr>
             </div>
@@ -106,7 +110,7 @@ $memberData = new Member(Input::get('id'));
                     <h2><i class="glyphicon glyphicon-time"></i> Collaboration</h2>
                     <?php 
                     foreach ($memberCollaborationTypes as $collaboration) {
-                        echo '<p>' . $collaboration->collaboration_type . '</p>';
+                        echo '<p>' . Sanitize::escape($collaboration->collaboration_type) . '</p>';
                     }
                     ?>
                 </div>
@@ -119,8 +123,8 @@ $memberData = new Member(Input::get('id'));
                     <h2><i class="glyphicon glyphicon-calendar"></i> Availability</h2>
                     <?php 
                             $collaborationAmountArray = explode("(",$memberData->getData()->collaboration_amount); 
-                            echo '<p>' . $collaborationAmountArray[0] . '</p>';
-                            echo '<p>' . explode(')', $collaborationAmountArray[1])[0] . '</p>';
+                            echo '<p>' . Sanitize::escape($collaborationAmountArray[0]) . '</p>';
+                            echo '<p>' . Sanitize::escape(explode(')', $collaborationAmountArray[1])[0]) . '</p>';
                     ?>
                 </div>
                 <?php } ?>
@@ -135,8 +139,9 @@ $memberData = new Member(Input::get('id'));
                 <div class="galleria">
                     <?php
                     foreach ($memberWorkSamples as $w) {
-                        echo '<img class="worksample"src="'. $w->path .'" data-title="'. $w->title . 
-                        '" data-description="' . $w->description.'">';                    
+                        echo '<img class="worksample"src="'. Sanitize::escape($w->path) .
+                        '" data-title="'. Sanitize::escape($w->title) . 
+                        '" data-description="' . Sanitize::escape($w->description).'">';                    
                     }
                     ?>
                 </div>
@@ -144,8 +149,8 @@ $memberData = new Member(Input::get('id'));
                     foreach ($memberWorkSamples as $w) {
                         if(empty($w->path))
                         {
-                            echo '<h2>'. $w->title .'</h2>';                    
-                            echo '<p>'. $w->description .'</p>';
+                            echo '<h2>'. Sanitize::escape($w->title) .'</h2>';                    
+                            echo '<p>'. Sanitize::escape($w->description) .'</p>';
                         }
                     }
 
@@ -162,8 +167,10 @@ $memberData = new Member(Input::get('id'));
     <script src="js/galleria-1.3.5.min.js"></script>
     <script>
         Galleria.loadTheme('js/galleria.classic.min.js');
-        Galleria.configure({'debug': false});
-        Galleria.run('.galleria');
+        Galleria.configure({debug: false});
+        if ($(".galleria")[0]){
+            Galleria.run('.galleria');
+        }
     </script>
 </body>
 </html>
