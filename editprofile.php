@@ -52,6 +52,10 @@ if (Input::exists()) {
                 $member->editMember(array(Input::get('name'),Input::get('profession'),Input::get('city'),Input::get('country'),
                     Input::get('bio'),$member->getData()->profile_pic,Input::get('collaboration-time'),Input::get('personal_site')));
             }
+            echo '<pre>';
+            var_dump($_POST);
+            echo '</pre>';
+            //var_dump(Input::get('collaboration-time'));
 
             $expertise = new Expertise();
             $memberExpertise = new MemberExpertise();            
@@ -231,16 +235,14 @@ if (Input::exists()) {
                             </div>
                         </div>
                     </div>
-                    <div id="collaboration-time">
-                        <div class="form-group">
-                            <select name="collaboration-time" class="form-control">
-                                <?php $collaborationAmount = $member->getData()->collaboration_amount; var_dump($collaborationAmount);?>
-                                <option <?php echo (($collaborationAmount === "Weekends(8 Hours per Week)") ? "selected" : "");?> >Weekends(8 Hours per Week)</option>
-                                <option <?php echo (($collaborationAmount === "Part Time(20 Hours per Week)") ? "selected" : "");?> >Part Time(20 Hours per Week)</option>
-                                <option <?php echo (($collaborationAmount === "Full Time(40 Hours per Week)") ? "selected" : "") ;?> >Full Time(40 Hours per Week)</option>
-                                <option <?php echo (($collaborationAmount === "Every day(60 Hours per Week)") ? "selected" : "") ;?> >Every day(60 Hours per Week)</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <select id="collaboration-time" name="collaboration-time" class="form-control">
+                            <?php $collaborationAmount = $member->getData()->collaboration_amount;?>
+                            <option <?php echo (($collaborationAmount === "Weekends(8 Hours per Week)") ? "selected" : "");?> >Weekends(8 Hours per Week)</option>
+                            <option <?php echo (($collaborationAmount === "Part Time(20 Hours per Week)") ? "selected" : "");?> >Part Time(20 Hours per Week)</option>
+                            <option <?php echo (($collaborationAmount === "Full Time(40 Hours per Week)") ? "selected" : "") ;?> >Full Time(40 Hours per Week)</option>
+                            <option <?php echo (($collaborationAmount === "Every day(60 Hours per Week)") ? "selected" : "") ;?> >Every day(60 Hours per Week)</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">

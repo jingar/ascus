@@ -105,7 +105,7 @@ $memberData = new Member(Input::get('id'));
             if(!empty($memberCollaborationTypes))
             {
             ?>
-            <div>
+            <div id="test">
                 <div class="collaboration-type">
                     <h2><i class="glyphicon glyphicon-time"></i> Collaboration</h2>
                     <?php 
@@ -115,6 +115,7 @@ $memberData = new Member(Input::get('id'));
                     ?>
                 </div>
                 <?php } 
+                var_dump($memberData->getData());
                 if(!empty($memberData->getData()->collaboration_amount))
                 {
                     $collaborationAmountArray = explode("(",$memberData->getData()->collaboration_amount); 
@@ -129,7 +130,7 @@ $memberData = new Member(Input::get('id'));
                 </div>
                 <?php } ?>
                 <hr>
-
+            </div>
             <div>
                 <h2> Work Samples </h2>
                 <?php 
